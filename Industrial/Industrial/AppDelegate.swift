@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Industrial
+//  Navigation
 //
-//  Created by DmitriiG on 13.07.2022.
+//  Created by DmitriiG on 12.02.2022.
 //
 
 import UIKit
@@ -10,27 +10,56 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        window = UIWindow()
+   
+        // создал экземляры 2 viewControllers
+        let feedViewController = FeedViewController()
+        let loginViewController = LogInViewController()
+        
+        
+        // создал экземпляр tabBarControllers - панель внизу
+        let tabBarController = UITabBarController()
+        
+        // создал экземпляры navControllers с присвоением при инициализации rootView созданным viewControllers
+        let firstNavController = UINavigationController(rootViewController: feedViewController)
+        let secondNavContoller = UINavigationController(rootViewController: loginViewController)
+       
+        // nav stacks
+        firstNavController.viewControllers = [feedViewController]
+        
+        secondNavContoller.viewControllers = [loginViewController]
+        secondNavContoller.navigationBar.isHidden = true
+        
+
+        // tabbar stack c navControllers = панель внизу
+        tabBarController.viewControllers = [firstNavController, secondNavContoller]
+        
+
+        //создал экземпляр иконки таббара и присвоил им имена и картинки, затем присвоил таббарайтему навконтролера эти экземпляры
+        let tabBar1 = UITabBarItem()
+        let tabBar2 = UITabBarItem()
+        tabBar1.title = "Лента"
+        tabBar2.title = "Профиль"
+        let image1 = UIImage(systemName: "person.3.sequence.fill")
+        let image2 = UIImage(systemName: "person.fill")
+        tabBar1.image = image1
+        tabBar2.image = image2
+        
+        firstNavController.tabBarItem = tabBar1
+        secondNavContoller.tabBarItem = tabBar2
+        
+        //присвоил rootView tabBarController
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
+        
         return true
     }
 
-    // MARK: UISceneSession Lifecycle
-
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-
+  
 
 }
 
