@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StorageService
 
 class ProfileViewController: UIViewController {
     
@@ -58,9 +59,16 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
+    //MARK: - добавил условия для запуска дла дебаг схемы и для рилиз схемы
+    
     let profileTableView: UITableView = {
         let profileTable = UITableView()
-        profileTable.backgroundColor = .white
+        
+#if DEBUG
+        profileTable.backgroundColor = .red
+#else
+        profileTable.backgroundColor = .green
+#endif
         profileTable.translatesAutoresizingMaskIntoConstraints = false
         return profileTable
     }()
@@ -85,40 +93,41 @@ class ProfileViewController: UIViewController {
     
     @objc private func avatarChanging () {
         
-// Анимация при помощи KeyFrames
-//        UIView.animateKeyframes(withDuration: 5, delay: 0, options: []) {
-//
-//            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 3.0) {
-//                self.setAvatarImageViewAndTransparentViewToView()
-//                self.avatarImageView.layer.cornerRadius = 0
-//                self.view.layoutIfNeeded()
-//            }
-//
-//            UIView.addKeyframe(withRelativeStartTime: 3.0, relativeDuration: 2.0) {
-//                self.setXButtonToView()
-//                self.view.layoutIfNeeded()
-//            }
-//        } completion: {_ in
-//        }
-
-// Анимация при помощи UIView.animate
-//        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveLinear) {
-//            self.setAvatarImageViewAndTransparentViewToView()
-//            self.avatarImageView.layer.cornerRadius = 0
-//            self.view.layoutIfNeeded()
-//
-//        } completion: { _ in
-//
-//        }
-//
-//        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveLinear) {
-//            self.setXButtonToView()
-//            self.view.layoutIfNeeded()
-//        } completion: { _ in
-//
-//        }
-// Анимация при помощи UIViewPropertyAnimator
         
+        //MARK: - Анимация при помощи KeyFrames
+        //        UIView.animateKeyframes(withDuration: 5, delay: 0, options: []) {
+        //
+        //            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 3.0) {
+        //                self.setAvatarImageViewAndTransparentViewToView()
+        //                self.avatarImageView.layer.cornerRadius = 0
+        //                self.view.layoutIfNeeded()
+        //            }
+        //
+        //            UIView.addKeyframe(withRelativeStartTime: 3.0, relativeDuration: 2.0) {
+        //                self.setXButtonToView()
+        //                self.view.layoutIfNeeded()
+        //            }
+        //        } completion: {_ in
+        //        }
+        
+        //MARK: - Анимация при помощи UIView.animate
+        // UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveLinear) {
+        //            self.setAvatarImageViewAndTransparentViewToView()
+        //            self.avatarImageView.layer.cornerRadius = 0
+        //            self.view.layoutIfNeeded()
+        //
+        //        } completion: { _ in
+        //
+        //        }
+        //
+        //        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveLinear) {
+        //            self.setXButtonToView()
+        //            self.view.layoutIfNeeded()
+        //        } completion: { _ in
+        //
+        //        }
+        
+        //MARK: Анимация при помощи UIViewPropertyAnimator
         avatarAnimation.addAnimations {
             self.setAvatarImageViewAndTransparentViewToView()
             self.avatarImageView.layer.cornerRadius = 0
@@ -132,7 +141,7 @@ class ProfileViewController: UIViewController {
         
         avatarAnimation.startAnimation()
         xButtonAnimation.startAnimation(afterDelay: 0.5)
-
+        
     }
     
     @objc private func pressXButton() {
@@ -160,7 +169,7 @@ class ProfileViewController: UIViewController {
         NSLayoutConstraint.activate([
             avatarImageViewTop,avatarImageViewLeading, avatarImageViewWidth, avatarImageViewHeight
         ].compactMap{ $0 })
-
+        
     }
     
     private func setRadius() {
@@ -178,7 +187,7 @@ class ProfileViewController: UIViewController {
         transparentViewBottom = transparentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         transparentViewLeading = transparentView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         transparentViewTrailing = transparentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-       
+        
         self.view.addSubview(self.transparentView)
         self.view.addSubview(self.avatarImageView)
         NSLayoutConstraint.activate([
@@ -234,7 +243,7 @@ class ProfileViewController: UIViewController {
         super.viewWillAppear(animated)
         setRadius()
     }
-
+    
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
@@ -260,7 +269,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileHeaderView.self), for: indexPath)
             
-//надо добавлять не на cell, а на cell.contentView, иначе contentView при первом показе перекрывает view и она неактивна
+            //надо добавлять не на cell, а на cell.contentView, иначе contentView при первом показе перекрывает view и она неактивна
             cell.contentView.addSubview(profileHeaderView)
             NSLayoutConstraint.activate([
                 profileHeaderView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PostProtocol {
+public protocol PostProtocol {
     var author: String { get set }
     var description: String { get set }
     var image: String { get set }
@@ -15,25 +15,25 @@ protocol PostProtocol {
     var views: Int { get set }
 }
 
-struct Post: PostProtocol {
-    var author: String
-    var description: String
-    var image: String
-    var likes: Int
-    var views: Int
+public struct Post: PostProtocol {
+    public var author: String
+    public var description: String
+    public var image: String
+    public var likes: Int
+    public var views: Int
 }
 
-class PostData {
+public class PostData {
 
-    var postDataArray = [PostProtocol]()
+    public var postDataArray = [PostProtocol]()
     
-    func createPost(data: Post) {
+    public func createPost(data: Post) {
         postDataArray.append(data)
     }
     
 }
 
-var postData: PostData = {
+public var postData: PostData = {
     let post = PostData()
     post.createPost(data: Post(author: "Somebody", description: "Setting the number of lines is very important for dynamically sized cells. A label with its number of lines set to 0 will grow based on how much text it is showing. A label with number of lines set to any other number will truncate the text once it’s out of available lines", image: "One", likes: 25, views: 45))
     post.createPost(data: Post(author: "Anybody", description: "Thinking", image: "Two", likes: 60, views: 78))
