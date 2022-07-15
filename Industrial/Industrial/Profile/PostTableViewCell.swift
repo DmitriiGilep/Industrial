@@ -10,7 +10,7 @@ import UIKit
 import StorageService
 
 
-class PostTableViewCell: UITableViewCell {
+final class PostTableViewCell: UITableViewCell {
     
     var post: PostProtocol? {
         didSet {

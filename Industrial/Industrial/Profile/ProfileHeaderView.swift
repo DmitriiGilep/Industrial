@@ -8,7 +8,7 @@
 import UIKit
 
 
-class ProfileHeaderView: UIView {
+final class ProfileHeaderView: UIView {
     
     let fullNameLabel: UILabel = {
         let fullName = UILabel()

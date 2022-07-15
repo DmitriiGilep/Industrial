@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LogInViewController: UIViewController {
+final class LogInViewController: UIViewController {
     
     var logInScrollView: UIScrollView = {
         var logInScroll = UIScrollView()

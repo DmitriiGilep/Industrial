@@ -10,7 +10,7 @@ import UIKit
 import StorageService
 
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     
     private var postDataArray = postData.postDataArray
     private var postPhotoName = ["1", "2", "3", "4"]

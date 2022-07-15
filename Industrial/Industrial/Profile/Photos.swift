@@ -11,7 +11,7 @@ struct Photo {
     var name: String
 }
 
-class PhotoData {
+final class PhotoData {
     
     var photoData = [Photo]()
     func createPhotoData(photo: Photo) {
