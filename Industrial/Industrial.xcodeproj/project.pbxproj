@@ -12,10 +12,12 @@
 		CEBC07CA2822CE50009B3AC4 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */; };
 		CEC0B89C283C00CC00041DC5 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B89B283C00CC00041DC5 /* Photos.swift */; };
 		CEC171D6280C60F200C0B95E /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC171D5280C60F200C0B95E /* LogInViewController.swift */; };
+
 		CECA1FDB28814911000595A4 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = CECA1FDA28814911000595A4 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CECA1FDE28814911000595A4 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECA1FD828814910000595A4 /* StorageService.framework */; };
 		CECA1FDF28814911000595A4 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CECA1FD828814910000595A4 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CECA1FE42881493E000595A4 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF5FC28316D7C00258110 /* Post.swift */; };
+
 		CECAF60328367EE700258110 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF60228367EE700258110 /* PhotosTableViewCell.swift */; };
 		CECAF6052837CCCF00258110 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF6042837CCCF00258110 /* PhotosViewController.swift */; };
 		CECAF6072837D9CC00258110 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF6062837D9CC00258110 /* PhotosCollectionViewCell.swift */; };
@@ -58,8 +60,10 @@
 		CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		CEC0B89B283C00CC00041DC5 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		CEC171D5280C60F200C0B95E /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+
 		CECA1FD828814910000595A4 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECA1FDA28814911000595A4 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
+
 		CECAF5FC28316D7C00258110 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		CECAF60228367EE700258110 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		CECAF6042837CCCF00258110 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +80,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+
 		CECA1FD528814910000595A4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -83,6 +88,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+
 		CECD182527B83C8B00D89B3F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -101,6 +107,7 @@
 				CE094AC927CFA1860076C5A8 /* ProfileHeaderView.swift */,
 				CE094ACD27CFA1F20076C5A8 /* ProfileViewController.swift */,
 				CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */,
+
 				CECAF60228367EE700258110 /* PhotosTableViewCell.swift */,
 				CECAF6042837CCCF00258110 /* PhotosViewController.swift */,
 				CECAF6062837D9CC00258110 /* PhotosCollectionViewCell.swift */,
@@ -109,6 +116,7 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+
 		CECA1FD928814911000595A4 /* StorageService */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +131,7 @@
 			children = (
 				CECD182A27B83C8B00D89B3F /* Industrial */,
 				CECA1FD928814911000595A4 /* StorageService */,
+
 				CECD182927B83C8B00D89B3F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -131,7 +140,9 @@
 			isa = PBXGroup;
 			children = (
 				CECD182827B83C8B00D89B3F /* Industrial.app */,
+
 				CECA1FD828814910000595A4 /* StorageService.framework */,
+
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,6 +177,7 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+
 		CECA1FD728814910000595A4 /* StorageService */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CECA1FE028814911000595A4 /* Build configuration list for PBXNativeTarget "StorageService" */;
@@ -174,6 +186,7 @@
 				CECA1FD428814910000595A4 /* Sources */,
 				CECA1FD528814910000595A4 /* Frameworks */,
 				CECA1FD628814910000595A4 /* Resources */,
+
 			);
 			buildRules = (
 			);
@@ -213,9 +226,11 @@
 				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
+
 					CECA1FD728814910000595A4 = {
 						CreatedOnToolsVersion = 13.1;
 					};
+
 					CECD182727B83C8B00D89B3F = {
 						CreatedOnToolsVersion = 13.1;
 					};
@@ -235,12 +250,15 @@
 			projectRoot = "";
 			targets = (
 				CECD182727B83C8B00D89B3F /* Industrial */,
+
 				CECA1FD728814910000595A4 /* StorageService */,
+
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+
 		CECA1FD628814910000595A4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -248,6 +266,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+
 		CECD182627B83C8B00D89B3F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -260,6 +279,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+
 		CECA1FD428814910000595A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -272,6 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+
 				CECD184427BC401600D89B3F /* PostViewController.swift in Sources */,
 				CECD183027B83C8B00D89B3F /* ViewController.swift in Sources */,
 				CECD182C27B83C8B00D89B3F /* AppDelegate.swift in Sources */,
@@ -285,10 +306,12 @@
 				CE094ACE27CFA1F20076C5A8 /* ProfileViewController.swift in Sources */,
 				CECAF6052837CCCF00258110 /* PhotosViewController.swift in Sources */,
 				CEBC07CA2822CE50009B3AC4 /* PostTableViewCell.swift in Sources */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
 
 /* Begin PBXTargetDependency section */
 		CECA1FDD28814911000595A4 /* PBXTargetDependency */ = {
@@ -297,6 +320,7 @@
 			targetProxy = CECA1FDC28814911000595A4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
 
 /* Begin PBXVariantGroup section */
 		CECD183627B83C9000D89B3F /* LaunchScreen.storyboard */ = {
@@ -310,6 +334,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+
 		CECA1FE128814911000595A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -370,6 +395,7 @@
 			};
 			name = Release;
 		};
+
 		CECD183A27B83C9000D89B3F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -545,6 +571,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+
 		CECA1FE028814911000595A4 /* Build configuration list for PBXNativeTarget "StorageService" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -554,6 +581,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+
 		CECD182327B83C8B00D89B3F /* Build configuration list for PBXProject "Industrial" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
