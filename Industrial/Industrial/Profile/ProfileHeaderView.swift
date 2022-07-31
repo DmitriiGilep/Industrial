@@ -84,29 +84,61 @@ final class ProfileHeaderView: UIView {
         self.addSubview(setStatusButton)
         self.addSubview(statusLabel)
         self.addSubview(statusTextField)
+ 
+        //MARK: - autolayout by Snapkit
+        
+        fullNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(27)
+            make.leading.equalToSuperview().inset(136)
+            make.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(50)
+        }
+        
+        setStatusButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(172)
+            make.leading.trailing.equalToSuperview().inset(16)
+  //          make.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(40)
+        }
+        
+        statusLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(setStatusButton.snp.top).inset(-74)
+            make.leading.equalToSuperview().inset(136)
+            make.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(20)
+        }
+        
+        statusTextField.snp.makeConstraints { make in
+            make.top.equalTo(statusLabel.snp.bottom).inset(-5)
+            make.leading.equalToSuperview().inset(136)
+            make.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(40)
+        }
 
-        NSLayoutConstraint.activate([
+        //MARK: - autolayout by autolayot
+        
+//        NSLayoutConstraint.activate([
                    
-            fullNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
-            fullNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
-            fullNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            fullNameLabel.heightAnchor.constraint(equalToConstant: 50),
+//            fullNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
+//            fullNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
+//            fullNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+//            fullNameLabel.heightAnchor.constraint(equalToConstant: 50),
             
-            setStatusButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 172),
-            setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            setStatusButton.heightAnchor.constraint(equalToConstant: 40),
+//            setStatusButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 172),
+//            setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+//            setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+//            setStatusButton.heightAnchor.constraint(equalToConstant: 40),
             
-            statusLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
-            statusLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            statusLabel.heightAnchor.constraint(equalToConstant: 20),
-            statusLabel.bottomAnchor.constraint(equalTo: self.setStatusButton.topAnchor, constant: -74),
+  //          statusLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
+  //          statusLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+//            statusLabel.heightAnchor.constraint(equalToConstant: 20),
+//            statusLabel.bottomAnchor.constraint(equalTo: self.setStatusButton.topAnchor, constant: -74),
             
-            statusTextField.topAnchor.constraint(equalTo: self.statusLabel.bottomAnchor, constant: 5),
-            statusTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
-            statusTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            statusTextField.heightAnchor.constraint(equalToConstant: 40)
-        ])
+//            statusTextField.topAnchor.constraint(equalTo: self.statusLabel.bottomAnchor, constant: 5),
+//            statusTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
+//            statusTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+//            statusTextField.heightAnchor.constraint(equalToConstant: 40)
+//        ])
     }
 }
 
