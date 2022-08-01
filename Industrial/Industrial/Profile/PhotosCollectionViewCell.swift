@@ -15,7 +15,7 @@ final class PhotosCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private let photoImageView: UIImageView = {
+    let photoImageView: UIImageView = {
         let photo = UIImageView()
         photo.translatesAutoresizingMaskIntoConstraints = false
         return photo

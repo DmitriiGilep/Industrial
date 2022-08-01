@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 final class PhotosViewController: UIViewController {
     
@@ -96,6 +97,9 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         }
         let data = photoData.photoData[indexPath.row]
         cell.photo = data
+        let imageProcessor = ImageProcessor()
+        imageProcessor.processImage(sourceImage: cell.photoImageView.image!, filter: .colorInvert, completion: {filteredPicture in cell.photoImageView.image = filteredPicture})
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
