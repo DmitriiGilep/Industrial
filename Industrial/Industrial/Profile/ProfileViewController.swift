@@ -8,9 +8,26 @@
 import UIKit
 
 import StorageService
+/*В классе ProfileViewController добавить свойство с типом UserService и инициализатор, который принимает объект UserService и имя пользователя, введённое на экране LogInViewController. При инициализации объекта ProfileViewController передать объект CurrentUserService.
+ В классе ProfileViewController добавить получение пользователя из объекта UserService и отображение информации из объекта User.*/
 
 
 final class ProfileViewController: UIViewController {
+    
+    //MARK: - свойство UserService
+    
+    var userService: UserService
+    var userName: String
+
+    //MARK: - инициализатор с параметрами UserService и именем пользователя
+    init(userService: UserService, userName: String) {
+        self.userService = userService
+        self.userName = userName
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private var postDataArray = postData.postDataArray
     private var postPhotoName = ["1", "2", "3", "4"]
@@ -172,6 +189,13 @@ final class ProfileViewController: UIViewController {
         avatarImageViewWidth = avatarImageView.widthAnchor.constraint(equalToConstant: 110)
         avatarImageViewHeight = avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor)
         
+        //MARK: - принимаю результат функции userInfo за UserService и присваиваю аватар, имя и статус пользователя avatarImageView и profileHeaderView
+        let loginedUser = userService.userInfo(name: userName)
+        avatarImageView.image = loginedUser?.avatar
+        profileHeaderView.fullNameLabel.text = loginedUser?.name
+        profileHeaderView.statusLabel.text = loginedUser?.status
+        
+        
         NSLayoutConstraint.activate([
             avatarImageViewTop,avatarImageViewLeading, avatarImageViewWidth, avatarImageViewHeight
         ].compactMap{ $0 })
@@ -243,6 +267,7 @@ final class ProfileViewController: UIViewController {
         setAvatarImageViewToProfileView()
         // this method maybe create bounds which are consequently used in viewWillAppear by setRadius
         self.view.layoutIfNeeded()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
