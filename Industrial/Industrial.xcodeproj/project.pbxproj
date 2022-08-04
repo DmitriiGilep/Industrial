@@ -11,9 +11,13 @@
 		5330A5035B8438C69BF3CD9B /* Pods_Industrial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7F808191D6C47BE9A555A3 /* Pods_Industrial.framework */; };
 		CE094ACA27CFA1860076C5A8 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE094AC927CFA1860076C5A8 /* ProfileHeaderView.swift */; };
 		CE094ACE27CFA1F20076C5A8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE094ACD27CFA1F20076C5A8 /* ProfileViewController.swift */; };
+		CE75098A289826D1004F76B6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE750989289826D1004F76B6 /* User.swift */; };
 		CEBC07CA2822CE50009B3AC4 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */; };
 		CEC0B89C283C00CC00041DC5 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B89B283C00CC00041DC5 /* Photos.swift */; };
 		CEC171D6280C60F200C0B95E /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC171D5280C60F200C0B95E /* LogInViewController.swift */; };
+		CEC5B094289C2AAA0018A46D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B093289C2AA90018A46D /* UserService.swift */; };
+		CEC5B096289C2AE10018A46D /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B095289C2AE10018A46D /* TestUserService.swift */; };
+		CEC5B098289C2C050018A46D /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B097289C2C050018A46D /* CurrentUserService.swift */; };
 		CECA1FDB28814911000595A4 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = CECA1FDA28814911000595A4 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CECA1FDE28814911000595A4 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECA1FD828814910000595A4 /* StorageService.framework */; };
 		CECA1FDF28814911000595A4 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CECA1FD828814910000595A4 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -64,9 +68,13 @@
 		B58226E1E15DBDED37C7A6EB /* Pods-Industrial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Industrial.release.xcconfig"; path = "Target Support Files/Pods-Industrial/Pods-Industrial.release.xcconfig"; sourceTree = "<group>"; };
 		CE094AC927CFA1860076C5A8 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		CE094ACD27CFA1F20076C5A8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		CE750989289826D1004F76B6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		CEC0B89B283C00CC00041DC5 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		CEC171D5280C60F200C0B95E /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		CEC5B093289C2AA90018A46D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		CEC5B095289C2AE10018A46D /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
+		CEC5B097289C2C050018A46D /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
 		CECA1FD828814910000595A4 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECA1FDA28814911000595A4 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		CECAF5FC28316D7C00258110 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -126,6 +134,10 @@
 				CECAF6042837CCCF00258110 /* PhotosViewController.swift */,
 				CECAF6062837D9CC00258110 /* PhotosCollectionViewCell.swift */,
 				CEC0B89B283C00CC00041DC5 /* Photos.swift */,
+				CE750989289826D1004F76B6 /* User.swift */,
+				CEC5B093289C2AA90018A46D /* UserService.swift */,
+				CEC5B095289C2AE10018A46D /* TestUserService.swift */,
+				CEC5B097289C2C050018A46D /* CurrentUserService.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -379,16 +391,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEC5B098289C2C050018A46D /* CurrentUserService.swift in Sources */,
+				CEC5B096289C2AE10018A46D /* TestUserService.swift in Sources */,
 				CECD184427BC401600D89B3F /* PostViewController.swift in Sources */,
 				CECD183027B83C8B00D89B3F /* ViewController.swift in Sources */,
 				CECD182C27B83C8B00D89B3F /* AppDelegate.swift in Sources */,
 				CECAF60328367EE700258110 /* PhotosTableViewCell.swift in Sources */,
 				CECAF6072837D9CC00258110 /* PhotosCollectionViewCell.swift in Sources */,
 				CE094ACA27CFA1860076C5A8 /* ProfileHeaderView.swift in Sources */,
+				CE75098A289826D1004F76B6 /* User.swift in Sources */,
 				CEC0B89C283C00CC00041DC5 /* Photos.swift in Sources */,
 				CEC171D6280C60F200C0B95E /* LogInViewController.swift in Sources */,
 				CECD184627C16E1A00D89B3F /* InfoViewController.swift in Sources */,
 				CECD184027BAE36400D89B3F /* FeedViewController.swift in Sources */,
+				CEC5B094289C2AAA0018A46D /* UserService.swift in Sources */,
 				CE094ACE27CFA1F20076C5A8 /* ProfileViewController.swift in Sources */,
 				CECAF6052837CCCF00258110 /* PhotosViewController.swift in Sources */,
 				CEBC07CA2822CE50009B3AC4 /* PostTableViewCell.swift in Sources */,

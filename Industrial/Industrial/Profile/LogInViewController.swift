@@ -94,8 +94,16 @@ final class LogInViewController: UIViewController {
         return logIn
     }()
     
-    let profileViewController = ProfileViewController()
+    //MARK: - добавил переменные - имя пользователя и объект CurrentUserService и вставил их в инициализатор контроллера profileViewController, добавил разную инициализацию userService для debug и release
     @objc private func pressLogInButton () {
+        guard let name = nameTextField.text else { return  }
+#if DEBUG
+        let userService = TestUserService()
+#else
+        let userService = CurrentUserService()
+#endif
+        let profileViewController = ProfileViewController(userService: userService, userName: name)
+        
         navigationController?.pushViewController(profileViewController, animated: true)
     }
     
