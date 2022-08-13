@@ -33,6 +33,8 @@
 		CECD184027BAE36400D89B3F /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD183F27BAE36400D89B3F /* FeedViewController.swift */; };
 		CECD184427BC401600D89B3F /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD184327BC401600D89B3F /* PostViewController.swift */; };
 		CECD184627C16E1A00D89B3F /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD184527C16E1900D89B3F /* InfoViewController.swift */; };
+		CED0730128A813AD00DE68DD /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0730028A813AD00DE68DD /* Checker.swift */; };
+		CED0730328A8173200DE68DD /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0730228A8173200DE68DD /* LoginInspector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,8 @@
 		CECD183F27BAE36400D89B3F /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		CECD184327BC401600D89B3F /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		CECD184527C16E1900D89B3F /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		CED0730028A813AD00DE68DD /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
+		CED0730228A8173200DE68DD /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,8 @@
 				CEC5B093289C2AA90018A46D /* UserService.swift */,
 				CEC5B095289C2AE10018A46D /* TestUserService.swift */,
 				CEC5B097289C2C050018A46D /* CurrentUserService.swift */,
+				CED0730028A813AD00DE68DD /* Checker.swift */,
+				CED0730228A8173200DE68DD /* LoginInspector.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -396,8 +402,10 @@
 				CECD184427BC401600D89B3F /* PostViewController.swift in Sources */,
 				CECD183027B83C8B00D89B3F /* ViewController.swift in Sources */,
 				CECD182C27B83C8B00D89B3F /* AppDelegate.swift in Sources */,
+				CED0730328A8173200DE68DD /* LoginInspector.swift in Sources */,
 				CECAF60328367EE700258110 /* PhotosTableViewCell.swift in Sources */,
 				CECAF6072837D9CC00258110 /* PhotosCollectionViewCell.swift in Sources */,
+				CED0730128A813AD00DE68DD /* Checker.swift in Sources */,
 				CE094ACA27CFA1860076C5A8 /* ProfileHeaderView.swift in Sources */,
 				CE75098A289826D1004F76B6 /* User.swift in Sources */,
 				CEC0B89C283C00CC00041DC5 /* Photos.swift in Sources */,
