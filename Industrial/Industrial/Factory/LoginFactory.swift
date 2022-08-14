@@ -8,6 +8,6 @@
 import Foundation
 
 
-protocol LoginFactory {
+protocol LoginFactoryProtocol {
     func loginInspector() -> LoginInspector
 }

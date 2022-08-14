@@ -15,7 +15,6 @@ final class LoginInspector: LoginViewControllerDelegate {
         let checker = Checker.shared
         checker.checker(loginInserted: login, passwordInserted: password)
         return checker.logInned
-        }
+    }
     
 }
-

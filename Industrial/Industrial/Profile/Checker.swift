@@ -17,10 +17,11 @@ final class Checker {
     private let pswd = "111"
     var logInned = false
     
-    func checker(loginInserted: String, passwordInserted: String) {
+    func checker(loginInserted: String, passwordInserted: String) -> Bool {
         if loginInserted.hash == login.hash && passwordInserted.hash == pswd.hash {
             logInned = true
         }
+       
     }
     
 }
