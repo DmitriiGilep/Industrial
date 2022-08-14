@@ -7,9 +7,9 @@
 
 import UIKit
 
-    // MARK: - создал протокол делеката
+    // MARK: - создал протокол делегата, вводится 2 параметра и возвращает значение Bool
 protocol LoginViewControllerDelegate: AnyObject {
-    func checker(login: String, password: String) -> Bool
+    func checkLogin(login: String, password: String) -> Bool
 }
 
 
@@ -114,7 +114,7 @@ final class LogInViewController: UIViewController {
         let profileViewController = ProfileViewController(userService: userService, userName: name)
     
     //MARK: - принимаю данные ввода логина и пароля с forced unwrapping, так как значение text как минимум ""
-        delegate?.checker(login: nameTextField.text!, password: passwordTextField.text!)
+        delegate?.checkLogin(login: nameTextField.text!, password: passwordTextField.text!)
         
         navigationController?.pushViewController(profileViewController, animated: true)
     }

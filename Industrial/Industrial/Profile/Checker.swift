@@ -11,16 +11,16 @@ final class Checker {
     
     private init() {}
     
-    let shared = Checker()
+    static let shared = Checker()
     
-    private let login = "Vasily"
-    private let pswd = "StrongPassword"
+    private let login = "Dmitrii"
+    private let pswd = "111"
+    var logInned = false
     
-    func checkLog(login: String, password: String){
-        if login == login && password == password {
-            
+    func checker(loginInserted: String, passwordInserted: String) {
+        if loginInserted.hash == login.hash && passwordInserted.hash == pswd.hash {
+            logInned = true
         }
-        
     }
     
 }

@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let feedViewController = FeedViewController()
         let loginViewController = LogInViewController()
         
+        //MARK: - инициализировал фабрику и создал зависимость LoginViewController, myLoginFactory.loginInspector() возвращает класс LoginInspector()
+        let myLoginFactory = MyLoginFactory()
+        loginViewController.delegate = myLoginFactory.loginInspector()
         
         // создал экземпляр tabBarControllers - панель внизу
         let tabBarController = UITabBarController()
