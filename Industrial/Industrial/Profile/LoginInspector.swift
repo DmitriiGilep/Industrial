@@ -13,8 +13,8 @@ final class LoginInspector: LoginViewControllerDelegate {
     
     func checkLogin(login: String, password: String) -> Bool {
         let checker = Checker.shared
-        checker.checker(loginInserted: login, passwordInserted: password)
-        return checker.logInned
+        return checker.checker(loginInserted: login, passwordInserted: password)
+ //       return checker.logInned
     }
     
 }
