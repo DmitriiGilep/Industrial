@@ -7,7 +7,16 @@
 
 import UIKit
 
+// MARK: - создал протокол делегата, вводится 2 параметра и возвращает значение Bool
+protocol LoginViewControllerDelegate: AnyObject {
+    func checkLogin(login: String, password: String) -> Bool
+}
+
+
 final class LogInViewController: UIViewController {
+    
+    // переменная делегата со слабой ссылкой
+    weak var delegate: LoginViewControllerDelegate?
     
     var logInScrollView: UIScrollView = {
         var logInScroll = UIScrollView()
@@ -103,6 +112,9 @@ final class LogInViewController: UIViewController {
         let userService = CurrentUserService()
 #endif
         let profileViewController = ProfileViewController(userService: userService, userName: name)
+        
+        //MARK: - принимаю данные ввода логина и пароля с forced unwrapping, так как значение text как минимум ""
+        delegate?.checkLogin(login: nameTextField.text!, password: passwordTextField.text!)
         
         navigationController?.pushViewController(profileViewController, animated: true)
     }
