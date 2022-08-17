@@ -10,32 +10,15 @@ import iOSIntPackage
 
 final class PhotosViewController: UIViewController {
     
-    var photoData: PhotoData = {
-        let photo = PhotoData()
-        photo.createPhotoData(photo: Photo(name: "1"))
-        photo.createPhotoData(photo: Photo(name: "2"))
-        photo.createPhotoData(photo: Photo(name: "3"))
-        photo.createPhotoData(photo: Photo(name: "4"))
-        photo.createPhotoData(photo: Photo(name: "5"))
-        photo.createPhotoData(photo: Photo(name: "6"))
-        photo.createPhotoData(photo: Photo(name: "7"))
-        photo.createPhotoData(photo: Photo(name: "8"))
-        photo.createPhotoData(photo: Photo(name: "9"))
-        photo.createPhotoData(photo: Photo(name: "10"))
-        photo.createPhotoData(photo: Photo(name: "11"))
-        photo.createPhotoData(photo: Photo(name: "12"))
-        photo.createPhotoData(photo: Photo(name: "13"))
-        photo.createPhotoData(photo: Photo(name: "14"))
-        photo.createPhotoData(photo: Photo(name: "15"))
-        photo.createPhotoData(photo: Photo(name: "16"))
-        photo.createPhotoData(photo: Photo(name: "17"))
-        photo.createPhotoData(photo: Photo(name: "18"))
-        photo.createPhotoData(photo: Photo(name: "19"))
-        photo.createPhotoData(photo: Photo(name: "20"))
-        return photo
-    }()
+    private let imagePublisherFacade = ImagePublisherFacade()
     
-    var photosCollectionViewFlowLayout: UICollectionViewFlowLayout = {
+    // массив имен картинок из xcasset (если делать через
+    private let imagesNamesArrayXCasset = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    
+    // экземпляр класса, в котором будет массив для хранения всех картинок imagesArray
+    private var photoData = PhotoData()
+    
+    private var photosCollectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
@@ -48,7 +31,7 @@ final class PhotosViewController: UIViewController {
         return layout
     } ()
     
-    lazy var photosCollectionView: UICollectionView = {
+    private lazy var photosCollectionView: UICollectionView = {
         let photos = UICollectionView(frame: .zero, collectionViewLayout: photosCollectionViewFlowLayout)
         photos.dataSource = self
         photos.delegate = self
@@ -59,6 +42,8 @@ final class PhotosViewController: UIViewController {
     
     private func setUP() {
         self.title = "Photo Gallery"
+        // загружаю картинки из xcasset в единый массив photoData
+        photoData.createPhotoDataInt(photo: imagesNamesArrayXCasset)
         self.view.addSubview(photosCollectionView)
         
         NSLayoutConstraint.activate([
@@ -69,13 +54,18 @@ final class PhotosViewController: UIViewController {
             photosCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
             
         ])
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUP()
         navigationController?.navigationBar.isHidden = false
-        
+        // подписал на протокол = добавление контроллера в массив observer
+        imagePublisherFacade.subscribe(self)
+        // вызов функции по добавлению в массив observer картинок для последующей его передачи в функцию receive
+        imagePublisherFacade.addImagesWithTimer(time: 5, repeat: 10)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,20 +75,34 @@ final class PhotosViewController: UIViewController {
     
 }
 
-extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ImageLibrarySubscriber {
+    
+    
+    
+    func receive(images: [UIImage]) {
+        
+        // добавил в общий массив картинок полученные images
+        photoData.createPhotoDataUIImage(photo: images)
+        // обновил ячейки, чтобы добавить новые картинки
+        photosCollectionView.reloadData()
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoData.photoData.count
+        return photoData.imagesArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as? PhotosCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let data = photoData.photoData[indexPath.row]
-        cell.photo = data
+        //поменял порядок получения картинок в ячейки  через общий массив
+        let imageForCell = photoData.imagesArray[indexPath.row]
+        cell.imageForCell = imageForCell
+ 
         let imageProcessor = ImageProcessor()
-        imageProcessor.processImage(sourceImage: cell.photoImageView.image!, filter: .colorInvert, completion: {filteredPicture in cell.photoImageView.image = filteredPicture})
+        if let image = cell.photoImageView.image { imageProcessor.processImage(sourceImage: image, filter: .chrome, completion: {filteredPicture in cell.photoImageView.image = filteredPicture})
+        }
         
         return cell
     }

@@ -9,7 +9,7 @@ import UIKit
 
 final class PhotosTableViewCell: UITableViewCell {
     
-    let photoLabel: UILabel = {
+    private let photoLabel: UILabel = {
         let label = UILabel()
         label.text = "Photos"
         label.font = UIFont.boldSystemFont(ofSize: 24)
@@ -19,7 +19,7 @@ final class PhotosTableViewCell: UITableViewCell {
         return label
     }()
     
-    let arrow: UIImageView = {
+    private let arrow: UIImageView = {
         let arrow = UIImageView()
         arrow.image = UIImage(named: "Arrow")
         arrow.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +58,7 @@ final class PhotosTableViewCell: UITableViewCell {
         })
     }
     
-        private func setUp() {
+    private func setUp() {
         
         self.addSubview(photoLabel)
         photoLabel.addSubview(arrow)

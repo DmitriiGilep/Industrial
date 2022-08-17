@@ -8,9 +8,6 @@
 import UIKit
 
 import StorageService
-/*В классе ProfileViewController добавить свойство с типом UserService и инициализатор, который принимает объект UserService и имя пользователя, введённое на экране LogInViewController. При инициализации объекта ProfileViewController передать объект CurrentUserService.
- В классе ProfileViewController добавить получение пользователя из объекта UserService и отображение информации из объекта User.*/
-
 
 final class ProfileViewController: UIViewController {
     
@@ -198,6 +195,7 @@ final class ProfileViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             avatarImageViewTop,avatarImageViewLeading, avatarImageViewWidth, avatarImageViewHeight
+            //развернуть опцинальные значения
         ].compactMap{ $0 })
 
     }

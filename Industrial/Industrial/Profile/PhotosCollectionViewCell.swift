@@ -9,9 +9,10 @@ import UIKit
 
 final class PhotosCollectionViewCell: UICollectionViewCell {
     
-    var photo: Photo? {
+    // заменил переменную - вместо массива имен массив картинов с didSet устанавливающим сразу image для photoImageVeiw.image
+    var imageForCell: UIImage? {
         didSet {
-            photoImageView.image = UIImage(named: "\(photo?.name ?? "")")
+            photoImageView.image = imageForCell
         }
     }
     
