@@ -16,19 +16,26 @@ class FeedViewController: UIViewController {
         view.backgroundColor = .darkGray
         
         // кнопка 1 для перехода на postViewController и сам переход
-        let button1 = UIButton()
-        button1.setTitle("Кнопка1", for: .normal)
-        button1.backgroundColor = .blue
-        view.addSubview(button1)
-        button1.addTarget(self, action: #selector(tapPostView), for: .touchUpInside)
+        let button1 = CustomButton(
+            title: (name: "Кнопка1", state: .normal),
+            titleColor: (color: nil, state: nil),
+            backgroundColor: .blue,
+            backgroundImage: (image: nil, state: nil))
+        button1.tapAction = {
+            [weak self] in
+            self?.tapPostView ()
+        }
         
         // кнопка 2 для перехода на postViewController и сам переход
-        let button2 = UIButton()
-        button2.setTitle("Кнопка2", for: .normal)
-        button2.backgroundColor = .blue
-        view.addSubview(button2)
-        button2.addTarget(self, action: #selector(tapPostView), for: .touchUpInside)
-        
+        let button2 = CustomButton(
+            title: (name: "Кнопка2", state: .normal),
+            titleColor: (color: nil, state: nil),
+            backgroundColor: .blue,
+            backgroundImage: (image: nil, state: nil))
+        button2.tapAction = {
+            [weak self] in
+            self?.tapPostView ()
+        }
                 
         let buttonsForPost = UIStackView()
         buttonsForPost.axis = .vertical
@@ -47,8 +54,9 @@ class FeedViewController: UIViewController {
             .forEach({$0.isActive = true})
         
     }
-    let postViewController = PostViewController()
-    @objc func tapPostView () {
+    
+    func tapPostView () {
+        let postViewController = PostViewController()
         navigationController?.pushViewController(postViewController, animated: true)
     }
     

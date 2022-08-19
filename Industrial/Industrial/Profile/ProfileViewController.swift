@@ -64,19 +64,13 @@ final class ProfileViewController: UIViewController {
         return view
     }()
     
-    let xButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("x", for: .normal)
-        button.setTitle("X", for: .highlighted)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.addTarget(self, action: #selector(pressXButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-
-    //MARK: - добавил условия для запуска дла дебаг схемы и для рилиз схемы
+    let xButton = CustomButton (
+        title: (name: "x", state: .normal),
+        titleColor: (color: .black, state: .normal),
+        titleFont: UIFont.boldSystemFont(ofSize: 20),
+        backgroundImage: (image: nil, state: nil))
+            
+    // добавил условия для запуска дла дебаг схемы и для рилиз схемы
     
     let profileTableView: UITableView = {
         let profileTable = UITableView()
@@ -108,6 +102,7 @@ final class ProfileViewController: UIViewController {
     
     let avatarAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: nil)
     let xButtonAnimation = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut, animations: nil)
+    
     
     @objc private func avatarChanging () {
         
@@ -164,19 +159,6 @@ final class ProfileViewController: UIViewController {
 
     }
     
-    @objc private func pressXButton() {
-        
-        UIView.animate(withDuration: 0.5) {
-            self.avatarImageView.removeFromSuperview()
-            self.transparentView.removeFromSuperview()
-            self.xButton.removeFromSuperview()
-            self.setAvatarImageViewToProfileView()
-            self.view.layoutIfNeeded()
-            self.setRadius()
-        }
-        
-    }
-    
     private func setAvatarImageViewToProfileView() {
         
         profileHeaderView.addSubview(avatarImageView)
@@ -186,7 +168,7 @@ final class ProfileViewController: UIViewController {
         avatarImageViewWidth = avatarImageView.widthAnchor.constraint(equalToConstant: 110)
         avatarImageViewHeight = avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor)
         
-        //MARK: - принимаю результат функции userInfo за UserService и присваиваю аватар, имя и статус пользователя avatarImageView и profileHeaderView
+        // принимаю результат функции userInfo за UserService и присваиваю аватар, имя и статус пользователя avatarImageView и profileHeaderView
         let loginedUser = userService.userInfo(name: userName)
         avatarImageView.image = loginedUser?.avatar
         profileHeaderView.fullNameLabel.text = loginedUser?.name
@@ -231,6 +213,22 @@ final class ProfileViewController: UIViewController {
         xButtonTrailing = xButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         xButtonWidth = xButton.widthAnchor.constraint(equalToConstant: 50)
         xButtonHeight = xButton.heightAnchor.constraint(equalToConstant: 50)
+        
+        // добавил новое кастомное свойство у xButton
+        xButton.setTitle("X", for: .highlighted)
+        
+        // настроил обработку нажатия через замыкание
+        xButton.tapAction = {
+            [weak self] in
+            UIView.animate(withDuration: 0.5) {
+                self?.avatarImageView.removeFromSuperview()
+                self?.transparentView.removeFromSuperview()
+                self?.xButton.removeFromSuperview()
+                self?.setAvatarImageViewToProfileView()
+                self?.view.layoutIfNeeded()
+                self?.setRadius()
+            }
+        }
         
         self.view.addSubview(self.xButton)
         NSLayoutConstraint.activate([

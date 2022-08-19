@@ -43,16 +43,14 @@ final class ProfileHeaderView: UIView {
     
     private var statusText: String = ""
     
-    let setStatusButton: UIButton = {
-        let setStatus = UIButton()
-        setStatus.setTitle("Set status", for: .normal)
-        setStatus.backgroundColor = .blue
-        setStatus.addTarget(self, action: #selector(pressSetButton), for: .touchUpInside)
-        setStatus.layer.cornerRadius = 4
-        setStatus.translatesAutoresizingMaskIntoConstraints = false
-        return setStatus
-    }()
-    
+    // переинициализивал кнопку при помощи класса CustomButton
+    let setStatusButton = CustomButton(
+        title: (name: "Set status", state: .normal),
+        titleColor: (color: nil, state: nil),
+        cornerRadius: 4,
+        backgroundColor: .blue,
+        backgroundImage: (image: nil, state: nil))
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUP()
@@ -73,10 +71,7 @@ final class ProfileHeaderView: UIView {
         }
         return
     }
-    
-    @objc private func pressSetButton (_ textField: UITextField) {
-        statusLabel.text = statusText
-    }
+   
     
     private func setUP() {
         
@@ -84,6 +79,12 @@ final class ProfileHeaderView: UIView {
         self.addSubview(setStatusButton)
         self.addSubview(statusLabel)
         self.addSubview(statusTextField)
+        
+        // переписал функцию нажатия кнопки - ссылает на замыкание в CustomButton
+        setStatusButton.tapAction = {
+            [weak self] in
+            self?.statusLabel.text = self?.statusText
+        }
  
         //MARK: - autolayout by Snapkit
         
