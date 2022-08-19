@@ -10,7 +10,7 @@ import UIKit
 class CustomButton: UIButton {
     
     var tapAction: (() -> Void)?
-    // = nil - значение по умолчанию
+    // = nil - значение по умолчанию, не применимо для кортежей
     init(
         title: (name: String, state: UIControl.State?),
         titleColor: (color: UIColor?, state: UIControl.State?),
@@ -39,15 +39,8 @@ class CustomButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
     @objc private func buttonTapped() {
         tapAction?()
     }
     
-    /*Создайте собственный класс кнопки CustomButton как дочерний класс UIButton, где:
-     будет собственный инициализатор, в который передаются, к примеру, параметры title, titleColor и другие по необходимости
-     замыкание, в котором вызывающий объект, контроллер или родительский UIView, определят действие по нажатию кнопки
-     реализацию @objc private func buttonTapped() логично спрятать внутрь класса CustomButton
-     Замените для всех экранов стандартные UIButton на вашу собственную CustomButton там, где это целесообразно. Обратите внимание, насколько ваш исходный код стал компактнее и яснее.*/
 }

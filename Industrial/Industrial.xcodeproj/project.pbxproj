@@ -10,6 +10,7 @@
 		229DF33E3B74A480436A3DCC /* Pods_StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33F0B5924E81DC562A6F1D92 /* Pods_StorageService.framework */; };
 		5330A5035B8438C69BF3CD9B /* Pods_Industrial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7F808191D6C47BE9A555A3 /* Pods_Industrial.framework */; };
 		CE02BA5B28AE9D8E0084C663 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BA5A28AE9D8E0084C663 /* CustomButton.swift */; };
+		CE02BA5E28AF85480084C663 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BA5D28AF85480084C663 /* FeedModel.swift */; };
 		CE094ACA27CFA1860076C5A8 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE094AC927CFA1860076C5A8 /* ProfileHeaderView.swift */; };
 		CE094ACE27CFA1F20076C5A8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE094ACD27CFA1F20076C5A8 /* ProfileViewController.swift */; };
 		CE75098A289826D1004F76B6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE750989289826D1004F76B6 /* User.swift */; };
@@ -72,6 +73,7 @@
 		A6F69F3405C09525E009341F /* Pods-StorageService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageService.debug.xcconfig"; path = "Target Support Files/Pods-StorageService/Pods-StorageService.debug.xcconfig"; sourceTree = "<group>"; };
 		B58226E1E15DBDED37C7A6EB /* Pods-Industrial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Industrial.release.xcconfig"; path = "Target Support Files/Pods-Industrial/Pods-Industrial.release.xcconfig"; sourceTree = "<group>"; };
 		CE02BA5A28AE9D8E0084C663 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		CE02BA5D28AF85480084C663 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		CE094AC927CFA1860076C5A8 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		CE094ACD27CFA1F20076C5A8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CE750989289826D1004F76B6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -141,6 +143,15 @@
 			path = Button;
 			sourceTree = "<group>";
 		};
+		CE02BA5C28AF85260084C663 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				CECD183F27BAE36400D89B3F /* FeedViewController.swift */,
+				CE02BA5D28AF85480084C663 /* FeedModel.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
 		CE094AC827CFA1370076C5A8 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +205,7 @@
 		CECD182A27B83C8B00D89B3F /* Industrial */ = {
 			isa = PBXGroup;
 			children = (
+				CE02BA5C28AF85260084C663 /* Feed */,
 				CE02BA5928AE9D560084C663 /* Button */,
 				CED0730528A9209700DE68DD /* Factory */,
 				CE094AC827CFA1370076C5A8 /* Profile */,
@@ -202,7 +214,6 @@
 				CECD183427B83C9000D89B3F /* Assets.xcassets */,
 				CECD183627B83C9000D89B3F /* LaunchScreen.storyboard */,
 				CECD183927B83C9000D89B3F /* Info.plist */,
-				CECD183F27BAE36400D89B3F /* FeedViewController.swift */,
 				CECD184327BC401600D89B3F /* PostViewController.swift */,
 				CECD184527C16E1900D89B3F /* InfoViewController.swift */,
 			);
@@ -426,6 +437,7 @@
 				CEC5B096289C2AE10018A46D /* TestUserService.swift in Sources */,
 				CECD184427BC401600D89B3F /* PostViewController.swift in Sources */,
 				CECD183027B83C8B00D89B3F /* ViewController.swift in Sources */,
+				CE02BA5E28AF85480084C663 /* FeedModel.swift in Sources */,
 				CED0730928A9212600DE68DD /* MyLoginFactory.swift in Sources */,
 				CECD182C27B83C8B00D89B3F /* AppDelegate.swift in Sources */,
 				CED0730328A8173200DE68DD /* LoginInspector.swift in Sources */,
