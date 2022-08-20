@@ -10,8 +10,11 @@ import UIKit
 final class FeedViewController: UIViewController {
     
     //MARK: - let and var
-    //класс observer
+    
+#if DEBUG
+    // Protocol Observer, класс observer
     let feedModel = FeedModel()
+#endif
     
     let titleForPost = "PostViewController"
     
@@ -27,7 +30,7 @@ final class FeedViewController: UIViewController {
         return textField
     }()
     
-    let checkGuessButton = CustomButton(
+    private let checkGuessButton = CustomButton(
         title: (name: "Check", state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 8,
@@ -35,7 +38,7 @@ final class FeedViewController: UIViewController {
         backgroundImage: (image: nil, state: nil),
         clipsToBounds: true)
     
-    let showGuessResultLabel: UILabel = {
+    private let showGuessResultLabel: UILabel = {
         let label = UILabel()
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
@@ -62,7 +65,6 @@ final class FeedViewController: UIViewController {
         backgroundColor: .systemBlue,
         backgroundImage: (image: nil, state: nil))
     
-    
     // кнопка 2 для перехода на postViewController и сам переход
     let button2 = CustomButton(
         title: (name: "PostButton2", state: .normal),
@@ -87,13 +89,15 @@ final class FeedViewController: UIViewController {
         view.backgroundColor = .darkGray
         setup()
         // включил FeedViewController в массив observer
+#if DEBUG
         feedModel.subscribe(self)
+#endif
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        feedModel.removeSubscriber(self)
+        //  feedModel.removeSubscriber(self)
     }
     
     //MARK: - setup and other func
@@ -130,10 +134,26 @@ final class FeedViewController: UIViewController {
         // вызываю функцию observer для передачи пароля
         checkGuessButton.tapAction = {
             [weak self] in
+#if DEBUG
+            // Protocol Observer
             guard let text = self?.guessTextField.text else { return }
             self?.feedModel.transferAndCheckPassword(passwordForCheck: text)
+            _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+                self?.showGuessResultLabel.backgroundColor = .darkGray
+                
+            }
+            
+#else
+            // Dependencies via init, передаю информацию о введенном пароле в FeedModel
+            let feedModel = FeedModel(passwordForCheck: (self?.guessTextField.text)!)
+            switch feedModel.check() {
+            case true:
+                self?.showGuessResultLabel.backgroundColor = .systemGreen
+            case false:
+                self?.showGuessResultLabel.backgroundColor = .systemRed
+            }
+#endif
         }
-        
     }
     
     func tapPostView () {
@@ -143,6 +163,8 @@ final class FeedViewController: UIViewController {
     
 }
 
+#if DEBUG
+// Protocol Observer
 extension FeedViewController: Checkable {
     
     // принимаю результат и обрабатываю - тру зеленый, фолс красный, таймер - по умолчанию
@@ -155,13 +177,10 @@ extension FeedViewController: Checkable {
             showGuessResultLabel.backgroundColor = .systemRed
             
         }
-        let timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+        _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
             self.showGuessResultLabel.backgroundColor = .darkGray
         }
-    
+        
     }
-    
-    
-    
-    
 }
+#endif
