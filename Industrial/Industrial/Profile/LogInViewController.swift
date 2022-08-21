@@ -89,7 +89,7 @@ final class LogInViewController: UIViewController {
     }()
     
     // заменил инциализацию кнопки через класс CustomButton
-    let logInButton = CustomButton(
+    private lazy var logInButton = CustomButton(
         title: (name: "Log In", state: nil),
         titleColor: (color: nil, state: nil),
         titleLabelColor: .white,
@@ -97,21 +97,8 @@ final class LogInViewController: UIViewController {
         cornerRadius: 10,
         backgroundColor: .blue,
         backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
-        clipsToBounds: true)
-    
-    private func addAllViews() {
-        
-        self.view.addSubview(logInScrollView)
-        self.logInScrollView.addSubview(logInContentView)
-        self.logInContentView.addSubview(vkImageView)
-        self.logInContentView.addSubview(loginField)
-        self.logInContentView.addSubview(logInButton)
-        self.loginField.addSubview(nameTextField)
-        self.loginField.addSubview(passwordTextField)
-        
-        // добавил переменные - имя пользователя и объект CurrentUserService и вставил их в инициализатор контроллера profileViewController, добавил разную инициализацию userService для debug и release
-        // Перенес функцию нажания на кнопку в метод и вызвал через замыкание
-        logInButton.tapAction = {
+        clipsToBounds: true,
+        action: {
             [weak self] in
             guard let name = self?.nameTextField.text else { return  }
 #if DEBUG
@@ -125,7 +112,18 @@ final class LogInViewController: UIViewController {
             self?.delegate?.checkLogin(login: (self?.nameTextField.text!)!, password: (self?.passwordTextField.text)!)
             
             self?.navigationController?.pushViewController(profileViewController, animated: true)
-        }
+        })
+    
+    private func addAllViews() {
+        
+        self.view.addSubview(logInScrollView)
+        self.logInScrollView.addSubview(logInContentView)
+        self.logInContentView.addSubview(vkImageView)
+        self.logInContentView.addSubview(loginField)
+        self.logInContentView.addSubview(logInButton)
+        self.loginField.addSubview(nameTextField)
+        self.loginField.addSubview(passwordTextField)
+        
     }
     
     private func setAllConstraints() {

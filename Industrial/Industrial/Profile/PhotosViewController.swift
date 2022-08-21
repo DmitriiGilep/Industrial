@@ -65,7 +65,7 @@ final class PhotosViewController: UIViewController {
         imagePublisherFacade.subscribe(self)
         // вызов функции по добавлению в массив observer картинок для последующей его передачи в функцию receive
         imagePublisherFacade.addImagesWithTimer(time: 5, repeat: 10)
-
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -102,7 +102,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         //поменял порядок получения картинок в ячейки  через общий массив
         let imageForCell = photoData.imagesArray[indexPath.row]
         cell.imageForCell = imageForCell
- 
+        
         let imageProcessor = ImageProcessor()
         if let image = cell.photoImageView.image { imageProcessor.processImage(sourceImage: image, filter: .chrome, completion: {filteredPicture in cell.photoImageView.image = filteredPicture})
         }

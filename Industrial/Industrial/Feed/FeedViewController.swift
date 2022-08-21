@@ -30,13 +30,38 @@ final class FeedViewController: UIViewController {
         return textField
     }()
     
-    private let checkGuessButton = CustomButton(
+    private lazy var checkGuessButton = CustomButton(
         title: (name: "Check", state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 8,
         backgroundColor: .systemMint,
         backgroundImage: (image: nil, state: nil),
-        clipsToBounds: true)
+        clipsToBounds: true,
+        action: {
+            // вызываю функцию observer для передачи пароля
+            [weak self] in
+#if DEBUG
+            // Protocol Observer
+            guard let text = self?.guessTextField.text else { return }
+            self?.feedModel.transferAndCheckPassword(passwordForCheck: text)
+            _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+                self?.showGuessResultLabel.backgroundColor = .darkGray
+            }
+            
+#else
+            // Dependencies via init, передаю информацию о введенном пароле в FeedModel
+            let feedModel = FeedModel(passwordForCheck: (self?.guessTextField.text)!)
+            switch feedModel.check() {
+            case true:
+                self?.showGuessResultLabel.backgroundColor = .systemGreen
+            case false:
+                self?.showGuessResultLabel.backgroundColor = .systemRed
+            }
+            _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+                self?.showGuessResultLabel.backgroundColor = .darkGray
+            }
+#endif
+        })
     
     private let showGuessResultLabel: UILabel = {
         let label = UILabel()
@@ -57,21 +82,31 @@ final class FeedViewController: UIViewController {
         return label
     }()
     
+    
+    
     // кнопка 1 для перехода на postViewController и сам переход
-    let button1 = CustomButton(
+    lazy var button1 = CustomButton(
         title: (name: "PostButton1", state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 8,
         backgroundColor: .systemBlue,
-        backgroundImage: (image: nil, state: nil))
+        backgroundImage: (image: nil, state: nil),
+        action: {
+            [weak self] in
+            self?.tapPostView()
+        })
     
     // кнопка 2 для перехода на postViewController и сам переход
-    let button2 = CustomButton(
+    lazy var button2 = CustomButton(
         title: (name: "PostButton2", state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 8,
         backgroundColor: .systemPink,
-        backgroundImage: (image: nil, state: nil))
+        backgroundImage: (image: nil, state: nil),
+        action: {
+            [weak self] in
+            self?.tapPostView ()
+        })
     
     let buttonsForPost: UIStackView = {
         let stack = UIStackView()
@@ -119,49 +154,16 @@ final class FeedViewController: UIViewController {
             buttonsForPost.heightAnchor.constraint(equalToConstant: 300)
         ]
             .forEach({$0.isActive = true})
-        
-        //экшны кнопок
-        button1.tapAction = {
-            [weak self] in
-            self?.tapPostView ()
-        }
-        
-        button2.tapAction = {
-            [weak self] in
-            self?.tapPostView ()
-        }
-        
-        // вызываю функцию observer для передачи пароля
-        checkGuessButton.tapAction = {
-            [weak self] in
-#if DEBUG
-            // Protocol Observer
-            guard let text = self?.guessTextField.text else { return }
-            self?.feedModel.transferAndCheckPassword(passwordForCheck: text)
-            _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
-                self?.showGuessResultLabel.backgroundColor = .darkGray
-                
-            }
-            
-#else
-            // Dependencies via init, передаю информацию о введенном пароле в FeedModel
-            let feedModel = FeedModel(passwordForCheck: (self?.guessTextField.text)!)
-            switch feedModel.check() {
-            case true:
-                self?.showGuessResultLabel.backgroundColor = .systemGreen
-            case false:
-                self?.showGuessResultLabel.backgroundColor = .systemRed
-            }
-#endif
-        }
     }
     
-    func tapPostView () {
+    func tapPostView() {
         let postViewController = PostViewController()
-        navigationController?.pushViewController(postViewController, animated: true)
+        self.navigationController?.pushViewController(postViewController, animated: true)
     }
     
 }
+
+
 
 #if DEBUG
 // Protocol Observer
@@ -177,10 +179,6 @@ extension FeedViewController: Checkable {
             showGuessResultLabel.backgroundColor = .systemRed
             
         }
-        _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
-            self.showGuessResultLabel.backgroundColor = .darkGray
-        }
-        
     }
 }
 #endif

@@ -15,7 +15,7 @@ final class ProfileViewController: UIViewController {
     
     var userService: UserService
     var userName: String
-
+    
     //MARK: - инициализатор с параметрами UserService и именем пользователя
     init(userService: UserService, userName: String) {
         self.userService = userService
@@ -64,12 +64,16 @@ final class ProfileViewController: UIViewController {
         return view
     }()
     
-    let xButton = CustomButton (
+    lazy var xButton = CustomButton(
         title: (name: "x", state: .normal),
         titleColor: (color: .black, state: .normal),
         titleFont: UIFont.boldSystemFont(ofSize: 20),
-        backgroundImage: (image: nil, state: nil))
-            
+        backgroundImage: (image: nil, state: nil),
+        action: {
+            [weak self] in
+            self?.xButtonAnimate()
+        })
+    
     // добавил условия для запуска дла дебаг схемы и для рилиз схемы
     
     let profileTableView: UITableView = {
@@ -80,7 +84,7 @@ final class ProfileViewController: UIViewController {
 #else
         profileTable.backgroundColor = .green
 #endif
-
+        
         profileTable.translatesAutoresizingMaskIntoConstraints = false
         return profileTable
     }()
@@ -106,7 +110,7 @@ final class ProfileViewController: UIViewController {
     
     @objc private func avatarChanging () {
         
-
+        
         
         //MARK: - Анимация при помощи KeyFrames
         //        UIView.animateKeyframes(withDuration: 5, delay: 0, options: []) {
@@ -142,7 +146,7 @@ final class ProfileViewController: UIViewController {
         //        }
         
         //MARK: Анимация при помощи UIViewPropertyAnimator
-
+        
         avatarAnimation.addAnimations {
             self.setAvatarImageViewAndTransparentViewToView()
             self.avatarImageView.layer.cornerRadius = 0
@@ -156,7 +160,7 @@ final class ProfileViewController: UIViewController {
         
         avatarAnimation.startAnimation()
         xButtonAnimation.startAnimation(afterDelay: 0.5)
-
+        
     }
     
     private func setAvatarImageViewToProfileView() {
@@ -179,7 +183,7 @@ final class ProfileViewController: UIViewController {
             avatarImageViewTop,avatarImageViewLeading, avatarImageViewWidth, avatarImageViewHeight
             //развернуть опцинальные значения
         ].compactMap{ $0 })
-
+        
     }
     
     private func setRadius() {
@@ -197,7 +201,7 @@ final class ProfileViewController: UIViewController {
         transparentViewBottom = transparentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         transparentViewLeading = transparentView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         transparentViewTrailing = transparentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-
+        
         self.view.addSubview(self.transparentView)
         self.view.addSubview(self.avatarImageView)
         NSLayoutConstraint.activate([
@@ -216,19 +220,6 @@ final class ProfileViewController: UIViewController {
         
         // добавил новое кастомное свойство у xButton
         xButton.setTitle("X", for: .highlighted)
-        
-        // настроил обработку нажатия через замыкание
-        xButton.tapAction = {
-            [weak self] in
-            UIView.animate(withDuration: 0.5) {
-                self?.avatarImageView.removeFromSuperview()
-                self?.transparentView.removeFromSuperview()
-                self?.xButton.removeFromSuperview()
-                self?.setAvatarImageViewToProfileView()
-                self?.view.layoutIfNeeded()
-                self?.setRadius()
-            }
-        }
         
         self.view.addSubview(self.xButton)
         NSLayoutConstraint.activate([
@@ -255,6 +246,17 @@ final class ProfileViewController: UIViewController {
         
     }
     
+    func xButtonAnimate() {
+        UIView.animate(withDuration: 0.5) {
+            self.avatarImageView.removeFromSuperview()
+            self.transparentView.removeFromSuperview()
+            self.xButton.removeFromSuperview()
+            self.setAvatarImageViewToProfileView()
+            self.view.layoutIfNeeded()
+            self.setRadius()
+        }
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -270,7 +272,7 @@ final class ProfileViewController: UIViewController {
         super.viewWillAppear(animated)
         setRadius()
     }
-
+    
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
@@ -296,9 +298,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileHeaderView.self), for: indexPath)
             
-
+            
             //надо добавлять не на cell, а на cell.contentView, иначе contentView при первом показе перекрывает view и она неактивна
-
+            
             cell.contentView.addSubview(profileHeaderView)
             NSLayoutConstraint.activate([
                 profileHeaderView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),

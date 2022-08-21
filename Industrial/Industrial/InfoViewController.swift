@@ -22,24 +22,23 @@ final class InfoViewController: UIViewController {
             title: (name: "Alert", state: .normal),
             titleColor: (color: nil, state: nil),
             backgroundColor: .magenta,
-            backgroundImage: (image: nil, state: nil))
-        button.translatesAutoresizingMaskIntoConstraints = true
+            backgroundImage: (image: nil, state: nil),
+            action:  {
+                [weak self] in
+                let alertView = UIAlertController(title: "Alert", message: "Don't press this button", preferredStyle: .alert)
+                
+                //назначил 2 действия, одно (notAccepted) с выводом в консоль сообщения well done
+                let accepted = UIAlertAction(title: "Accepted", style: .default, handler: {(Accepted) in print("well done")})
+                let notAccepted = UIAlertAction(title: "Did't accepted", style: .cancel, handler: {(notAccepted) in print("well done")})
+                alertView.addAction(accepted)
+                alertView.addAction(notAccepted)
+                
+                // модальный вывод
+                self?.present(alertView, animated: true, completion: nil)
+            })
         button.frame = CGRect(x: 250, y: 170, width: 130, height: 50)
         
         view.addSubview(button)
-        button.tapAction = {
-            [weak self] in
-            let alertView = UIAlertController(title: "Alert", message: "Don't press this button", preferredStyle: .alert)
-            
-            //назначил 2 действия, одно (notAccepted) с выводом в консоль сообщения well done
-            let accepted = UIAlertAction(title: "Accepted", style: .default, handler: {(Accepted) in print("well done")})
-            let notAccepted = UIAlertAction(title: "Did't accepted", style: .cancel, handler: {(notAccepted) in print("well done")})
-            alertView.addAction(accepted)
-            alertView.addAction(notAccepted)
-            
-            // модальный вывод
-            self?.present(alertView, animated: true, completion: nil)
-        }
     }
     
 }

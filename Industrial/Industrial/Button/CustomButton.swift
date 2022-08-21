@@ -9,7 +9,9 @@ import UIKit
 
 class CustomButton: UIButton {
     
-    var tapAction: (() -> Void)?
+    typealias Action = () -> Void
+    var buttonAction: Action
+    
     // = nil - значение по умолчанию, не применимо для кортежей
     init(
         title: (name: String, state: UIControl.State?),
@@ -19,8 +21,10 @@ class CustomButton: UIButton {
         cornerRadius: CGFloat? = nil,
         backgroundColor: UIColor? = nil,
         backgroundImage: (image: UIImage?, state: UIControl.State?),
-        clipsToBounds: Bool? = nil)
+        clipsToBounds: Bool? = nil,
+        action: @escaping Action)
     {
+        buttonAction = action
         super.init(frame: CGRect())
         setTitle("\(title.name)", for: title.state ?? .normal)
         setTitleColor(titleColor.color, for: titleColor.state ?? .normal)
@@ -31,6 +35,7 @@ class CustomButton: UIButton {
         setBackgroundImage(backgroundImage.image, for: backgroundImage.state ?? .normal)
         self.clipsToBounds = clipsToBounds ?? false
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        
         translatesAutoresizingMaskIntoConstraints = false
         
     }
@@ -40,7 +45,7 @@ class CustomButton: UIButton {
     }
     
     @objc private func buttonTapped() {
-        tapAction?()
+        buttonAction()
     }
     
 }
