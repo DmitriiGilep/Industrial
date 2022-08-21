@@ -43,15 +43,17 @@ final class ProfileHeaderView: UIView {
     
     private var statusText: String = ""
     
-    let setStatusButton: UIButton = {
-        let setStatus = UIButton()
-        setStatus.setTitle("Set status", for: .normal)
-        setStatus.backgroundColor = .blue
-        setStatus.addTarget(self, action: #selector(pressSetButton), for: .touchUpInside)
-        setStatus.layer.cornerRadius = 4
-        setStatus.translatesAutoresizingMaskIntoConstraints = false
-        return setStatus
-    }()
+    // переинициализивал кнопку при помощи класса CustomButton
+    private lazy var setStatusButton = CustomButton(
+        title: (name: "Set status", state: .normal),
+        titleColor: (color: nil, state: nil),
+        cornerRadius: 4,
+        backgroundColor: .blue,
+        backgroundImage: (image: nil, state: nil),
+        action: {
+            [weak self] in
+            self?.statusLabel.text = self?.statusText
+        })
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,7 +65,7 @@ final class ProfileHeaderView: UIView {
     }
     
     @objc private func statusTextChanged(_ textField: UITextField) {
-
+        
         statusTextField.textColor = UIColor.black
         statusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         statusTextField.textAlignment = .natural
@@ -74,9 +76,6 @@ final class ProfileHeaderView: UIView {
         return
     }
     
-    @objc private func pressSetButton (_ textField: UITextField) {
-        statusLabel.text = statusText
-    }
     
     private func setUP() {
         
@@ -84,7 +83,7 @@ final class ProfileHeaderView: UIView {
         self.addSubview(setStatusButton)
         self.addSubview(statusLabel)
         self.addSubview(statusTextField)
- 
+        
         //MARK: - autolayout by Snapkit
         
         fullNameLabel.snp.makeConstraints { make in
@@ -97,7 +96,7 @@ final class ProfileHeaderView: UIView {
         setStatusButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(172)
             make.leading.trailing.equalToSuperview().inset(16)
-  //          make.trailing.equalToSuperview().inset(16)
+            //          make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(40)
         }
         
@@ -114,31 +113,31 @@ final class ProfileHeaderView: UIView {
             make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(40)
         }
-
+        
         //MARK: - autolayout by autolayot
         
-//        NSLayoutConstraint.activate([
-                   
-//            fullNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
-//            fullNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
-//            fullNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-//            fullNameLabel.heightAnchor.constraint(equalToConstant: 50),
-            
-//            setStatusButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 172),
-//            setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-//            setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-//            setStatusButton.heightAnchor.constraint(equalToConstant: 40),
-            
-  //          statusLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
-  //          statusLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-//            statusLabel.heightAnchor.constraint(equalToConstant: 20),
-//            statusLabel.bottomAnchor.constraint(equalTo: self.setStatusButton.topAnchor, constant: -74),
-            
-//            statusTextField.topAnchor.constraint(equalTo: self.statusLabel.bottomAnchor, constant: 5),
-//            statusTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
-//            statusTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-//            statusTextField.heightAnchor.constraint(equalToConstant: 40)
-//        ])
+        //        NSLayoutConstraint.activate([
+        
+        //            fullNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
+        //            fullNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
+        //            fullNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+        //            fullNameLabel.heightAnchor.constraint(equalToConstant: 50),
+        
+        //            setStatusButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 172),
+        //            setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+        //            setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+        //            setStatusButton.heightAnchor.constraint(equalToConstant: 40),
+        
+        //          statusLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
+        //          statusLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+        //            statusLabel.heightAnchor.constraint(equalToConstant: 20),
+        //            statusLabel.bottomAnchor.constraint(equalTo: self.setStatusButton.topAnchor, constant: -74),
+        
+        //            statusTextField.topAnchor.constraint(equalTo: self.statusLabel.bottomAnchor, constant: 5),
+        //            statusTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 136),
+        //            statusTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+        //            statusTextField.heightAnchor.constraint(equalToConstant: 40)
+        //        ])
     }
 }
 

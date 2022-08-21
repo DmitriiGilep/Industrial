@@ -88,36 +88,31 @@ final class LogInViewController: UIViewController {
         return passwordText
     }()
     
-    let logInButton: UIButton = {
-        let logIn = UIButton()
-        let backgroundImage = UIImage(named: "blue_pixel")
-        logIn.setTitle("Log In", for: .normal)
-        logIn.layer.cornerRadius = 10
-        logIn.clipsToBounds = true
-        logIn.backgroundColor = .blue
-        logIn.titleLabel?.textColor = .white
-        
-        logIn.addTarget(self, action: #selector(pressLogInButton), for: .touchUpInside)
-        logIn.setBackgroundImage(backgroundImage, for: .normal)
-        logIn.translatesAutoresizingMaskIntoConstraints = false
-        return logIn
-    }()
-    
-    //MARK: - добавил переменные - имя пользователя и объект CurrentUserService и вставил их в инициализатор контроллера profileViewController, добавил разную инициализацию userService для debug и release
-    @objc private func pressLogInButton () {
-        guard let name = nameTextField.text else { return  }
+    // заменил инциализацию кнопки через класс CustomButton
+    private lazy var logInButton = CustomButton(
+        title: (name: "Log In", state: nil),
+        titleColor: (color: nil, state: nil),
+        titleLabelColor: .white,
+        titleFont: nil,
+        cornerRadius: 10,
+        backgroundColor: .blue,
+        backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
+        clipsToBounds: true,
+        action: {
+            [weak self] in
+            guard let name = self?.nameTextField.text else { return  }
 #if DEBUG
-        let userService = TestUserService()
+            let userService = TestUserService()
 #else
-        let userService = CurrentUserService()
+            let userService = CurrentUserService()
 #endif
-        let profileViewController = ProfileViewController(userService: userService, userName: name)
-        
-        //MARK: - принимаю данные ввода логина и пароля с forced unwrapping, так как значение text как минимум ""
-        delegate?.checkLogin(login: nameTextField.text!, password: passwordTextField.text!)
-        
-        navigationController?.pushViewController(profileViewController, animated: true)
-    }
+            let profileViewController = ProfileViewController(userService: userService, userName: name)
+            
+            // принимаю данные ввода логина и пароля с forced unwrapping, так как значение text как минимум ""
+            self?.delegate?.checkLogin(login: (self?.nameTextField.text!)!, password: (self?.passwordTextField.text)!)
+            
+            self?.navigationController?.pushViewController(profileViewController, animated: true)
+        })
     
     private func addAllViews() {
         

@@ -15,7 +15,7 @@ class PostViewController: UIViewController {
         
         //сделал связь с feedViewController и поставил имя PostViewController как имя структуры Post в feedViewController
         let feedViewController = FeedViewController(nibName:"feedViewController", bundle: nil)
-        title = feedViewController.post.title
+        self.title = feedViewController.titleForPost
         view.backgroundColor = .brown
         
         //создал кнопку в bar и поставил ее в свойство, далее назначил ей переход на infoViewController
