@@ -17,6 +17,9 @@
 		CEBC07CA2822CE50009B3AC4 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */; };
 		CEC0B89C283C00CC00041DC5 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B89B283C00CC00041DC5 /* Photos.swift */; };
 		CEC171D6280C60F200C0B95E /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC171D5280C60F200C0B95E /* LogInViewController.swift */; };
+		CEC254A028B76ABE00FD6852 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2549F28B76ABE00FD6852 /* MainCoordinator.swift */; };
+		CEC254A328B76BDC00FD6852 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC254A228B76BDC00FD6852 /* MainTabBarController.swift */; };
+		CEC254A528B76CA300FD6852 /* NavControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC254A428B76CA300FD6852 /* NavControllerFactory.swift */; };
 		CEC5B094289C2AAA0018A46D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B093289C2AA90018A46D /* UserService.swift */; };
 		CEC5B096289C2AE10018A46D /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B095289C2AE10018A46D /* TestUserService.swift */; };
 		CEC5B098289C2C050018A46D /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B097289C2C050018A46D /* CurrentUserService.swift */; };
@@ -80,6 +83,9 @@
 		CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		CEC0B89B283C00CC00041DC5 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		CEC171D5280C60F200C0B95E /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		CEC2549F28B76ABE00FD6852 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		CEC254A228B76BDC00FD6852 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		CEC254A428B76CA300FD6852 /* NavControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavControllerFactory.swift; sourceTree = "<group>"; };
 		CEC5B093289C2AA90018A46D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		CEC5B095289C2AE10018A46D /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		CEC5B097289C2C050018A46D /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
@@ -173,6 +179,22 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		CEC2549E28B76AA700FD6852 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				CEC2549F28B76ABE00FD6852 /* MainCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		CEC254A128B76B9F00FD6852 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				CEC254A228B76BDC00FD6852 /* MainTabBarController.swift */,
+			);
+			path = TabBarController;
+			sourceTree = "<group>";
+		};
 		CECA1FD928814911000595A4 /* StorageService */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,9 +227,11 @@
 		CECD182A27B83C8B00D89B3F /* Industrial */ = {
 			isa = PBXGroup;
 			children = (
+				CED0730528A9209700DE68DD /* Factory */,
+				CEC2549E28B76AA700FD6852 /* Coordinators */,
+				CEC254A128B76B9F00FD6852 /* TabBarController */,
 				CE02BA5C28AF85260084C663 /* Feed */,
 				CE02BA5928AE9D560084C663 /* Button */,
-				CED0730528A9209700DE68DD /* Factory */,
 				CE094AC827CFA1370076C5A8 /* Profile */,
 				CECD182B27B83C8B00D89B3F /* AppDelegate.swift */,
 				CECD182F27B83C8B00D89B3F /* ViewController.swift */,
@@ -225,6 +249,7 @@
 			children = (
 				CED0730628A920AD00DE68DD /* LoginFactory.swift */,
 				CED0730828A9212600DE68DD /* MyLoginFactory.swift */,
+				CEC254A428B76CA300FD6852 /* NavControllerFactory.swift */,
 			);
 			path = Factory;
 			sourceTree = "<group>";
@@ -434,6 +459,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC5B098289C2C050018A46D /* CurrentUserService.swift in Sources */,
+				CEC254A028B76ABE00FD6852 /* MainCoordinator.swift in Sources */,
+				CEC254A328B76BDC00FD6852 /* MainTabBarController.swift in Sources */,
 				CEC5B096289C2AE10018A46D /* TestUserService.swift in Sources */,
 				CECD184427BC401600D89B3F /* PostViewController.swift in Sources */,
 				CECD183027B83C8B00D89B3F /* ViewController.swift in Sources */,
@@ -451,6 +478,7 @@
 				CECD184627C16E1A00D89B3F /* InfoViewController.swift in Sources */,
 				CED0730728A920AD00DE68DD /* LoginFactory.swift in Sources */,
 				CECD184027BAE36400D89B3F /* FeedViewController.swift in Sources */,
+				CEC254A528B76CA300FD6852 /* NavControllerFactory.swift in Sources */,
 				CEC5B094289C2AAA0018A46D /* UserService.swift in Sources */,
 				CE02BA5B28AE9D8E0084C663 /* CustomButton.swift in Sources */,
 				CE094ACE27CFA1F20076C5A8 /* ProfileViewController.swift in Sources */,
