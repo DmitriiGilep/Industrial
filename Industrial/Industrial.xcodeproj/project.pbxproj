@@ -20,18 +20,23 @@
 		CEC254A028B76ABE00FD6852 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2549F28B76ABE00FD6852 /* MainCoordinator.swift */; };
 		CEC254A328B76BDC00FD6852 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC254A228B76BDC00FD6852 /* MainTabBarController.swift */; };
 		CEC254A528B76CA300FD6852 /* NavControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC254A428B76CA300FD6852 /* NavControllerFactory.swift */; };
+		CEC254A728B777DD00FD6852 /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC254A628B777DD00FD6852 /* FeedCoordinator.swift */; };
+		CEC254A928B777F500FD6852 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC254A828B777F500FD6852 /* ProfileCoordinator.swift */; };
+		CEC254AB28B7905100FD6852 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC254AA28B7905100FD6852 /* ViewControllerFactory.swift */; };
+		CEC254AC28BAA24500FD6852 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF5FC28316D7C00258110 /* Post.swift */; };
+		CEC254AF28BAA2C800FD6852 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC254AE28BAA2C800FD6852 /* FeedViewModel.swift */; };
+		CEC254B128BDEE9700FD6852 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC254B028BDEE9700FD6852 /* PostViewModel.swift */; };
+		CEC254B328BDEFE700FD6852 /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC254B228BDEFE700FD6852 /* InfoViewModel.swift */; };
 		CEC5B094289C2AAA0018A46D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B093289C2AA90018A46D /* UserService.swift */; };
 		CEC5B096289C2AE10018A46D /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B095289C2AE10018A46D /* TestUserService.swift */; };
 		CEC5B098289C2C050018A46D /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B097289C2C050018A46D /* CurrentUserService.swift */; };
 		CECA1FDB28814911000595A4 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = CECA1FDA28814911000595A4 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CECA1FDE28814911000595A4 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECA1FD828814910000595A4 /* StorageService.framework */; };
 		CECA1FDF28814911000595A4 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CECA1FD828814910000595A4 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CECA1FE42881493E000595A4 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF5FC28316D7C00258110 /* Post.swift */; };
 		CECAF60328367EE700258110 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF60228367EE700258110 /* PhotosTableViewCell.swift */; };
 		CECAF6052837CCCF00258110 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF6042837CCCF00258110 /* PhotosViewController.swift */; };
 		CECAF6072837D9CC00258110 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF6062837D9CC00258110 /* PhotosCollectionViewCell.swift */; };
 		CECD182C27B83C8B00D89B3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD182B27B83C8B00D89B3F /* AppDelegate.swift */; };
-		CECD183027B83C8B00D89B3F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD182F27B83C8B00D89B3F /* ViewController.swift */; };
 		CECD183527B83C9000D89B3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CECD183427B83C9000D89B3F /* Assets.xcassets */; };
 		CECD183827B83C9000D89B3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECD183627B83C9000D89B3F /* LaunchScreen.storyboard */; };
 		CECD184027BAE36400D89B3F /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD183F27BAE36400D89B3F /* FeedViewController.swift */; };
@@ -86,18 +91,23 @@
 		CEC2549F28B76ABE00FD6852 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		CEC254A228B76BDC00FD6852 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		CEC254A428B76CA300FD6852 /* NavControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavControllerFactory.swift; sourceTree = "<group>"; };
+		CEC254A628B777DD00FD6852 /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
+		CEC254A828B777F500FD6852 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		CEC254AA28B7905100FD6852 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
+		CEC254AE28BAA2C800FD6852 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		CEC254B028BDEE9700FD6852 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		CEC254B228BDEFE700FD6852 /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
 		CEC5B093289C2AA90018A46D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		CEC5B095289C2AE10018A46D /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		CEC5B097289C2C050018A46D /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
 		CECA1FD828814910000595A4 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECA1FDA28814911000595A4 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
-		CECAF5FC28316D7C00258110 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		CECAF5FC28316D7C00258110 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Post.swift; path = ../Post/Post.swift; sourceTree = "<group>"; };
 		CECAF60228367EE700258110 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		CECAF6042837CCCF00258110 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		CECAF6062837D9CC00258110 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		CECD182827B83C8B00D89B3F /* Industrial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Industrial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECD182B27B83C8B00D89B3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CECD182F27B83C8B00D89B3F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CECD183427B83C9000D89B3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Industrial/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		CECD183727B83C9000D89B3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CECD183927B83C9000D89B3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -149,18 +159,24 @@
 			path = Button;
 			sourceTree = "<group>";
 		};
-		CE02BA5C28AF85260084C663 /* Feed */ = {
+		CE02BA5C28AF85260084C663 /* Feed - MVVM */ = {
 			isa = PBXGroup;
 			children = (
 				CECD183F27BAE36400D89B3F /* FeedViewController.swift */,
+				CEC254AE28BAA2C800FD6852 /* FeedViewModel.swift */,
 				CE02BA5D28AF85480084C663 /* FeedModel.swift */,
+				CECD184327BC401600D89B3F /* PostViewController.swift */,
+				CEC254B028BDEE9700FD6852 /* PostViewModel.swift */,
+				CECD184527C16E1900D89B3F /* InfoViewController.swift */,
+				CEC254B228BDEFE700FD6852 /* InfoViewModel.swift */,
 			);
-			path = Feed;
+			path = "Feed - MVVM";
 			sourceTree = "<group>";
 		};
 		CE094AC827CFA1370076C5A8 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				CECAF5FC28316D7C00258110 /* Post.swift */,
 				CEC171D5280C60F200C0B95E /* LogInViewController.swift */,
 				CED0730228A8173200DE68DD /* LoginInspector.swift */,
 				CE094AC927CFA1860076C5A8 /* ProfileHeaderView.swift */,
@@ -183,6 +199,8 @@
 			isa = PBXGroup;
 			children = (
 				CEC2549F28B76ABE00FD6852 /* MainCoordinator.swift */,
+				CEC254A628B777DD00FD6852 /* FeedCoordinator.swift */,
+				CEC254A828B777F500FD6852 /* ProfileCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -198,7 +216,6 @@
 		CECA1FD928814911000595A4 /* StorageService */ = {
 			isa = PBXGroup;
 			children = (
-				CECAF5FC28316D7C00258110 /* Post.swift */,
 				CECA1FDA28814911000595A4 /* StorageService.h */,
 			);
 			path = StorageService;
@@ -227,19 +244,16 @@
 		CECD182A27B83C8B00D89B3F /* Industrial */ = {
 			isa = PBXGroup;
 			children = (
-				CED0730528A9209700DE68DD /* Factory */,
-				CEC2549E28B76AA700FD6852 /* Coordinators */,
-				CEC254A128B76B9F00FD6852 /* TabBarController */,
-				CE02BA5C28AF85260084C663 /* Feed */,
 				CE02BA5928AE9D560084C663 /* Button */,
+				CEC2549E28B76AA700FD6852 /* Coordinators */,
+				CED0730528A9209700DE68DD /* Factory */,
+				CE02BA5C28AF85260084C663 /* Feed - MVVM */,
 				CE094AC827CFA1370076C5A8 /* Profile */,
+				CEC254A128B76B9F00FD6852 /* TabBarController */,
 				CECD182B27B83C8B00D89B3F /* AppDelegate.swift */,
-				CECD182F27B83C8B00D89B3F /* ViewController.swift */,
 				CECD183427B83C9000D89B3F /* Assets.xcassets */,
 				CECD183627B83C9000D89B3F /* LaunchScreen.storyboard */,
 				CECD183927B83C9000D89B3F /* Info.plist */,
-				CECD184327BC401600D89B3F /* PostViewController.swift */,
-				CECD184527C16E1900D89B3F /* InfoViewController.swift */,
 			);
 			path = Industrial;
 			sourceTree = "<group>";
@@ -250,6 +264,7 @@
 				CED0730628A920AD00DE68DD /* LoginFactory.swift */,
 				CED0730828A9212600DE68DD /* MyLoginFactory.swift */,
 				CEC254A428B76CA300FD6852 /* NavControllerFactory.swift */,
+				CEC254AA28B7905100FD6852 /* ViewControllerFactory.swift */,
 			);
 			path = Factory;
 			sourceTree = "<group>";
@@ -450,7 +465,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CECA1FE42881493E000595A4 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,14 +472,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEC254B128BDEE9700FD6852 /* PostViewModel.swift in Sources */,
 				CEC5B098289C2C050018A46D /* CurrentUserService.swift in Sources */,
 				CEC254A028B76ABE00FD6852 /* MainCoordinator.swift in Sources */,
 				CEC254A328B76BDC00FD6852 /* MainTabBarController.swift in Sources */,
 				CEC5B096289C2AE10018A46D /* TestUserService.swift in Sources */,
 				CECD184427BC401600D89B3F /* PostViewController.swift in Sources */,
-				CECD183027B83C8B00D89B3F /* ViewController.swift in Sources */,
+				CEC254B328BDEFE700FD6852 /* InfoViewModel.swift in Sources */,
 				CE02BA5E28AF85480084C663 /* FeedModel.swift in Sources */,
 				CED0730928A9212600DE68DD /* MyLoginFactory.swift in Sources */,
+				CEC254A928B777F500FD6852 /* ProfileCoordinator.swift in Sources */,
 				CECD182C27B83C8B00D89B3F /* AppDelegate.swift in Sources */,
 				CED0730328A8173200DE68DD /* LoginInspector.swift in Sources */,
 				CECAF60328367EE700258110 /* PhotosTableViewCell.swift in Sources */,
@@ -473,16 +489,20 @@
 				CED0730128A813AD00DE68DD /* Checker.swift in Sources */,
 				CE094ACA27CFA1860076C5A8 /* ProfileHeaderView.swift in Sources */,
 				CE75098A289826D1004F76B6 /* User.swift in Sources */,
+				CEC254AB28B7905100FD6852 /* ViewControllerFactory.swift in Sources */,
 				CEC0B89C283C00CC00041DC5 /* Photos.swift in Sources */,
 				CEC171D6280C60F200C0B95E /* LogInViewController.swift in Sources */,
 				CECD184627C16E1A00D89B3F /* InfoViewController.swift in Sources */,
 				CED0730728A920AD00DE68DD /* LoginFactory.swift in Sources */,
+				CEC254AF28BAA2C800FD6852 /* FeedViewModel.swift in Sources */,
 				CECD184027BAE36400D89B3F /* FeedViewController.swift in Sources */,
 				CEC254A528B76CA300FD6852 /* NavControllerFactory.swift in Sources */,
+				CEC254AC28BAA24500FD6852 /* Post.swift in Sources */,
 				CEC5B094289C2AAA0018A46D /* UserService.swift in Sources */,
 				CE02BA5B28AE9D8E0084C663 /* CustomButton.swift in Sources */,
 				CE094ACE27CFA1F20076C5A8 /* ProfileViewController.swift in Sources */,
 				CECAF6052837CCCF00258110 /* PhotosViewController.swift in Sources */,
+				CEC254A728B777DD00FD6852 /* FeedCoordinator.swift in Sources */,
 				CEBC07CA2822CE50009B3AC4 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -692,7 +712,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2215E92831FD4E6C71E3A7D1 /* Pods-Industrial.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -721,7 +740,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B58226E1E15DBDED37C7A6EB /* Pods-Industrial.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;

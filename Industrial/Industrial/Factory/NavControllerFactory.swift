@@ -16,7 +16,7 @@ final class NavControllerFactory {
     }
     
     var navController = UINavigationController()
-    let navControllerName: NavControllerName
+    private let navControllerName: NavControllerName
     
     init(navControllerName: NavControllerName) {
         self.navControllerName = navControllerName
@@ -26,32 +26,32 @@ final class NavControllerFactory {
     func createNavController() {
         switch navControllerName {
         case .first:
-            
-            let feedViewController = FeedViewController()
-            let firstNavController = UINavigationController(rootViewController: feedViewController)
-            firstNavController.setViewControllers([feedViewController], animated: true)
+            let feedCoordinator = FeedCoordinator()
+            let feedViewModel = FeedViewModel()
+            let feedViewController = FeedViewController(coordinator: feedCoordinator, model: feedViewModel)
+            feedCoordinator.navController = navController
+            navController.setViewControllers([feedViewController], animated: true)
             
             let tabBar1 = UITabBarItem()
             tabBar1.title = "Лента"
             tabBar1.image = UIImage(systemName: "person.3.sequence.fill")
-            firstNavController.tabBarItem = tabBar1
-            navController = firstNavController
+            navController.tabBarItem = tabBar1
             
         case .second:
             
-            let loginViewController = LogInViewController()
+            let profileCoordinator = ProfileCoordinator()
+            let loginViewController = LogInViewController(coordinator: profileCoordinator)
             let myLoginFactory = MyLoginFactory()
             loginViewController.delegate = myLoginFactory.loginInspector()
             
-            let secondNavContoller = UINavigationController(rootViewController: loginViewController)
-            secondNavContoller.setViewControllers([loginViewController], animated: true)
-            secondNavContoller.navigationBar.isHidden = true
+            profileCoordinator.navController = navController
+            navController.setViewControllers([loginViewController], animated: true)
+            navController.navigationBar.isHidden = true
             
             let tabBar2 = UITabBarItem()
             tabBar2.title = "Профиль"
             tabBar2.image = UIImage(systemName: "person.fill")
-            secondNavContoller.tabBarItem = tabBar2
-            navController = secondNavContoller
+            navController.tabBarItem = tabBar2
         }
     }
     

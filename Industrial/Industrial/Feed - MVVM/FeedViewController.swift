@@ -11,10 +11,14 @@ final class FeedViewController: UIViewController {
     
     //MARK: - let and var
     
-#if DEBUG
-    // Protocol Observer, класс observer
-    let feedModel = FeedModel()
-#endif
+//#if DEBUG
+//    // Protocol Observer, класс observer
+//    let feedModel = FeedModel()
+//#endif
+    
+    
+    let coordinator: FeedCoordinator
+    var feedViewModel = FeedViewModel()
     
     let titleForPost = "PostViewController"
     
@@ -38,32 +42,23 @@ final class FeedViewController: UIViewController {
         backgroundImage: (image: nil, state: nil),
         clipsToBounds: true,
         action: {
-            // вызываю функцию observer для передачи пароля
             [weak self] in
-#if DEBUG
-            // Protocol Observer
-            guard let text = self?.guessTextField.text else { return }
-            self?.feedModel.transferAndCheckPassword(passwordForCheck: text)
-            _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
-                self?.showGuessResultLabel.backgroundColor = .darkGray
-            }
             
-#else
-            // Dependencies via init, передаю информацию о введенном пароле в FeedModel
-            let feedModel = FeedModel(passwordForCheck: (self?.guessTextField.text)!)
-            switch feedModel.check() {
-            case true:
-                self?.showGuessResultLabel.backgroundColor = .systemGreen
-            case false:
-                self?.showGuessResultLabel.backgroundColor = .systemRed
-            }
-            _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
-                self?.showGuessResultLabel.backgroundColor = .darkGray
-            }
-#endif
+//#if DEBUG
+//            // Protocol Observer
+//            guard let text = self?.guessTextField.text else { return }
+//            self?.feedModel.transferAndCheckPassword(passwordForCheck: text)
+//            _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+//                self?.showGuessResultLabel.backgroundColor = .darkGray
+//            }
+//
+//#else
+            
+            self?.feedViewModel.changeState(interfaceEvent: .checkGuessButtonPressed, controller: self!)
+//#endif
         })
     
-    private let showGuessResultLabel: UILabel = {
+    let showGuessResultLabel: UILabel = {
         let label = UILabel()
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
@@ -82,8 +77,6 @@ final class FeedViewController: UIViewController {
         return label
     }()
     
-    
-    
     // кнопка 1 для перехода на postViewController и сам переход
     lazy var button1 = CustomButton(
         title: (name: "PostButton1", state: .normal),
@@ -93,7 +86,7 @@ final class FeedViewController: UIViewController {
         backgroundImage: (image: nil, state: nil),
         action: {
             [weak self] in
-            self?.tapPostView()
+            self?.buttonGoToPostViewControllerPressed()
         })
     
     // кнопка 2 для перехода на postViewController и сам переход
@@ -105,7 +98,7 @@ final class FeedViewController: UIViewController {
         backgroundImage: (image: nil, state: nil),
         action: {
             [weak self] in
-            self?.tapPostView ()
+            self?.buttonGoToPostViewControllerPressed()
         })
     
     let buttonsForPost: UIStackView = {
@@ -117,26 +110,39 @@ final class FeedViewController: UIViewController {
         return stack
     }()
     
+    //MARK: - init
+    init(coordinator: FeedCoordinator, model: FeedViewModel) {
+        self.coordinator = coordinator
+        self.feedViewModel = model
+        super.init(nibName: nil, bundle:  nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "FeedView"
         view.backgroundColor = .darkGray
         setup()
-        // включил FeedViewController в массив observer
-#if DEBUG
-        feedModel.subscribe(self)
-#endif
+        bindViewModel()
+        
+//        // включил FeedViewController в массив observer
+//      #if DEBUG
+//              feedModel.subscribe(self)
+//      #endif
+        
     }
     
-    
+    //MARK: - viewWillDisappear
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         //  feedModel.removeSubscriber(self)
     }
     
     //MARK: - setup and other func
-    
     func setup() {
         // кнопки на стэквью
         buttonsForPost.addArrangedSubview(self.guessTextField)
@@ -156,29 +162,46 @@ final class FeedViewController: UIViewController {
             .forEach({$0.isActive = true})
     }
     
-    func tapPostView() {
-        let postViewController = PostViewController()
-        self.navigationController?.pushViewController(postViewController, animated: true)
+    func buttonGoToPostViewControllerPressed() {
+        self.feedViewModel.changeState(interfaceEvent: .buttonGoToPostViewControllerPressed, controller: self)
+        
     }
     
-}
-
-
-
-#if DEBUG
-// Protocol Observer
-extension FeedViewController: Checkable {
-    
-    // принимаю результат и обрабатываю - тру зеленый, фолс красный, таймер - по умолчанию
-    func receiveResult(result: Bool) {
-        switch result {
-        case true:
-            showGuessResultLabel.backgroundColor = .systemGreen
-            
-        case false:
-            showGuessResultLabel.backgroundColor = .systemRed
-            
+    private func bindViewModel() {
+        feedViewModel.processInterfaceEvents = {
+            [weak self] state in
+            switch state {
+            case .resultGuessCheckTrue:
+                self?.showGuessResultLabel.backgroundColor = .systemGreen
+                _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+                    self?.showGuessResultLabel.backgroundColor = .darkGray}
+            case .resultGuessCheckFalse:
+                self?.showGuessResultLabel.backgroundColor = .systemRed
+                _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+                    self?.showGuessResultLabel.backgroundColor = .darkGray
+                }
+            case .goToPostViewController:
+                self?.coordinator.postViewController()
+                
+            }
         }
     }
 }
-#endif
+
+//#if DEBUG
+//// Protocol Observer
+//extension FeedViewController: Checkable {
+//    
+//    // принимаю результат и обрабатываю - тру зеленый, фолс красный, таймер - по умолчанию
+//    func receiveResult(result: Bool) {
+//        switch result {
+//        case true:
+//            showGuessResultLabel.backgroundColor = .systemGreen
+//            
+//        case false:
+//            showGuessResultLabel.backgroundColor = .systemRed
+//            
+//        }
+//    }
+//}
+//#endif
