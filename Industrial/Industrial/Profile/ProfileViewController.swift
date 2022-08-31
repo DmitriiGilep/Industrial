@@ -11,21 +11,11 @@ import StorageService
 
 final class ProfileViewController: UIViewController {
     
-    //MARK: - свойство UserService
-    
+    //MARK: - let and var
+    let coordinator: ProfileCoordinator
+
     var userService: UserService
     var userName: String
-    
-    //MARK: - инициализатор с параметрами UserService и именем пользователя
-    init(userService: UserService, userName: String) {
-        self.userService = userService
-        self.userName = userName
-        super.init(nibName: nil, bundle: nil)
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private var postDataArray = postData.postDataArray
     private var postPhotoName = ["1", "2", "3", "4"]
     
@@ -107,10 +97,20 @@ final class ProfileViewController: UIViewController {
     let avatarAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: nil)
     let xButtonAnimation = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut, animations: nil)
     
+    //MARK: - init
+    init(userService: UserService, userName: String, coordinator: ProfileCoordinator) {
+        self.userService = userService
+        self.userName = userName
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
+    
+    //MARK: - func
     @objc private func avatarChanging () {
-        
-        
         
         //MARK: - Анимация при помощи KeyFrames
         //        UIView.animateKeyframes(withDuration: 5, delay: 0, options: []) {
@@ -187,7 +187,7 @@ final class ProfileViewController: UIViewController {
     }
     
     private func setRadius() {
-        avatarImageView.layer.cornerRadius = avatarImageView.bounds.width/2
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.width/2
     }
     
     private func setAvatarImageViewAndTransparentViewToView() {
@@ -234,7 +234,7 @@ final class ProfileViewController: UIViewController {
         self.profileTableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: ProfileHeaderView.self))
         self.profileTableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: String(describing: PhotosTableViewCell.self))
         self.profileTableView.register(PostTableViewCell.self, forCellReuseIdentifier: String(describing: PostTableViewCell.self))
-        profileTableView.rowHeight = UITableView.automaticDimension
+   //     profileTableView.rowHeight = UITableView.automaticDimension
         profileTableView.estimatedRowHeight = 310
         
         NSLayoutConstraint.activate([
@@ -258,12 +258,11 @@ final class ProfileViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         self.view.addSubview(profileTableView)
         setTable()
         setAvatarImageViewToProfileView()
-        // this method maybe create bounds which are consequently used in viewWillAppear by setRadius
+//         this method maybe create bounds which are consequently used in viewWillAppear by setRadius
         self.view.layoutIfNeeded()
         
     }
@@ -298,17 +297,16 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileHeaderView.self), for: indexPath)
             
-            
             //надо добавлять не на cell, а на cell.contentView, иначе contentView при первом показе перекрывает view и она неактивна
-            
             cell.contentView.addSubview(profileHeaderView)
             NSLayoutConstraint.activate([
                 profileHeaderView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
                 profileHeaderView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
                 profileHeaderView.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
                 profileHeaderView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
-                profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
+          //      profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
             ])
+           
             return cell
             
         } else if indexPath.section == 1 {
@@ -340,8 +338,18 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            let photosViewController = PhotosViewController()
-            navigationController?.pushViewController(photosViewController, animated: true)
+            coordinator.photosViewController(profileViewController: self)
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var height:CGFloat = CGFloat()
+        if indexPath.section == 0 {
+            height = 220
+        } else {
+            height = UITableView.automaticDimension
+        }
+        return height
+    }
+    
 }

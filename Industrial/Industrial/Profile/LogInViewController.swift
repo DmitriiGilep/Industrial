@@ -15,6 +15,8 @@ protocol LoginViewControllerDelegate: AnyObject {
 
 final class LogInViewController: UIViewController {
     
+    let coordinator: ProfileCoordinator
+    
     // переменная делегата со слабой ссылкой
     weak var delegate: LoginViewControllerDelegate?
     
@@ -100,19 +102,21 @@ final class LogInViewController: UIViewController {
         clipsToBounds: true,
         action: {
             [weak self] in
-            guard let name = self?.nameTextField.text else { return  }
-#if DEBUG
-            let userService = TestUserService()
-#else
-            let userService = CurrentUserService()
-#endif
-            let profileViewController = ProfileViewController(userService: userService, userName: name)
-            
             // принимаю данные ввода логина и пароля с forced unwrapping, так как значение text как минимум ""
             self?.delegate?.checkLogin(login: (self?.nameTextField.text!)!, password: (self?.passwordTextField.text)!)
             
-            self?.navigationController?.pushViewController(profileViewController, animated: true)
+            self?.coordinator.profileViewController(coordinator: (self?.coordinator)!)
         })
+    
+    //MARK: - init
+    init(coordinator: ProfileCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle:  nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private func addAllViews() {
         

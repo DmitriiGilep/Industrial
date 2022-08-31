@@ -12,7 +12,7 @@ final class PhotosViewController: UIViewController {
     
     private let imagePublisherFacade = ImagePublisherFacade()
     
-    // массив имен картинок из xcasset (если делать через
+    // массив имен картинок из xcasset
     private let imagesNamesArrayXCasset = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     
     // экземпляр класса, в котором будет массив для хранения всех картинок imagesArray
@@ -79,8 +79,6 @@ final class PhotosViewController: UIViewController {
 }
 
 extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ImageLibrarySubscriber {
-    
-    
     
     func receive(images: [UIImage]) {
         
