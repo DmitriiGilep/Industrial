@@ -183,7 +183,6 @@
 				CE094ACD27CFA1F20076C5A8 /* ProfileViewController.swift */,
 				CECAF60228367EE700258110 /* PhotosTableViewCell.swift */,
 				CECAF6042837CCCF00258110 /* PhotosViewController.swift */,
-				CECAF6062837D9CC00258110 /* PhotosCollectionViewCell.swift */,
 				CEC0B89B283C00CC00041DC5 /* Photos.swift */,
 				CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */,
 				CE750989289826D1004F76B6 /* User.swift */,
@@ -262,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				CED0730628A920AD00DE68DD /* LoginFactory.swift */,
+				CECAF6062837D9CC00258110 /* PhotosCollectionViewCell.swift */,
 				CED0730828A9212600DE68DD /* MyLoginFactory.swift */,
 				CEC254A428B76CA300FD6852 /* NavControllerFactory.swift */,
 				CEC254AA28B7905100FD6852 /* ViewControllerFactory.swift */,
