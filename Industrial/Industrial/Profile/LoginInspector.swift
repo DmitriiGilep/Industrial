@@ -11,6 +11,7 @@ import UIKit
 
 final class LoginInspector: LoginViewControllerDelegate {
     
+    
     func checkLogin(login: String, password: String) -> Bool {
         let checker = Checker.shared
         return checker.checker(loginInserted: login, passwordInserted: password)

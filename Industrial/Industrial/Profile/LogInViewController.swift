@@ -20,6 +20,8 @@ final class LogInViewController: UIViewController {
     // переменная делегата со слабой ссылкой
     weak var delegate: LoginViewControllerDelegate?
     
+    let loginInspector = LoginInspector()
+    
     var logInScrollView: UIScrollView = {
         var logInScroll = UIScrollView()
         logInScroll.backgroundColor = .white
@@ -32,6 +34,7 @@ final class LogInViewController: UIViewController {
     var logInContentView: UIView = {
         let logInView = UIView()
         logInView.backgroundColor = .white
+        logInView.contentMode = .top
         logInView.translatesAutoresizingMaskIntoConstraints = false
         return logInView
     }()
@@ -85,7 +88,7 @@ final class LogInViewController: UIViewController {
         passwordText.tintColor = UIColor(named: "AccentColor")
         passwordText.autocapitalizationType = .none
         passwordText.placeholder = "Password"
-        passwordText.isSecureTextEntry = true
+        passwordText.isSecureTextEntry = false
         passwordText.translatesAutoresizingMaskIntoConstraints = false
         return passwordText
     }()
@@ -103,10 +106,88 @@ final class LogInViewController: UIViewController {
         action: {
             [weak self] in
             // принимаю данные ввода логина и пароля с forced unwrapping, так как значение text как минимум ""
-            self?.delegate?.checkLogin(login: (self?.nameTextField.text!)!, password: (self?.passwordTextField.text)!)
-            
-            self?.coordinator.profileViewController(coordinator: (self?.coordinator)!)
+//            if let resultOfCheck = self?.delegate?.checkLogin(login: (self?.nameTextField.text)!, password: (self?.passwordTextField.text)!) {
+//                print("\(resultOfCheck)")
+//            } else { print("result is nil")}
+            guard let resultOfCheck = self?.loginInspector.checkLogin(login: (self?.nameTextField.text)!, password: (self?.passwordTextField.text)!) else {
+                return
+            }
+            if resultOfCheck {
+                self?.coordinator.profileViewController(coordinator: (self?.coordinator)!)
+            }
         })
+    
+    let randomPasswordTextField: UITextField = {
+        let passwordText = UITextField()
+        passwordText.backgroundColor = .systemGray6
+        //passwordText.layer.borderWidth = 0.5
+        //passwordText.layer.borderColor = UIColor.lightGray.cgColor
+        passwordText.textColor = UIColor.black
+        passwordText.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        passwordText.tintColor = UIColor(named: "AccentColor")
+        passwordText.autocapitalizationType = .none
+        passwordText.placeholder = "A random password"
+        passwordText.isSecureTextEntry = true
+        passwordText.translatesAutoresizingMaskIntoConstraints = false
+        return passwordText
+    }()
+    
+    private lazy var generateRandomPasswordButton = CustomButton(
+        title: (name: "Generate a random password", state: nil),
+        titleColor: (color: nil, state: nil),
+        titleLabelColor: .white,
+        titleFont: nil,
+        cornerRadius: 10,
+        backgroundColor: .blue,
+        backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
+        clipsToBounds: true,
+        action: {
+            [weak self] in
+            let generateRandomPassword = GenerateRandomPassword()
+            self?.randomPasswordTextField.text = generateRandomPassword.randomPassword()
+        })
+
+    private lazy var bruteForceRandomPasswordButton = CustomButton(
+        title: (name: "Hack and use the random password", state: nil),
+        titleColor: (color: nil, state: nil),
+        titleLabelColor: .red,
+        titleFont: nil,
+        cornerRadius: 10,
+        backgroundColor: .systemMint,
+        backgroundImage: (image: nil, state: nil),
+        clipsToBounds: true,
+        action: {
+            [weak self] in
+            let bruteForce = BruteForce()
+            let queueForbruteForce = DispatchQueue(label: "BruteForce")
+            self?.activityIndicatior.startAnimating()
+            var password = self?.randomPasswordTextField.text
+            self?.generateRandomPasswordButton.isEnabled = false
+            queueForbruteForce.async {
+                let unLockedPassword = bruteForce.bruteForce(passwordToUnlock: password!)
+                DispatchQueue.main.async {
+                    self?.activityIndicatior.stopAnimating()
+                    self?.passwordTextField.text = unLockedPassword
+                    self?.passwordTextField.isSecureTextEntry = false
+                    self?.randomPasswordTextField.isSecureTextEntry = false
+                    _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+                        self?.passwordTextField.isSecureTextEntry = true
+                        self?.randomPasswordTextField.isSecureTextEntry = true
+                        self?.generateRandomPasswordButton.isEnabled = true
+
+                    }
+                }
+            }
+        })
+    
+    
+    private let activityIndicatior: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .medium)
+        activity.color = .red
+ //       activity.isHidden = false
+        activity.translatesAutoresizingMaskIntoConstraints = false
+        return activity
+    }()
     
     //MARK: - init
     init(coordinator: ProfileCoordinator) {
@@ -120,13 +201,17 @@ final class LogInViewController: UIViewController {
     
     private func addAllViews() {
         
-        self.view.addSubview(logInScrollView)
-        self.logInScrollView.addSubview(logInContentView)
-        self.logInContentView.addSubview(vkImageView)
-        self.logInContentView.addSubview(loginField)
-        self.logInContentView.addSubview(logInButton)
-        self.loginField.addSubview(nameTextField)
-        self.loginField.addSubview(passwordTextField)
+        view.addSubview(logInScrollView)
+        logInScrollView.addSubview(logInContentView)
+        logInContentView.addSubview(vkImageView)
+        logInContentView.addSubview(loginField)
+        logInContentView.addSubview(logInButton)
+        loginField.addSubview(nameTextField)
+        loginField.addSubview(passwordTextField)
+        logInContentView.addSubview(randomPasswordTextField)
+        logInContentView.addSubview(generateRandomPasswordButton)
+        logInContentView.addSubview(bruteForceRandomPasswordButton)
+        passwordTextField.addSubview(activityIndicatior)
         
     }
     
@@ -142,8 +227,10 @@ final class LogInViewController: UIViewController {
                 logInContentView.bottomAnchor.constraint(equalTo: self.logInScrollView.bottomAnchor),
                 logInContentView.leadingAnchor.constraint(equalTo: self.logInScrollView.leadingAnchor),
                 logInContentView.trailingAnchor.constraint(equalTo: self.logInScrollView.trailingAnchor),
-                logInContentView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-                logInContentView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+                // не скролится по ширине в этом случае
+                logInContentView.widthAnchor.constraint(equalTo: self.logInScrollView.widthAnchor),
+                // высота не нужна, если ставить bottomAnchor для нижней вью, чтобы contentView настраивалось по размерам своего контента
+                //   logInContentView.heightAnchor.constraint(equalToConstant: 1000),
                 
                 vkImageView.centerXAnchor.constraint(equalTo: self.logInContentView.centerXAnchor),
                 vkImageView.topAnchor.constraint(equalTo: self.logInContentView.topAnchor, constant: 120),
@@ -161,24 +248,48 @@ final class LogInViewController: UIViewController {
                 nameTextField.heightAnchor.constraint(equalToConstant: 50),
                 
                 passwordTextField.leadingAnchor.constraint(equalTo: self.loginField.leadingAnchor, constant: 10),
-                //           passwordTextField.trailingAnchor.constraint(equalTo: self.loginField.trailingAnchor),
+                passwordTextField.trailingAnchor.constraint(equalTo: self.loginField.trailingAnchor),
                 passwordTextField.bottomAnchor.constraint(equalTo: self.loginField.bottomAnchor),
                 passwordTextField.heightAnchor.constraint(equalToConstant: 50),
+                
+                activityIndicatior.centerYAnchor.constraint(equalTo: self.passwordTextField.centerYAnchor),
+                activityIndicatior.centerXAnchor.constraint(equalTo: self.passwordTextField.centerXAnchor),
                 
                 logInButton.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
                 logInButton.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
                 logInButton.topAnchor.constraint(equalTo: self.loginField.bottomAnchor, constant: 16),
                 logInButton.heightAnchor.constraint(equalToConstant: 50),
                 
+                randomPasswordTextField.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
+                randomPasswordTextField.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
+                randomPasswordTextField.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 16),
+                randomPasswordTextField.heightAnchor.constraint(equalToConstant: 50),
+                
+                generateRandomPasswordButton.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
+                generateRandomPasswordButton.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
+                generateRandomPasswordButton.topAnchor.constraint(equalTo: self.randomPasswordTextField.bottomAnchor, constant: 16),
+                generateRandomPasswordButton.heightAnchor.constraint(equalToConstant: 50),
+                
+                bruteForceRandomPasswordButton.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
+                bruteForceRandomPasswordButton.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
+                bruteForceRandomPasswordButton.topAnchor.constraint(equalTo: self.generateRandomPasswordButton.bottomAnchor, constant: 16),
+                bruteForceRandomPasswordButton.heightAnchor.constraint(equalToConstant: 30),
+                // нужно ставить bottomAnchor для нижней вью, чтобы contentView настраивалось по размерам своего контента
+                bruteForceRandomPasswordButton.bottomAnchor.constraint(equalTo: logInContentView.bottomAnchor, constant: -16)
             ]
         )
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        view.backgroundColor = .systemBlue
         addAllViews()
         setAllConstraints()
-        
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         let notificationCentre = NotificationCenter.default
         notificationCentre.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         notificationCentre.addObserver(self, selector: #selector(handleKeyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -187,7 +298,7 @@ final class LogInViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+
         let notificationCentre = NotificationCenter.default
         notificationCentre.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         notificationCentre.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)

@@ -11,12 +11,13 @@ import iOSIntPackage
 final class PhotosViewController: UIViewController {
     
     private let imagePublisherFacade = ImagePublisherFacade()
+    let imageProcessor = ImageProcessor()
     
     // массив имен картинок из xcasset
-    private let imagesNamesArrayXCasset = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    //    private let imagesNamesArrayXCasset = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     
     // экземпляр класса, в котором будет массив для хранения всех картинок imagesArray
-    private var photoData = PhotoData()
+    private var photoData = PhotoData(photos: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
     
     private var photosCollectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -43,7 +44,7 @@ final class PhotosViewController: UIViewController {
     private func setUP() {
         self.title = "Photo Gallery"
         // загружаю картинки из xcasset в единый массив photoData
-        photoData.createPhotoDataInt(photo: imagesNamesArrayXCasset)
+        //        photoData.createPhotoDataInt(photo: imagesNamesArrayXCasset)
         self.view.addSubview(photosCollectionView)
         
         NSLayoutConstraint.activate([
@@ -54,7 +55,30 @@ final class PhotosViewController: UIViewController {
             photosCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
             
         ])
+    }
+    
+    func applyFilterToImagesArrayWithTimer() {
+        let start = DispatchTime.now()
+        imageProcessor.processImagesOnThread(
+            sourceImages: self.photoData.imagesArray,
+            filter: .colorInvert,
+            qos: .background) {
+                outPutImages in
+                self.photoData.imagesArray = outPutImages.compactMap { cgImage -> UIImage in return UIImage(cgImage: cgImage!) }
+                // конец выполнения кода зафиксировал внутри completion, так как completion выполняется самостоятельно не в главном потоке позже запуска функции
+                let end = DispatchTime.now()
+                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
+                let timeInterval = Double(nanoTime) / 1_000_000_000
+                print("!!!TIME FOR processImagesOnThread \(timeInterval)")
+            }
         
+        photoData.imageArrayUpdateStatus = {
+            [weak self] in
+            DispatchQueue.main.async { // вернул обработку UIKit метода reloadData в main поток
+                self?.photosCollectionView.reloadData()
+               
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -62,32 +86,32 @@ final class PhotosViewController: UIViewController {
         setUP()
         navigationController?.navigationBar.isHidden = false
         // подписал на протокол = добавление контроллера в массив observer
-        imagePublisherFacade.subscribe(self)
+        //imagePublisherFacade.subscribe(self)
         // вызов функции по добавлению в массив observer картинок для последующей его передачи в функцию receive
-        imagePublisherFacade.addImagesWithTimer(time: 5, repeat: 10)
-        
+        //       imagePublisherFacade.addImagesWithTimer(time: 5, repeat: 10)
+        applyFilterToImagesArrayWithTimer()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
+        
         // удаляет из подписки и обнуляет массив observer
-        imagePublisherFacade.removeSubscription(for: self)
-        imagePublisherFacade.rechargeImageLibrary()
+        //        imagePublisherFacade.removeSubscription(for: self)
+        //        imagePublisherFacade.rechargeImageLibrary()
     }
     
 }
 
-extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ImageLibrarySubscriber {
+extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    func receive(images: [UIImage]) {
-        
-        // добавил в общий массив картинок полученные images
-        photoData.createPhotoDataUIImage(photo: images)
-        // обновил ячейки, чтобы добавить новые картинки
-        photosCollectionView.reloadData()
-    }
-    
+    //    func receive(images: [UIImage]) {
+    //
+    //        // добавил в общий массив картинок полученные images
+    //   //     photoData.createPhotoDataUIImage(photo: images)
+    //        // обновил ячейки, чтобы добавить новые картинки
+    //        photosCollectionView.reloadData()
+    //    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoData.imagesArray.count
@@ -97,16 +121,17 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as? PhotosCollectionViewCell else {
             return UICollectionViewCell()
         }
-        //поменял порядок получения картинок в ячейки  через общий массив
+        
         let imageForCell = photoData.imagesArray[indexPath.row]
         cell.imageForCell = imageForCell
         
-        let imageProcessor = ImageProcessor()
-        if let image = cell.photoImageView.image { imageProcessor.processImage(sourceImage: image, filter: .chrome, completion: {filteredPicture in cell.photoImageView.image = filteredPicture})
-        }
+        
+        //        if let image = cell.photoImageView.image { imageProcessor.processImage(sourceImage: image, filter: .chrome, completion: {filteredPicture in cell.photoImageView.image = filteredPicture})
+        //        }
         
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let totalPadding: CGFloat = 8*4
         let numberOfCellInRow : CGFloat = 3

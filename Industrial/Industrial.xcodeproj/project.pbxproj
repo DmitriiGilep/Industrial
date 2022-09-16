@@ -30,6 +30,8 @@
 		CEC5B094289C2AAA0018A46D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B093289C2AA90018A46D /* UserService.swift */; };
 		CEC5B096289C2AE10018A46D /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B095289C2AE10018A46D /* TestUserService.swift */; };
 		CEC5B098289C2C050018A46D /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC5B097289C2C050018A46D /* CurrentUserService.swift */; };
+		CEC8627928CA241800799361 /* BruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC8627828CA241800799361 /* BruteForce.swift */; };
+		CEC8627B28CA273000799361 /* GenerateRandomPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC8627A28CA273000799361 /* GenerateRandomPassword.swift */; };
 		CECA1FDB28814911000595A4 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = CECA1FDA28814911000595A4 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CECA1FDE28814911000595A4 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECA1FD828814910000595A4 /* StorageService.framework */; };
 		CECA1FDF28814911000595A4 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CECA1FD828814910000595A4 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -100,6 +102,8 @@
 		CEC5B093289C2AA90018A46D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		CEC5B095289C2AE10018A46D /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		CEC5B097289C2C050018A46D /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
+		CEC8627828CA241800799361 /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
+		CEC8627A28CA273000799361 /* GenerateRandomPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRandomPassword.swift; sourceTree = "<group>"; };
 		CECA1FD828814910000595A4 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECA1FDA28814911000595A4 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		CECAF5FC28316D7C00258110 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Post.swift; path = ../Post/Post.swift; sourceTree = "<group>"; };
@@ -183,7 +187,6 @@
 				CE094ACD27CFA1F20076C5A8 /* ProfileViewController.swift */,
 				CECAF60228367EE700258110 /* PhotosTableViewCell.swift */,
 				CECAF6042837CCCF00258110 /* PhotosViewController.swift */,
-				CECAF6062837D9CC00258110 /* PhotosCollectionViewCell.swift */,
 				CEC0B89B283C00CC00041DC5 /* Photos.swift */,
 				CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */,
 				CE750989289826D1004F76B6 /* User.swift */,
@@ -191,6 +194,8 @@
 				CEC5B095289C2AE10018A46D /* TestUserService.swift */,
 				CEC5B097289C2C050018A46D /* CurrentUserService.swift */,
 				CED0730028A813AD00DE68DD /* Checker.swift */,
+				CEC8627828CA241800799361 /* BruteForce.swift */,
+				CEC8627A28CA273000799361 /* GenerateRandomPassword.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				CED0730628A920AD00DE68DD /* LoginFactory.swift */,
+				CECAF6062837D9CC00258110 /* PhotosCollectionViewCell.swift */,
 				CED0730828A9212600DE68DD /* MyLoginFactory.swift */,
 				CEC254A428B76CA300FD6852 /* NavControllerFactory.swift */,
 				CEC254AA28B7905100FD6852 /* ViewControllerFactory.swift */,
@@ -483,6 +489,7 @@
 				CED0730928A9212600DE68DD /* MyLoginFactory.swift in Sources */,
 				CEC254A928B777F500FD6852 /* ProfileCoordinator.swift in Sources */,
 				CECD182C27B83C8B00D89B3F /* AppDelegate.swift in Sources */,
+				CEC8627928CA241800799361 /* BruteForce.swift in Sources */,
 				CED0730328A8173200DE68DD /* LoginInspector.swift in Sources */,
 				CECAF60328367EE700258110 /* PhotosTableViewCell.swift in Sources */,
 				CECAF6072837D9CC00258110 /* PhotosCollectionViewCell.swift in Sources */,
@@ -503,6 +510,7 @@
 				CE094ACE27CFA1F20076C5A8 /* ProfileViewController.swift in Sources */,
 				CECAF6052837CCCF00258110 /* PhotosViewController.swift in Sources */,
 				CEC254A728B777DD00FD6852 /* FeedCoordinator.swift in Sources */,
+				CEC8627B28CA273000799361 /* GenerateRandomPassword.swift in Sources */,
 				CEBC07CA2822CE50009B3AC4 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
