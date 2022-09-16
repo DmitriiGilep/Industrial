@@ -34,6 +34,7 @@ final class LogInViewController: UIViewController {
     var logInContentView: UIView = {
         let logInView = UIView()
         logInView.backgroundColor = .white
+        logInView.contentMode = .top
         logInView.translatesAutoresizingMaskIntoConstraints = false
         return logInView
     }()
@@ -179,6 +180,7 @@ final class LogInViewController: UIViewController {
             }
         })
     
+    
     private let activityIndicatior: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: .medium)
         activity.color = .red
@@ -225,8 +227,10 @@ final class LogInViewController: UIViewController {
                 logInContentView.bottomAnchor.constraint(equalTo: self.logInScrollView.bottomAnchor),
                 logInContentView.leadingAnchor.constraint(equalTo: self.logInScrollView.leadingAnchor),
                 logInContentView.trailingAnchor.constraint(equalTo: self.logInScrollView.trailingAnchor),
-                logInContentView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-                logInContentView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+                // не скролится по ширине в этом случае
+                logInContentView.widthAnchor.constraint(equalTo: self.logInScrollView.widthAnchor),
+                // высота не нужна, если ставить bottomAnchor для нижней вью, чтобы contentView настраивалось по размерам своего контента
+                //   logInContentView.heightAnchor.constraint(equalToConstant: 1000),
                 
                 vkImageView.centerXAnchor.constraint(equalTo: self.logInContentView.centerXAnchor),
                 vkImageView.topAnchor.constraint(equalTo: self.logInContentView.topAnchor, constant: 120),
@@ -270,15 +274,22 @@ final class LogInViewController: UIViewController {
                 bruteForceRandomPasswordButton.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
                 bruteForceRandomPasswordButton.topAnchor.constraint(equalTo: self.generateRandomPasswordButton.bottomAnchor, constant: 16),
                 bruteForceRandomPasswordButton.heightAnchor.constraint(equalToConstant: 30),
+                // нужно ставить bottomAnchor для нижней вью, чтобы contentView настраивалось по размерам своего контента
+                bruteForceRandomPasswordButton.bottomAnchor.constraint(equalTo: logInContentView.bottomAnchor, constant: -16)
             ]
         )
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        view.backgroundColor = .systemBlue
         addAllViews()
         setAllConstraints()
-        
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         let notificationCentre = NotificationCenter.default
         notificationCentre.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         notificationCentre.addObserver(self, selector: #selector(handleKeyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -287,7 +298,7 @@ final class LogInViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+
         let notificationCentre = NotificationCenter.default
         notificationCentre.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         notificationCentre.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
