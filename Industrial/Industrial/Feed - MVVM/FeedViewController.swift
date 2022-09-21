@@ -11,16 +11,41 @@ final class FeedViewController: UIViewController {
     
     //MARK: - let and var
     
-//#if DEBUG
-//    // Protocol Observer, класс observer
-//    let feedModel = FeedModel()
-//#endif
+    //#if DEBUG
+    //    // Protocol Observer, класс observer
+    //    let feedModel = FeedModel()
+    //#endif
     
     
     let coordinator: FeedCoordinator
     var feedViewModel = FeedViewModel()
+    private var timer0: Timer?
+    private var timer1: Timer?
+    private var timer2: Timer?
     
     let titleForPost = "PostViewController"
+    
+    let reminderLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .white
+        label.textColor = .black
+        label.text = "Пароль начинается на букву 'п'"
+        label.layer.cornerRadius = 10
+        label.clipsToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let timerLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .white
+        label.textColor = .systemCyan
+        label.layer.cornerRadius = 10
+        label.textAlignment = .center
+        label.clipsToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     let guessTextField: UITextField = {
         let textField = UITextField()
@@ -44,18 +69,18 @@ final class FeedViewController: UIViewController {
         action: {
             [weak self] in
             
-//#if DEBUG
-//            // Protocol Observer
-//            guard let text = self?.guessTextField.text else { return }
-//            self?.feedModel.transferAndCheckPassword(passwordForCheck: text)
-//            _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
-//                self?.showGuessResultLabel.backgroundColor = .darkGray
-//            }
-//
-//#else
+            //#if DEBUG
+            //            // Protocol Observer
+            //            guard let text = self?.guessTextField.text else { return }
+            //            self?.feedModel.transferAndCheckPassword(passwordForCheck: text)
+            //            _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+            //                self?.showGuessResultLabel.backgroundColor = .darkGray
+            //            }
+            //
+            //#else
             
             self?.feedViewModel.changeState(interfaceEvent: .checkGuessButtonPressed, controller: self!)
-//#endif
+            //#endif
         })
     
     let showGuessResultLabel: UILabel = {
@@ -128,11 +153,13 @@ final class FeedViewController: UIViewController {
         view.backgroundColor = .darkGray
         setup()
         bindViewModel()
+        remindPassword()
         
-//        // включил FeedViewController в массив observer
-//      #if DEBUG
-//              feedModel.subscribe(self)
-//      #endif
+        
+        //        // включил FeedViewController в массив observer
+        //      #if DEBUG
+        //              feedModel.subscribe(self)
+        //      #endif
         
     }
     
@@ -150,6 +177,8 @@ final class FeedViewController: UIViewController {
         buttonsForPost.addArrangedSubview(self.showGuessResultLabel)
         buttonsForPost.addArrangedSubview(self.button1)
         buttonsForPost.addArrangedSubview(self.button2)
+        view.addSubview(reminderLabel)
+        view.addSubview(timerLabel)
         
         // стэквью на вью
         view.addSubview(buttonsForPost)
@@ -157,14 +186,55 @@ final class FeedViewController: UIViewController {
             buttonsForPost.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsForPost.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             buttonsForPost.widthAnchor.constraint(equalToConstant: 300),
-            buttonsForPost.heightAnchor.constraint(equalToConstant: 300)
+            buttonsForPost.heightAnchor.constraint(equalToConstant: 300),
+            
+            reminderLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            reminderLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            reminderLabel.widthAnchor.constraint(equalToConstant: 250),
+            reminderLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            timerLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            timerLabel.widthAnchor.constraint(equalToConstant: 30),
+            timerLabel.heightAnchor.constraint(equalToConstant: 30),
+            
         ]
             .forEach({$0.isActive = true})
+        
+        view.bringSubviewToFront(reminderLabel)
+        reminderLabel.isHidden = true
     }
     
     func buttonGoToPostViewControllerPressed() {
         self.feedViewModel.changeState(interfaceEvent: .buttonGoToPostViewControllerPressed, controller: self)
         
+    }
+    
+    private func remindPassword() {
+        var count = 0
+        
+        timer0 = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer0 in
+            count += 1
+            self.timerLabel.text = String(count)
+            
+            if self.checkGuessButton.isHighlighted {
+                self.timer0?.invalidate()
+                self.timer0 = nil
+            }
+            
+            if count == 15 {
+                self.timer0?.invalidate()
+                self.timer0 = nil
+            }
+        }
+        
+        timer1 = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { timer1 in
+            self.reminderLabel.isHidden = false
+        }
+        
+        timer2 = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { timer2 in
+            self.reminderLabel.isHidden = true
+        }
     }
     
     private func bindViewModel() {
