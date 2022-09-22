@@ -230,10 +230,14 @@ final class FeedViewController: UIViewController {
         
         timer1 = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { timer1 in
             self.reminderLabel.isHidden = false
+            self.timer1?.invalidate()
+            self.timer1 = nil
         }
         
         timer2 = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { timer2 in
             self.reminderLabel.isHidden = true
+            self.timer2?.invalidate()
+            self.timer2 = nil
         }
     }
     
