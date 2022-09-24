@@ -10,8 +10,9 @@ import iOSIntPackage
 
 final class PhotosViewController: UIViewController {
     
-    private let imagePublisherFacade = ImagePublisherFacade()
+//    private let imagePublisherFacade = ImagePublisherFacade()
     let imageProcessor = ImageProcessor()
+    let profileErrorsProcessor = ProfileErrorsProcessor()
     
     // массив имен картинок из xcasset
     //    private let imagesNamesArrayXCasset = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
@@ -58,6 +59,8 @@ final class PhotosViewController: UIViewController {
     }
     
     func applyFilterToImagesArrayWithTimer() {
+ //       guard var images = self.photoData.imagesArray else {return}
+        
         let start = DispatchTime.now()
         imageProcessor.processImagesOnThread(
             sourceImages: self.photoData.imagesArray,
@@ -114,6 +117,14 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     //    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        if let numberOfItems = photoData.imagesArray?.count {
+//            print(numberOfItems)
+//            return numberOfItems
+//        } else {
+//            print("numberOfItems 1")
+//            return 1
+//        }
+        
         return photoData.imagesArray.count
     }
     
@@ -121,6 +132,17 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as? PhotosCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+//        imageForCell(images: photoData.imagesArray, indexPath: indexPath) { [weak self] result in
+//            switch result {
+//            case .success(let image):
+//                cell.imageForCell = image
+//                print("name of image is \(String(describing: cell.imageForCell))")
+//            case .failure(let error):
+//                let alertView = self?.profileErrorsProcessor.processErrors(error: error)
+//                self?.present(alertView!, animated: true, completion: nil)
+//            }
+//        }
         
         let imageForCell = photoData.imagesArray[indexPath.row]
         cell.imageForCell = imageForCell
@@ -131,6 +153,14 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         
         return cell
     }
+    
+//    func imageForCell(images: [UIImage]?, indexPath: IndexPath, completion: @escaping (Result<UIImage, ProfileErrorsList>) -> Void) {
+//        if let image = photoData.imagesArray?[indexPath.row] {
+//            completion(.success(image))
+//        } else  {
+//            completion(.failure(ProfileErrorsList.noImagesForCollection))
+//        }
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let totalPadding: CGFloat = 8*4

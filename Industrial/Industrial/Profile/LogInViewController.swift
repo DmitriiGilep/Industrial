@@ -7,16 +7,16 @@
 
 import UIKit
 
-// MARK: - создал протокол делегата, вводится 2 параметра и возвращает значение Bool
+// создал протокол делегата, вводится 2 параметра и возвращает значение Bool
 protocol LoginViewControllerDelegate: AnyObject {
     func checkLogin(login: String, password: String) -> Bool
 }
 
-
 final class LogInViewController: UIViewController {
     
     let coordinator: ProfileCoordinator
-    
+    let profileErrorsProcessor = ProfileErrorsProcessor()
+
     // переменная делегата со слабой ссылкой
     weak var delegate: LoginViewControllerDelegate?
     
@@ -93,7 +93,6 @@ final class LogInViewController: UIViewController {
         return passwordText
     }()
     
-    // заменил инциализацию кнопки через класс CustomButton
     private lazy var logInButton = CustomButton(
         title: (name: "Log In", state: nil),
         titleColor: (color: nil, state: nil),
@@ -103,18 +102,31 @@ final class LogInViewController: UIViewController {
         backgroundColor: .blue,
         backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
         clipsToBounds: true,
-        action: {
-            [weak self] in
+        action: { [weak self] in
             // принимаю данные ввода логина и пароля с forced unwrapping, так как значение text как минимум ""
-//            if let resultOfCheck = self?.delegate?.checkLogin(login: (self?.nameTextField.text)!, password: (self?.passwordTextField.text)!) {
-//                print("\(resultOfCheck)")
-//            } else { print("result is nil")}
-            guard let resultOfCheck = self?.loginInspector.checkLogin(login: (self?.nameTextField.text)!, password: (self?.passwordTextField.text)!) else {
-                return
+
+            do {
+                try self!.checkLogInAndPassword(logIn: self!.nameTextField.text!, password: self!.passwordTextField.text!)
+            } catch {
+                if let catchedError = error as? ProfileErrorsList {
+                    let alertView = self!.profileErrorsProcessor.processErrors(error: catchedError)
+                    self?.present(alertView, animated: true, completion: nil)
+                }
             }
-            if resultOfCheck {
-                self?.coordinator.profileViewController(coordinator: (self?.coordinator)!)
-            }
+            
+            
+            let resultOfCheck = self?.loginInspector.checkLogin(login: (self?.nameTextField.text)!, password: (self?.passwordTextField.text)!)
+         
+            //   if let resultOfCheck = self?.delegate?.checkLogin(login: (self?.nameTextField.text)!, password: (self?.passwordTextField.text)!) {
+         //                print("\(resultOfCheck)")
+         //            } else { print("result is nil")}
+                     // проверяю на пустые поля
+//            guard let resultOfCheck = self?.loginInspector.checkLogin(login: (self?.nameTextField.text)!, password: (self?.passwordTextField.text)!) else {
+//                return
+//            }
+//            if resultOfCheck {
+//                self?.coordinator.profileViewController(coordinator: (self?.coordinator)!)
+//            }
         })
     
     let randomPasswordTextField: UITextField = {
@@ -200,7 +212,6 @@ final class LogInViewController: UIViewController {
     }
     
     private func addAllViews() {
-        
         view.addSubview(logInScrollView)
         logInScrollView.addSubview(logInContentView)
         logInContentView.addSubview(vkImageView)
@@ -212,7 +223,6 @@ final class LogInViewController: UIViewController {
         logInContentView.addSubview(generateRandomPasswordButton)
         logInContentView.addSubview(bruteForceRandomPasswordButton)
         passwordTextField.addSubview(activityIndicatior)
-        
     }
     
     private func setAllConstraints() {
@@ -279,6 +289,29 @@ final class LogInViewController: UIViewController {
             ]
         )
     }
+    
+    //функция выбрасывает ошибки по enum LogInError
+    private func checkLogInAndPassword(logIn: String, password: String) throws {
+        
+        let resultOfCheck = loginInspector.checkLogin(login: (nameTextField.text)!, password: (passwordTextField.text)!)
+        
+        if resultOfCheck {
+            coordinator.profileViewController(coordinator: coordinator)
+        }
+          else if  logIn.isEmpty && password.isEmpty {
+            throw ProfileErrorsList.noLogInNoPassword
+        } else if logIn.isEmpty {
+            throw ProfileErrorsList.noLogIn
+        } else if password.isEmpty {
+            throw ProfileErrorsList.noPassword
+        } else if !logIn.isEmpty && !password.isEmpty {
+            throw ProfileErrorsList.wrongPassword
+        } else {
+            throw ProfileErrorsList.unknownError
+        }
+    }
+    
+    
     
     override func viewDidLoad() {
         view.backgroundColor = .systemBlue

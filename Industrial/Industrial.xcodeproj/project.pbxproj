@@ -49,6 +49,7 @@
 		CED0730728A920AD00DE68DD /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0730628A920AD00DE68DD /* LoginFactory.swift */; };
 		CED0730928A9212600DE68DD /* MyLoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0730828A9212600DE68DD /* MyLoginFactory.swift */; };
 		CED0730C28AA901D00DE68DD /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = CED0730B28AA901D00DE68DD /* iOSIntPackage */; };
+		CEDE0BC728DED73800BD3C7C /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE0BC628DED73800BD3C7C /* ProfileModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +123,7 @@
 		CED0730228A8173200DE68DD /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		CED0730628A920AD00DE68DD /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		CED0730828A9212600DE68DD /* MyLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLoginFactory.swift; sourceTree = "<group>"; };
+		CEDE0BC628DED73800BD3C7C /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 				CED0730028A813AD00DE68DD /* Checker.swift */,
 				CEC8627828CA241800799361 /* BruteForce.swift */,
 				CEC8627A28CA273000799361 /* GenerateRandomPassword.swift */,
+				CEDE0BC628DED73800BD3C7C /* ProfileModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				CED0730328A8173200DE68DD /* LoginInspector.swift in Sources */,
 				CECAF60328367EE700258110 /* PhotosTableViewCell.swift in Sources */,
 				CECAF6072837D9CC00258110 /* PhotosCollectionViewCell.swift in Sources */,
+				CEDE0BC728DED73800BD3C7C /* ProfileModel.swift in Sources */,
 				CED0730128A813AD00DE68DD /* Checker.swift in Sources */,
 				CE094ACA27CFA1860076C5A8 /* ProfileHeaderView.swift in Sources */,
 				CE75098A289826D1004F76B6 /* User.swift in Sources */,
