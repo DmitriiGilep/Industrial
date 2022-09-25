@@ -17,7 +17,7 @@ final class PhotoData {
     
     var imageArrayUpdateStatus: (() -> Void)?
     
-    var imagesArray: [UIImage] {
+    var imagesArray: [UIImage] = [] {
         didSet {
             self.imageArrayUpdateStatus?()
         }
