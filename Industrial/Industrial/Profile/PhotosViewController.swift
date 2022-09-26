@@ -85,9 +85,7 @@ final class PhotosViewController: UIViewController {
         case false:
             let image = images[indexPath.row]
             completion(.success(image))
-            print("!!!case false - \(images.isEmpty)")
         case true:
-            print("!!!case true - \(images.isEmpty)")
             completion(.failure(ProfileErrors.noImagesForCollection))
         }
     }
@@ -126,7 +124,13 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     //    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoData.imagesArray.count
+        let arrayNumber = photoData.imagesArray.count
+        // в случае пустого массива устанавливается значение 1, чтобы сработал метод cellForItemAt и в нем функция imageForCell
+        if arrayNumber==0 {
+            return 1
+        } else {
+            return arrayNumber
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -141,9 +145,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
             switch result {
             case .success(let image):
                 cell.imageForCell = image
-                print("сработал .success")
             case .failure(let error):
-                print("сработал .failure")
                 let alertView = self?.profileErrorsProcessor.processErrors(error: error)
                 self?.present(alertView!, animated: true, completion: nil)
             }
