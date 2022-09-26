@@ -10,14 +10,13 @@ import iOSIntPackage
 
 final class PhotosViewController: UIViewController {
     
-    private let imagePublisherFacade = ImagePublisherFacade()
+    //    private let imagePublisherFacade = ImagePublisherFacade()
     let imageProcessor = ImageProcessor()
-    
-    // массив имен картинок из xcasset
-    //    private let imagesNamesArrayXCasset = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    let profileErrorsProcessor = ProfileErrorsProcessor()
     
     // экземпляр класса, в котором будет массив для хранения всех картинок imagesArray
-    private var photoData = PhotoData(photos: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
+    //private var photoData = PhotoData(photos: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
+    private var photoData = PhotoData(photos: [])
     
     private var photosCollectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -43,8 +42,6 @@ final class PhotosViewController: UIViewController {
     
     private func setUP() {
         self.title = "Photo Gallery"
-        // загружаю картинки из xcasset в единый массив photoData
-        //        photoData.createPhotoDataInt(photo: imagesNamesArrayXCasset)
         self.view.addSubview(photosCollectionView)
         
         NSLayoutConstraint.activate([
@@ -58,6 +55,7 @@ final class PhotosViewController: UIViewController {
     }
     
     func applyFilterToImagesArrayWithTimer() {
+        
         let start = DispatchTime.now()
         imageProcessor.processImagesOnThread(
             sourceImages: self.photoData.imagesArray,
@@ -76,8 +74,19 @@ final class PhotosViewController: UIViewController {
             [weak self] in
             DispatchQueue.main.async { // вернул обработку UIKit метода reloadData в main поток
                 self?.photosCollectionView.reloadData()
-               
+                
             }
+        }
+    }
+
+    // функция с Result, определяет, пустой ли массив
+    private func imageForCell(images: [UIImage], indexPath: IndexPath, completion: @escaping (Result<UIImage, ProfileErrors>) -> Void) {
+        switch images.isEmpty {
+        case false:
+            let image = images[indexPath.row]
+            completion(.success(image))
+        case true:
+            completion(.failure(ProfileErrors.noImagesForCollection))
         }
     }
     
@@ -90,6 +99,7 @@ final class PhotosViewController: UIViewController {
         // вызов функции по добавлению в массив observer картинок для последующей его передачи в функцию receive
         //       imagePublisherFacade.addImagesWithTimer(time: 5, repeat: 10)
         applyFilterToImagesArrayWithTimer()
+        print("value of imagesArray: \(photoData.imagesArray.isEmpty)")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -114,16 +124,35 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     //    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoData.imagesArray.count
+        let arrayNumber = photoData.imagesArray.count
+        // в случае пустого массива устанавливается значение 1, чтобы сработал метод cellForItemAt и в нем функция imageForCell
+        if arrayNumber==0 {
+            return 1
+        } else {
+            return arrayNumber
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as? PhotosCollectionViewCell else {
             return UICollectionViewCell()
         }
+        let alertView = self.profileErrorsProcessor.processErrors(error: ProfileErrors.noImagesForCollection)
+        self.present(alertView, animated: true, completion: nil)
         
-        let imageForCell = photoData.imagesArray[indexPath.row]
-        cell.imageForCell = imageForCell
+        // обработка Result: либо загружает картинки, либо в случае пустого массива должна выводить сообщение о том, что нет картинок. Однако case .failure почему-то в принцие не срабатывает, не смог разобраться, почему
+        imageForCell(images: photoData.imagesArray, indexPath: indexPath) { [weak self] result in
+            switch result {
+            case .success(let image):
+                cell.imageForCell = image
+            case .failure(let error):
+                let alertView = self?.profileErrorsProcessor.processErrors(error: error)
+                self?.present(alertView!, animated: true, completion: nil)
+            }
+        }
+        
+        //        let imageForCell = photoData.imagesArray[indexPath.row]
+        //        cell.imageForCell = imageForCell
         
         
         //        if let image = cell.photoImageView.image { imageProcessor.processImage(sourceImage: image, filter: .chrome, completion: {filteredPicture in cell.photoImageView.image = filteredPicture})

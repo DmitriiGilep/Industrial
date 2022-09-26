@@ -14,7 +14,7 @@ import iOSIntPackage
 //}
 
 final class PhotoData {
-        
+    
     var imageArrayUpdateStatus: (() -> Void)?
     
     var imagesArray: [UIImage] = [] {
@@ -34,12 +34,12 @@ final class PhotoData {
     //        }
     //    }
     
-            func createPhotoDataInt(photos: [Int]) {
-                photos.forEach {
-                    guard let image = UIImage(named: "\(String($0))") else { return }
-                    imagesArray.append(image)
-                }
-            }
+    func createPhotoDataInt(photos: [Int]) {
+        photos.forEach {
+            guard let image = UIImage(named: "\(String($0))") else { return }
+            imagesArray.append(image)
+        }
+    }
     
 }
 
