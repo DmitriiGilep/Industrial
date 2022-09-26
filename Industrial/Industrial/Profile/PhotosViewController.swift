@@ -80,7 +80,7 @@ final class PhotosViewController: UIViewController {
     }
 
     // функция с Result, определяет, пустой ли массив
-    private func imageForCell(images: [UIImage], indexPath: IndexPath, completion: @escaping (Result<UIImage, ProfileErrorsList>) -> Void) {
+    private func imageForCell(images: [UIImage], indexPath: IndexPath, completion: @escaping (Result<UIImage, ProfileErrors>) -> Void) {
         switch images.isEmpty {
         case false:
             let image = images[indexPath.row]
@@ -88,7 +88,7 @@ final class PhotosViewController: UIViewController {
             print("!!!case false - \(images.isEmpty)")
         case true:
             print("!!!case true - \(images.isEmpty)")
-            completion(.failure(ProfileErrorsList.noImagesForCollection))
+            completion(.failure(ProfileErrors.noImagesForCollection))
         }
     }
     
@@ -133,7 +133,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as? PhotosCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let alertView = self.profileErrorsProcessor.processErrors(error: ProfileErrorsList.noImagesForCollection)
+        let alertView = self.profileErrorsProcessor.processErrors(error: ProfileErrors.noImagesForCollection)
         self.present(alertView, animated: true, completion: nil)
         
         // обработка Result: либо загружает картинки, либо в случае пустого массива должна выводить сообщение о том, что нет картинок. Однако case .failure почему-то в принцие не срабатывает, не смог разобраться, почему

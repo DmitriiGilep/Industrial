@@ -108,7 +108,7 @@ final class LogInViewController: UIViewController {
             do {
                 try self!.checkLogInAndPasswordIsEmpty(logIn: self!.nameTextField.text!, password: self!.passwordTextField.text!)
             } catch {
-                if let catchedError = error as? ProfileErrorsList {
+                if let catchedError = error as? ProfileErrors {
                     let alertView = self!.profileErrorsProcessor.processErrors(error: catchedError)
                     self?.present(alertView, animated: true, completion: nil)
                 }
@@ -122,7 +122,7 @@ final class LogInViewController: UIViewController {
                     let alertView = self!.profileErrorsProcessor.processErrors(error: error)
                     self?.present(alertView, animated: true, completion: nil)
                 case .success(false):
-                    let alertView = self!.profileErrorsProcessor.processErrors(error: ProfileErrorsList.wrongPassword)
+                    let alertView = self!.profileErrorsProcessor.processErrors(error: ProfileErrors.wrongPassword)
                     self?.present(alertView, animated: true, completion: nil)
                 }
             })
@@ -312,11 +312,11 @@ final class LogInViewController: UIViewController {
         //            coordinator.profileViewController(coordinator: coordinator)
         //        }
         if  logIn.isEmpty && password.isEmpty {
-            throw ProfileErrorsList.noLogInNoPassword
+            throw ProfileErrors.noLogInNoPassword
         } else if logIn.isEmpty {
-            throw ProfileErrorsList.noLogIn
+            throw ProfileErrors.noLogIn
         } else if password.isEmpty {
-            throw ProfileErrorsList.noPassword
+            throw ProfileErrors.noPassword
         }
         //        else if !logIn.isEmpty && !password.isEmpty {
         //            throw ProfileErrorsList.wrongPassword
@@ -326,7 +326,7 @@ final class LogInViewController: UIViewController {
     }
     
     // функция с Result
-    private func checkLogInAndPasswordIsCorrect(logIn: String, password: String, completion: @escaping (Result<Bool, ProfileErrorsList>) -> Void) {
+    private func checkLogInAndPasswordIsCorrect(logIn: String, password: String, completion: @escaping (Result<Bool, ProfileErrors>) -> Void) {
         let resultOfCheck = loginInspector.checkLogin(login: (nameTextField.text)!, password: (passwordTextField.text)!)
         switch resultOfCheck {
         case true:

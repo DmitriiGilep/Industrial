@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 // enum с ошибками
-enum ProfileErrorsList: Error {
+enum ProfileErrors: Error {
     case noLogInNoPassword
     case noLogIn
     case noPassword
@@ -21,7 +21,7 @@ enum ProfileErrorsList: Error {
 class ProfileErrorsProcessor {
     
     // функция обрабатывает ошибки
-    func processErrors(error: ProfileErrorsList) -> UIAlertController{
+    func processErrors(error: ProfileErrors) -> UIAlertController{
         var alertView = UIAlertController()
         switch error {
         case .noLogInNoPassword:
