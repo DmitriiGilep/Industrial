@@ -15,7 +15,10 @@ final class FeedViewController: UIViewController {
     //    // Protocol Observer, класс observer
     //    let feedModel = FeedModel()
     //#endif
+      
     
+    // в sceneDelegate: UIApplication.shared.connectedScenes.firs?.delegate as? SceneDelegate
+    var appConfiguration = (UIApplication.shared.delegate as? AppDelegate)?.appConfiguration
     
     let coordinator: FeedCoordinator
     var feedViewModel = FeedViewModel()
@@ -155,6 +158,8 @@ final class FeedViewController: UIViewController {
         bindViewModel()
         remindPassword()
         
+        // вызывают статический метод request класса NetworkService
+        NetworkService.request(with: appConfiguration!)
         
         //        // включил FeedViewController в массив observer
         //      #if DEBUG
