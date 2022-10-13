@@ -10,20 +10,27 @@ import UIKit
 
 
 // enum с url
-enum AppConfiguration {
-    case ref1
-    case ref2
-    case ref3
-    var url: URL? {
-        switch self {
-        case .ref1:
-            return URL(string: "https://swapi.dev/api/people/8")
-        case .ref2:
-            return URL(string: "https://swapi.dev/api/starships/3")
-        case .ref3:
-            return URL(string: "https://swapi.dev/api/planets/5")
-        }
-    }
+//enum AppConfiguration {
+//    case ref1
+//    case ref2
+//    case ref3
+//    var url: URL? {
+//        switch self {
+//        case .ref1:
+//            return URL(string: "https://swapi.dev/api/people/8")
+//        case .ref2:
+//            return URL(string: "https://swapi.dev/api/starships/3")
+//        case .ref3:
+//            return URL(string: "https://swapi.dev/api/planets/5")
+//        }
+//    }
+//}
+
+enum AppConfiguration: String {
+case ref1 = "https://swapi.dev/api/people/8"
+case ref2 = "https://swapi.dev/api/starships/3"
+case ref3 = "https://swapi.dev/api/planets/5"
+var url: URL? { URL(string: self.rawValue) }
 }
 
 struct NetworkService {
