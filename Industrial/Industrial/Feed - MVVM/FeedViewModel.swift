@@ -34,7 +34,7 @@ final class FeedViewModel {
         switch interfaceEvent {
         case .checkGuessButtonPressed:
             let feedModel = FeedModel(passwordForCheck: controller.guessTextField.text!)
-
+            
             switch feedModel.check() {
             case true:
                 state = .resultGuessCheckTrue
@@ -43,7 +43,9 @@ final class FeedViewModel {
             }
         case .buttonGoToPostViewControllerPressed:
             state = .goToPostViewController
+            
+            
         }
-        
     }
+    
 }

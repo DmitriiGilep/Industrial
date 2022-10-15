@@ -140,7 +140,6 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         let alertView = self.profileErrorsProcessor.processErrors(error: ProfileErrors.noImagesForCollection)
         self.present(alertView, animated: true, completion: nil)
         
-        // обработка Result: либо загружает картинки, либо в случае пустого массива должна выводить сообщение о том, что нет картинок. Однако case .failure почему-то в принцие не срабатывает, не смог разобраться, почему
         imageForCell(images: photoData.imagesArray, indexPath: indexPath) { [weak self] result in
             switch result {
             case .success(let image):
