@@ -12,7 +12,9 @@ final class InfoViewController: UIViewController {
     private let coordinator: FeedCoordinator
     private let infoViewModel: InfoViewModel
     
-    private let infoTableView: UITableView = {
+    let cellForNames = "cellForNames"
+    
+    let infoTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -68,10 +70,14 @@ final class InfoViewController: UIViewController {
         // поменял фон и имя
         title = "Info"
         view.backgroundColor = .cyan
+        infoTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellForNames)
+
         setUP()
         bindViewModel()
         infoViewModel.changeState(interFaceEvent: .urlRequest, controller: self)
         infoViewModel.changeState(interFaceEvent: .urlRequest2, controller: self)
+        infoViewModel.changeState(interFaceEvent: .urlRequest3, controller: self)
+
 
     }
     
@@ -82,8 +88,7 @@ final class InfoViewController: UIViewController {
         view.addSubview(infoTableView)
         infoTableView.delegate = self
         infoTableView.dataSource = self
-        infoTableView.register(UITableViewCell.Type, forCellReuseIdentifier: "cell")
-
+        
         NSLayoutConstraint.activate([
             
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -101,7 +106,7 @@ final class InfoViewController: UIViewController {
             titleLabel2.widthAnchor.constraint(equalToConstant: 200),
             titleLabel2.heightAnchor.constraint(equalToConstant: 50),
             
-            infoTableView.topAnchor.constraint(equalTo: titleLabel2, constant: 10),
+            infoTableView.topAnchor.constraint(equalTo: titleLabel2.bottomAnchor, constant: 10),
             infoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
             infoTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             infoTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -121,7 +126,7 @@ final class InfoViewController: UIViewController {
             case .processUrlRequest2:
                 self?.titleLabel2.text = self?.infoViewModel.orbitalPeriod
             case .processUrlRequest3:
-                ()
+                self?.infoTableView.reloadData()
             }
         }
     }
@@ -129,14 +134,26 @@ final class InfoViewController: UIViewController {
 }
 
 extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        infoViewModel.residentsName.count
+        let arrayCount = infoViewModel.residentsName.count
+        if arrayCount == 0 {
+            return 1
+        } else {
+            return arrayCount
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let cellContent = cell.defaultContentConfiguration()
-        cellContent.text = infoViewModel.residentsName[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellForNames, for: indexPath)
+        var cellContent = cell.defaultContentConfiguration()
+        if infoViewModel.residentsName.isEmpty {
+            cellContent.text = "data loading in process"
+        }
+            else {
+                cellContent.text = infoViewModel.residentsName[indexPath.row]
+        }
+        cell.contentConfiguration = cellContent
         return cell
     }
     

@@ -16,7 +16,7 @@ struct Molestiae: Codable {
     
     enum CodingKeys: String, CodingKey {
         case userId, id, title
-        case status = "completed"
+        case status = "completed" // привожу к camelCase, хотя здесь не используется
     }
 }
 
@@ -39,8 +39,8 @@ struct Tatooine: Codable {
     
     enum CodingKeys: String, CodingKey {
         case name, diameter, climate, gravity, terrain, surface_water, population, residents, films, created, edited, url
-        case rotationPeriod = "rotation_period"
-        case orbitalPeriod = "orbital_period"
+        case rotationPeriod = "rotation_period" // привожу к camelCase
+        case orbitalPeriod = "orbital_period" // аналогично
         
     }
     

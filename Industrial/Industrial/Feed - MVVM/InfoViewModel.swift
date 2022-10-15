@@ -11,20 +11,27 @@ final class InfoViewModel {
     
     var title: String = "fetching data in process" {
         didSet {
-            processInterfaceEvents?(.processUrlRequest)
+            processInterfaceEvents?(.processUrlRequest) // как только появляется значение title запусается case .processURLReques, который в контроллере присваивает лэйблу текст
         }
     }
     
     var orbitalPeriod: String = "fetching data in process" {
         didSet {
-            processInterfaceEvents?(.processUrlRequest2)
+            processInterfaceEvents?(.processUrlRequest2) // аналогично указанному выше в отношении орбитал периода
         }
     }
     
-    var residentsUrl: [String] = []
+    var residentsUrl: [String] = [] {
+        didSet {
+            changeState(interFaceEvent: .urlRequest3, controller: nil) // как только появляются urlы запускается case urlRequest3 данной модели, в котором используются ссылки
+        }
+    }
+    
     var residentsName: [String] = [] {
         didSet {
-            processInterfaceEvents?(.processUrlRequest3)
+            DispatchQueue.main.async {
+                self.processInterfaceEvents?(.processUrlRequest3) // после получения имен из кейса .urlRequest3 запускается case .processUrlRequest3 в контроллере, который обновляет таблицу через reloadData()
+            }
         }
     }
     
@@ -54,11 +61,11 @@ final class InfoViewModel {
         }
     }
     
-    func changeState(interFaceEvent: InterFaceEvents, controller: InfoViewController) {
+    func changeState(interFaceEvent: InterFaceEvents, controller: InfoViewController?) {
         switch interFaceEvent {
         case .buttonPresentAlertViewTapped:
             state = .goToAlertView
-        case .urlRequest:
+        case .urlRequest: // serilization
             guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/9") else {
                 print("error")
                 return
@@ -79,7 +86,7 @@ final class InfoViewModel {
                     if let dictionary = object as? [String: Any] {
                         let sentData = try JSONSerialization.data(withJSONObject: dictionary)
                         
-                        DispatchQueue.main.async {
+                        DispatchQueue.main.async { // возвращаем в главный поток, тк JSONSerilization работает ассинхронно
                             self.title = dictionary["title"] as! String
                         }
                     }
@@ -89,9 +96,8 @@ final class InfoViewModel {
                 }
             }
             task.resume()
-            state = .processUrlRequest
             
-        case .urlRequest2:
+        case .urlRequest2: // decoder
             guard let url = URL(string: "https://swapi.dev/api/planets/1") else {
                 print("error2url")
                 return
@@ -112,8 +118,8 @@ final class InfoViewModel {
                     let tatooine = try decoder.decode(Tatooine.self, from: data)
                     
                     DispatchQueue.main.async {
-                        self.orbitalPeriod = tatooine.orbitalPeriod
-                        self.residentsUrl = tatooine.residents
+                        self.orbitalPeriod = tatooine.orbitalPeriod // присваиваю значения переменной, которая затем через didSet обновят интерфейс
+                        self.residentsUrl = tatooine.residents // передаю url в массив для последующего запуска через didSet их обработки для получения имен
                     }
                     
                     } catch {
@@ -123,14 +129,14 @@ final class InfoViewModel {
                 
             }
             task.resume()
-            state = .processUrlRequest2
             
-        case .urlRequest3:
+        case .urlRequest3: // decoder из массива, полученного из предыдущего кейса
             for ref in residentsUrl {
                 guard let url = URL(string: ref) else {
                     print("error3url")
                     return
                 }
+
                 let task = URLSession.shared.dataTask(with: url) { data, response, error in
                     guard error == nil else {
                         print("error3task")
@@ -145,20 +151,16 @@ final class InfoViewModel {
                         let decoder = JSONDecoder()
                         let resident = try decoder.decode(Residents.self, from: data)
                         
-                        DispatchQueue.main.async {
-                            self.residentsName.append(resident.name)
-                        }
+                        self.residentsName.append(resident.name)
                         
                         } catch {
                         print("error3decoder")
                         return
                     }
-                    
                 }
                 task.resume()
-                state = .processUrlRequest3
             }
-            
+          
         }
         
     }
