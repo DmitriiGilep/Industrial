@@ -6,22 +6,25 @@
 //
 
 import UIKit
+import FirebaseAuth
 
-// создал протокол делегата, вводится 2 параметра и возвращает значение Bool
+protocol CheckerServiceProtocol: AnyObject {
+    func checkCredentials(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator)
+    func signUp(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator)
+}
+
 protocol LoginViewControllerDelegate: AnyObject {
-    func checkLogin(login: String, password: String) -> Bool
+    func checkCredentials(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator)
+    func signUp(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator)
 }
 
 final class LogInViewController: UIViewController {
     
     let coordinator: ProfileCoordinator
-    let profileErrorsProcessor = ProfileErrorsProcessor()
     
     // переменная делегата со слабой ссылкой
-    weak var delegate: LoginViewControllerDelegate?
-    
-    let loginInspector = LoginInspector()
-    
+    var delegate: LoginViewControllerDelegate?
+        
     var logInScrollView: UIScrollView = {
         var logInScroll = UIScrollView()
         logInScroll.backgroundColor = .white
@@ -73,7 +76,7 @@ final class LogInViewController: UIViewController {
         nameText.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         nameText.tintColor = UIColor(named: "AccentColor")
         nameText.autocapitalizationType = .none
-        nameText.placeholder = "Email or phone"
+        nameText.placeholder = "E-mail"
         nameText.translatesAutoresizingMaskIntoConstraints = false
         return nameText
     }()
@@ -103,43 +106,24 @@ final class LogInViewController: UIViewController {
         backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
         clipsToBounds: true,
         action: { [weak self] in
-            // принимаю данные ввода логина и пароля с forced unwrapping, так как значение text как минимум ""
-            // добавил в do-catch блок обработку ошибок - пустые поля логин или пароль
-            do {
-                try self!.checkLogInAndPasswordIsEmpty(logIn: self!.nameTextField.text!, password: self!.passwordTextField.text!)
-            } catch {
-                if let catchedError = error as? ProfileErrors {
-                    let alertView = self!.profileErrorsProcessor.processErrors(error: catchedError)
-                    self?.present(alertView, animated: true, completion: nil)
-                }
-            }
-            // добавил обработку Result, не совсем подходит к данному случаю, пришлось делать одинаковую обработку success(false) and failure(error)
-            self?.checkLogInAndPasswordIsCorrect(logIn: self!.nameTextField.text!, password: self!.passwordTextField.text!, completion: { result in
-                switch result {
-                case .success(true):
-                    self!.coordinator.profileViewController(coordinator: self!.coordinator)
-                case .failure(let error):
-                    let alertView = self!.profileErrorsProcessor.processErrors(error: error)
-                    self?.present(alertView, animated: true, completion: nil)
-                case .success(false):
-                    let alertView = self!.profileErrorsProcessor.processErrors(error: ProfileErrors.wrongPassword)
-                    self?.present(alertView, animated: true, completion: nil)
-                }
-            })
+            
+            self!.delegate?.checkCredentials(login: self!.nameTextField.text!, password: self!.passwordTextField.text!, controller: self!, coordinator: self!.coordinator)
             
             
-            //            let resultOfCheck = self?.loginInspector.checkLogin(login: (self?.nameTextField.text)!, password: (self?.passwordTextField.text)!)
-            //
-            //   if let resultOfCheck = self?.delegate?.checkLogin(login: (self?.nameTextField.text)!, password: (self?.passwordTextField.text)!) {
-            //                print("\(resultOfCheck)")
-            //            } else { print("result is nil")}
-            // проверяю на пустые поля
-            //            guard let resultOfCheck = self?.loginInspector.checkLogin(login: (self?.nameTextField.text)!, password: (self?.passwordTextField.text)!) else {
-            //                return
-            //            }
-            //            if resultOfCheck {
-            //                self?.coordinator.profileViewController(coordinator: (self?.coordinator)!)
-            //            }
+        })
+    
+    private lazy var signUpButton = CustomButton(
+        title: (name: "Sign Up", state: nil),
+        titleColor: (color: nil, state: nil),
+        titleLabelColor: .white,
+        titleFont: nil,
+        cornerRadius: 10,
+        backgroundColor: .blue,
+        backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
+        clipsToBounds: true,
+        action: { [weak self] in
+            self!.delegate?.signUp(login: self!.nameTextField.text!, password: self!.passwordTextField.text!, controller: self!, coordinator: self!.coordinator)
+            
         })
     
     let randomPasswordTextField: UITextField = {
@@ -230,6 +214,7 @@ final class LogInViewController: UIViewController {
         logInContentView.addSubview(vkImageView)
         logInContentView.addSubview(loginField)
         logInContentView.addSubview(logInButton)
+        logInContentView.addSubview(signUpButton)
         loginField.addSubview(nameTextField)
         loginField.addSubview(passwordTextField)
         logInContentView.addSubview(randomPasswordTextField)
@@ -283,9 +268,14 @@ final class LogInViewController: UIViewController {
                 logInButton.topAnchor.constraint(equalTo: self.loginField.bottomAnchor, constant: 16),
                 logInButton.heightAnchor.constraint(equalToConstant: 50),
                 
+                signUpButton.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
+                signUpButton.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
+                signUpButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 16),
+                signUpButton.heightAnchor.constraint(equalToConstant: 50),
+                
                 randomPasswordTextField.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
                 randomPasswordTextField.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
-                randomPasswordTextField.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 16),
+                randomPasswordTextField.topAnchor.constraint(equalTo: self.signUpButton.bottomAnchor, constant: 16),
                 randomPasswordTextField.heightAnchor.constraint(equalToConstant: 50),
                 
                 generateRandomPasswordButton.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
@@ -302,41 +292,6 @@ final class LogInViewController: UIViewController {
             ]
         )
     }
-    
-    //функция выбрасывает ошибки по enum LogInError
-    private func checkLogInAndPasswordIsEmpty(logIn: String, password: String) throws {
-        // перенес обработку правильного пароля в Result
-        //        let resultOfCheck = loginInspector.checkLogin(login: (nameTextField.text)!, password: (passwordTextField.text)!)
-        //
-        //        if resultOfCheck {
-        //            coordinator.profileViewController(coordinator: coordinator)
-        //        }
-        if  logIn.isEmpty && password.isEmpty {
-            throw ProfileErrors.noLogInNoPassword
-        } else if logIn.isEmpty {
-            throw ProfileErrors.noLogIn
-        } else if password.isEmpty {
-            throw ProfileErrors.noPassword
-        }
-        //        else if !logIn.isEmpty && !password.isEmpty {
-        //            throw ProfileErrorsList.wrongPassword
-        //        } else {
-        //            throw ProfileErrorsList.unknownError
-        //        }
-    }
-    
-    // функция с Result
-    private func checkLogInAndPasswordIsCorrect(logIn: String, password: String, completion: @escaping (Result<Bool, ProfileErrors>) -> Void) {
-        let resultOfCheck = loginInspector.checkLogin(login: (nameTextField.text)!, password: (passwordTextField.text)!)
-        switch resultOfCheck {
-        case true:
-            let resultOfCheck = true
-            completion(.success(resultOfCheck))
-        case false:
-            completion(.failure(.wrongPassword))
-        }
-    }
-    
     
     override func viewDidLoad() {
         view.backgroundColor = .systemBlue
@@ -375,3 +330,4 @@ final class LogInViewController: UIViewController {
         self.logInScrollView.verticalScrollIndicatorInsets = .zero
     }
 }
+

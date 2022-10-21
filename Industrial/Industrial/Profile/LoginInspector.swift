@@ -11,10 +11,14 @@ import UIKit
 
 final class LoginInspector: LoginViewControllerDelegate {
     
+    func checkCredentials(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator) {
+        let checkerService = CheckerService()
+        checkerService.checkCredentials(login: login, password: password, controller: controller, coordinator: coordinator)
+    }
     
-    func checkLogin(login: String, password: String) -> Bool {
-        let checker = Checker.shared
-        return checker.checker(loginInserted: login, passwordInserted: password)
+    func signUp(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator) {
+        let checkerService = CheckerService()
+        checkerService.signUp(login: login, password: password, controller: controller, coordinator: coordinator)
     }
     
 }
