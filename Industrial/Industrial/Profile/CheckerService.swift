@@ -63,11 +63,11 @@ final class CheckerService: CheckerServiceProtocol {
         }
     }
     
-    private func createAlertView(viewTitle: String, message: String, actionTitle: String) -> UIAlertController {
-        let alertView = UIAlertController(title: viewTitle, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: actionTitle, style: .default)
-        alertView.addAction(action)
-        return alertView
-    }
+//    private func createAlertView(viewTitle: String, message: String, actionTitle: String) -> UIAlertController {
+//        let alertView = UIAlertController(title: viewTitle, message: message, preferredStyle: .alert)
+//        let action = UIAlertAction(title: actionTitle, style: .default)
+//        alertView.addAction(action)
+//        return alertView
+//    }
     
 }
