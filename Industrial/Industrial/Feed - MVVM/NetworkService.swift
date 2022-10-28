@@ -45,17 +45,18 @@ struct NetworkService {
         let task  = URLSession.shared.dataTask(with: url) { data, response, error in
 
             if let data = data {
+                
                 print("-----------------------data-------------------------")
                 print("🤓 \(String(data: data, encoding: .utf8))")
             }
-            print("------------------response.allHeaderFields-------------------------")
-            print("😂 \((response as! HTTPURLResponse).allHeaderFields)")
-            print("------------------response.statusCode------------------------------")
-            print("😂 \((response as! HTTPURLResponse).statusCode)")
-            print("------------------error.localizedDescription------------------------")
-            print("😒 \(error?.localizedDescription)")
-            print("------------------error.debugDescription---------------------------")
-            print("😒 \(error.debugDescription)")
+//            print("------------------response.allHeaderFields-------------------------")
+//            print("😂 \((response as! HTTPURLResponse).allHeaderFields)")
+//            print("------------------response.statusCode------------------------------")
+//            print("😂 \((response as! HTTPURLResponse).statusCode)")
+//            print("------------------error.localizedDescription------------------------")
+//            print("😒 \(error?.localizedDescription)")
+//            print("------------------error.debugDescription---------------------------")
+//            print("😒 \(error.debugDescription)")
 
         }
         task.resume()

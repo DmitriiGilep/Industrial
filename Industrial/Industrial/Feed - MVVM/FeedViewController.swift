@@ -159,7 +159,7 @@ final class FeedViewController: UIViewController {
         remindPassword()
         
         // вызывают статический метод request класса NetworkService
-        NetworkService.request(with: appConfiguration!)
+        // NetworkService.request(with: appConfiguration!)
         
         //        // включил FeedViewController в массив observer
         //      #if DEBUG

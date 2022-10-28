@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // инициализировал кейсом ref1
         appConfiguration = AppConfiguration.ref1
         
+        FirebaseApp.configure() // добавил конфигурирование Firebase
+        
         window = UIWindow()
         window?.makeKeyAndVisible()
         let mainCoordinator = MainCoordinator()
@@ -27,7 +32,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-  
+    func applicationWillTerminate(_ application: UIApplication) {
+        do {
+            try Auth.auth().signOut() // разлогинивает пользователя
+        } catch {
+            return
+        }
+        
+        
+    }
 
 }
 
