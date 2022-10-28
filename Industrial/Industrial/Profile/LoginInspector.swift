@@ -11,13 +11,13 @@ import UIKit
 
 final class LoginInspector: LoginViewControllerDelegate {
     
+    let checkerService = CheckerService() // переменная должна быть вне completion, то есть нужно держать ссылку на CheckerService, если создаешь внутри, то ссылка не держится, когда асинхронно вызывается комплишн, этого сервиса уже нет, его никто не держит.
+
     func checkCredentials(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator) {
-        let checkerService = CheckerService()
         checkerService.checkCredentials(login: login, password: password, controller: controller, coordinator: coordinator)
     }
     
     func signUp(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator) {
-        let checkerService = CheckerService()
         checkerService.signUp(login: login, password: password, controller: controller, coordinator: coordinator)
     }
     
