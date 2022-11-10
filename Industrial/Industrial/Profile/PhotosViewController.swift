@@ -15,8 +15,8 @@ final class PhotosViewController: UIViewController {
     let profileErrorsProcessor = ProfileErrorsProcessor()
     
     // экземпляр класса, в котором будет массив для хранения всех картинок imagesArray
-    //private var photoData = PhotoData(photos: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
-    private var photoData = PhotoData(photos: [])
+    private var photoData = PhotoData(photos: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
+    //private var photoData = PhotoData(photos: []) // пустой массив для вывода ошибки - нет картинок
     
     private var photosCollectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -137,8 +137,8 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as? PhotosCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let alertView = self.profileErrorsProcessor.processErrors(error: ProfileErrors.noImagesForCollection)
-        self.present(alertView, animated: true, completion: nil)
+//        let alertView = self.profileErrorsProcessor.processErrors(error: ProfileErrors.noImagesForCollection)
+//        self.present(alertView, animated: true, completion: nil)
         
         imageForCell(images: photoData.imagesArray, indexPath: indexPath) { [weak self] result in
             switch result {

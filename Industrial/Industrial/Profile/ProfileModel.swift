@@ -18,7 +18,7 @@ enum ProfileErrors: Error {
     case noImagesForCollection
 }
 
-class ProfileErrorsProcessor {
+final class ProfileErrorsProcessor {
     
     // функция обрабатывает ошибки
     func processErrors(error: ProfileErrors) -> UIAlertController{
