@@ -18,6 +18,8 @@
 		CE89E04228F41E10007F321E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE89E04128F41E10007F321E /* NetworkService.swift */; };
 		CE93B66A28FFF9F100B7E7FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE93B66928FFF9F000B7E7FA /* GoogleService-Info.plist */; };
 		CE93B66C2900596100B7E7FA /* CheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE93B66B2900596100B7E7FA /* CheckerService.swift */; };
+		CE9E34E1293CA73800FC1428 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E34E0293CA73800FC1428 /* PasswordView.swift */; };
+		CE9E34E3293CABB800FC1428 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E34E2293CABB800FC1428 /* SettingsTableViewController.swift */; };
 		CEBC07CA2822CE50009B3AC4 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */; };
 		CEC0B89C283C00CC00041DC5 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B89B283C00CC00041DC5 /* Photos.swift */; };
 		CEC171D6280C60F200C0B95E /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC171D5280C60F200C0B95E /* LogInViewController.swift */; };
@@ -103,6 +105,8 @@
 		CE89E04128F41E10007F321E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		CE93B66928FFF9F000B7E7FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "Industrial/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CE93B66B2900596100B7E7FA /* CheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerService.swift; sourceTree = "<group>"; };
+		CE9E34E0293CA73800FC1428 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
+		CE9E34E2293CABB800FC1428 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		CEC0B89B283C00CC00041DC5 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		CEC171D5280C60F200C0B95E /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -251,6 +255,8 @@
 			isa = PBXGroup;
 			children = (
 				CEC7D2F6290D5F460013E18D /* FileManagerTableViewController.swift */,
+				CE9E34E0293CA73800FC1428 /* PasswordView.swift */,
+				CE9E34E2293CABB800FC1428 /* SettingsTableViewController.swift */,
 			);
 			path = FileManager;
 			sourceTree = "<group>";
@@ -559,7 +565,9 @@
 				CE02BA5B28AE9D8E0084C663 /* CustomButton.swift in Sources */,
 				CE094ACE27CFA1F20076C5A8 /* ProfileViewController.swift in Sources */,
 				CECAF6052837CCCF00258110 /* PhotosViewController.swift in Sources */,
+				CE9E34E1293CA73800FC1428 /* PasswordView.swift in Sources */,
 				CEC254A728B777DD00FD6852 /* FeedCoordinator.swift in Sources */,
+				CE9E34E3293CABB800FC1428 /* SettingsTableViewController.swift in Sources */,
 				CE6F109E28F893F100DDCB67 /* JasonModel.swift in Sources */,
 				CEC8627B28CA273000799361 /* GenerateRandomPassword.swift in Sources */,
 				CEBC07CA2822CE50009B3AC4 /* PostTableViewCell.swift in Sources */,

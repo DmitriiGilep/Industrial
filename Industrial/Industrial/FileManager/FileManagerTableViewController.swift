@@ -72,6 +72,7 @@ final class FileManagerTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.navigationItem.title = "Directory"
+        self.navigationItem.titleView?.tintColor = .systemRed
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Добавить фотографию", style: .done, target: self, action: #selector(addPhoto))
     }
     
