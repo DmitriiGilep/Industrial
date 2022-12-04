@@ -7,16 +7,23 @@
 
 import Foundation
 import UIKit
+import PhotosUI
 
 final class NavControllerFactory {
     
     enum NavControllerName {
         case first
         case second
+        case third
     }
     
     var navController = UINavigationController()
     private let navControllerName: NavControllerName
+    
+    @objc func goToViewController() {
+        //navController.pushViewController(controller, animated: true)
+        ()
+    }
     
     init(navControllerName: NavControllerName) {
         self.navControllerName = navControllerName
@@ -52,6 +59,12 @@ final class NavControllerFactory {
             tabBar2.title = "Профиль"
             tabBar2.image = UIImage(systemName: "person.fill")
             navController.tabBarItem = tabBar2
+            
+        case .third:
+            let fileManagerTableViewController = FileManagerTableViewController(style: .plain)
+            navController.navigationBar.barStyle = .black
+            navController.setViewControllers([fileManagerTableViewController], animated: true)
+            navController.tabBarItem = UITabBarItem(title: "FileManager", image: UIImage(systemName: "photo"), selectedImage: nil)
         }
     }
     
