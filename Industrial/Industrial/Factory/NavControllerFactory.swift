@@ -62,7 +62,7 @@ final class NavControllerFactory {
             
         case .third:
             let fileManagerTableViewController = FileManagerTableViewController(style: .plain)
-            navController.navigationBar.barStyle = .black
+            navController.navigationBar.barStyle = .default
             navController.setViewControllers([fileManagerTableViewController], animated: true)
             navController.tabBarItem = UITabBarItem(title: "FileManager", image: UIImage(systemName: "photo"), selectedImage: nil)
         }

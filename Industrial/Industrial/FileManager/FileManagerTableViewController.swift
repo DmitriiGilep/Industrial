@@ -9,11 +9,36 @@ import UIKit
 
 final class FileManagerTableViewController: UITableViewController {
     
+    var sortStatus = true {
+        didSet {
+            UserDefaults.standard.set(sortStatus, forKey: "sortStatus")
+            UserDefaults.standard.synchronize()
+            tableView.reloadData()
+        }
+    }
+    
     var imageToSave: UIImage?
     private let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-    var urlArray: [URL] {
+    private var urlArray: [URL] {
         return (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)) ?? []
     }
+    private var urlPathsArray: [String] {
+        var urls: [String] = []
+        let urlArray = (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)) ?? []
+        for i in urlArray {
+            urls.append(i.lastPathComponent)
+        }
+        if sortStatus {
+            return urls.sorted(by: < )
+        } else {
+            return urls.sorted(by: > )
+        }
+        
+    }
+    
+    lazy var settingsTableViewController = SettingsTableViewController(passwordView: passwordView, controller: self)
+    
+    let passwordView = PasswordView()
     
     private func setUpAndLaunchAlertController() {
         let alertController = UIAlertController(title: "Save a picture", message: "Choose the name of the picture", preferredStyle: .alert)
@@ -68,12 +93,29 @@ final class FileManagerTableViewController: UITableViewController {
         setUpPicker()
     }
     
+    @objc func launchSettingsTableViewController() {
+        settingsTableViewController.title = "Settings"
+ //       self.present(settingsTableViewController, animated: true)
+        self.navigationController?.pushViewController(settingsTableViewController, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.navigationItem.title = "Directory"
-        self.navigationItem.titleView?.tintColor = .systemRed
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Добавить фотографию", style: .done, target: self, action: #selector(addPhoto))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add photo", style: .done, target: self, action: #selector(addPhoto))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(launchSettingsTableViewController))
+        sortStatus = UserDefaults.standard.bool(forKey: "sortStatus")
+  
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if passwordView.loginStatus == false {
+            passwordView.launchCreatePasswordAlertWindow(controller: self)
+        }
+  //      fullUpUrlPathsArray()
+  //      sortArrayAndReload(up: sortStatus)
+        
     }
     
     // MARK: - Table view data source
@@ -83,13 +125,14 @@ final class FileManagerTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return urlArray.count
+        return urlPathsArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+  
         var content = cell.defaultContentConfiguration()
-        content.text = urlArray[indexPath.row].lastPathComponent
+        content.text = urlPathsArray[indexPath.row]
         cell.contentConfiguration = content
         return cell
     }
@@ -104,6 +147,45 @@ final class FileManagerTableViewController: UITableViewController {
             try? FileManager.default.removeItem(at: urlArray[indexPath.row])
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = try? Data(contentsOf: urlArray[indexPath.row])
+        let imageViewFromTable = UIImageView(image: UIImage(data: data!))
+        
+        let transparentView: UIView = {
+            let view = UIView()
+            view.backgroundColor = .white
+            view.alpha = 0.9
+            return view
+        }()
+        
+        lazy var buttonX = CustomButton(title: (name: "X", state: .normal), titleColor: (color: .black, state: .normal), backgroundImage: (image: nil, state: nil)) {
+            removeViews()
+        }
+        
+        buttonX.setTitle("XX", for: .highlighted)
+        
+        transparentView.frame = view.frame
+        imageViewFromTable.frame = view.frame
+        view.addSubview(transparentView)
+        view.addSubview(imageViewFromTable)
+        view.addSubview(buttonX)
+
+        NSLayoutConstraint.activate([
+            buttonX.trailingAnchor.constraint(equalTo: imageViewFromTable.trailingAnchor),
+            buttonX.leadingAnchor.constraint(equalTo: imageViewFromTable.trailingAnchor, constant: -40),
+            buttonX.bottomAnchor.constraint(equalTo: imageViewFromTable.bottomAnchor, constant: -180),
+            buttonX.topAnchor.constraint(equalTo: imageViewFromTable.bottomAnchor, constant: -220)
+        ])
+    
+        func removeViews() {
+                buttonX.removeFromSuperview()
+                transparentView.removeFromSuperview()
+                imageViewFromTable.removeFromSuperview()
+
+        }
+        
     }
     
 }

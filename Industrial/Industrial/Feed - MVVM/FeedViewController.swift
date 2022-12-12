@@ -156,7 +156,7 @@ final class FeedViewController: UIViewController {
         view.backgroundColor = .darkGray
         setup()
         bindViewModel()
-        remindPassword()
+      //  remindPassword()
         
         // вызывают статический метод request класса NetworkService
         // NetworkService.request(with: appConfiguration!)
