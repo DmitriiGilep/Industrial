@@ -9,39 +9,70 @@ import UIKit
 
 final class SettingsTableViewController: UITableViewController {
 
+    let passwordView: PasswordView
+    let controller: FileManagerTableViewController
     
+    
+    init(passwordView: PasswordView, controller: FileManagerTableViewController) {
+        self.passwordView = passwordView
+        self.controller = controller
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        self.navigationItem.title = "Settings"
 
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1 {
-            return 2
-        } else {
-            return 1
-        }
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
         var content = cell.defaultContentConfiguration()
-        content.text = "hello"
+        if indexPath.row == 1 {
+            content.text = "Sort"
+            if controller.sortStatus {
+                content.secondaryText = "A->Z"
+            } else {
+                content.secondaryText = "Z->A"
+            }
+        } else {
+            content.text = "Change a password"
+        }
+        
         cell.contentConfiguration = content
 
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == 1 {
+            controller.sortStatus = !controller.sortStatus
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            
+        } else {
+            passwordView.launchChangePasswordAlertWindow(controller: controller)
+        }
+    }
 
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        ()
+//    }
     
 
     /*

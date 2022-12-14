@@ -23,7 +23,7 @@ final class FeedViewModel {
     
     var processInterfaceEvents: ((State) -> Void)?
     
-    private(set) var state: State = .resultGuessCheckFalse {
+    private(set) var state: State = .resultGuessCheckFalse { // only the setter is private, the getter is internal (by default)
         didSet {
             processInterfaceEvents?(state)
         }
