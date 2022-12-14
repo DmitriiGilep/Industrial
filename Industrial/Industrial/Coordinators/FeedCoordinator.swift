@@ -17,6 +17,7 @@ final class FeedCoordinator {
         let model = PostViewModel()
         let postViewController = PostViewController(coordinator: coordinator, model: model)
         navController?.pushViewController(postViewController, animated: true)
+  //      navController?.popViewController(animated: true) // takes from the stack
     }
     
     func infoViewController(postViewController: PostViewController) {
@@ -24,6 +25,7 @@ final class FeedCoordinator {
         let model = InfoViewModel()
         let infoViewController = InfoViewController(coordinator: coordinator, model: model)
         postViewController.present(infoViewController, animated: true, completion: nil)
+        
     }
     
     func alertView(infoViewController: InfoViewController) {
