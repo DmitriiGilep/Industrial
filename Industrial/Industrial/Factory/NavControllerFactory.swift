@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import PhotosUI
+import RealmSwift
 
 final class NavControllerFactory {
     
@@ -50,9 +51,19 @@ final class NavControllerFactory {
             let loginViewController = LogInViewController(coordinator: profileCoordinator)
             let myLoginFactory = MyLoginFactory()
             loginViewController.delegate = myLoginFactory.loginInspector()
-            
             profileCoordinator.navController = navController
             navController.setViewControllers([loginViewController], animated: true)
+ 
+            if LoginRealmModel.shared.status.status {
+                let coordinator = ProfileCoordinator()
+                
+//                let userService = CurrentUserService()
+//                let profileViewController = ProfileViewController(userService: userService, userName: loginViewController.nameTextField.text ?? "", coordinator: coordinator, controller: loginViewController)
+//                navController.pushViewController(profileViewController, animated: true)
+                
+                coordinator.profileViewController(coordinator: coordinator, controller: loginViewController, navControllerFromFactory: navController)
+            }
+
             navController.navigationBar.isHidden = true
             
             let tabBar2 = UITabBarItem()

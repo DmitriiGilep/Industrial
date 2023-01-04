@@ -12,22 +12,24 @@ final class ProfileCoordinator {
     
     var navController: UINavigationController?
     
-    func profileViewController(coordinator: ProfileCoordinator) {
-        let coordinator = ProfileCoordinator()
-        let loginViewController = LogInViewController(coordinator: coordinator)
-#if DEBUG
+    func profileViewController(coordinator: ProfileCoordinator, controller: LogInViewController, navControllerFromFactory: UINavigationController?) {
+ #if DEBUG
         let userService = TestUserService()
 #else
         let userService = CurrentUserService()
 #endif
-        let profileViewController = ProfileViewController(userService: userService, userName: loginViewController.nameTextField.text ?? "", coordinator: coordinator)
-        
-        navController?.pushViewController(profileViewController, animated: true)
+        let profileViewController = ProfileViewController(userService: userService, userName: LoginRealmModel.shared.status.login ?? "Не определен", coordinator: coordinator, controller: controller)
+        if let navFromFactory = navControllerFromFactory {
+            navFromFactory.pushViewController(profileViewController, animated: true)
+        } else {
+            navController?.pushViewController(profileViewController, animated: true)
+        }
         
     }
     
     func photosViewController(profileViewController: ProfileViewController) {
         let photosViewController = PhotosViewController()
+        photosViewController.navigationController?.isNavigationBarHidden = false
         profileViewController.navigationController?.pushViewController(photosViewController, animated: true)
     }
     

@@ -91,7 +91,7 @@ final class LogInViewController: UIViewController {
         passwordText.tintColor = UIColor(named: "AccentColor")
         passwordText.autocapitalizationType = .none
         passwordText.placeholder = "Password"
-        passwordText.isSecureTextEntry = false
+        passwordText.isSecureTextEntry = true
         passwordText.translatesAutoresizingMaskIntoConstraints = false
         return passwordText
     }()
