@@ -13,14 +13,14 @@ final class ProfileViewController: UIViewController {
     
     //MARK: - let and var
     let coordinator: ProfileCoordinator
-
+    let controller: LogInViewController
     var userService: UserService
     var userName: String
     private var postDataArray = postData.postDataArray
     private var postPhotoName = ["1", "2", "3", "4"]
     
-    let profileHeaderView: ProfileHeaderView = {
-        let profileHeader = ProfileHeaderView()
+    lazy var profileHeaderView: ProfileHeaderView = {
+        let profileHeader = ProfileHeaderView(controller: controller, currentController: self)
         profileHeader.translatesAutoresizingMaskIntoConstraints = false
         return profileHeader
     }()
@@ -98,10 +98,11 @@ final class ProfileViewController: UIViewController {
     let xButtonAnimation = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut, animations: nil)
     
     //MARK: - init
-    init(userService: UserService, userName: String, coordinator: ProfileCoordinator) {
+    init(userService: UserService, userName: String, coordinator: ProfileCoordinator, controller: LogInViewController) {
         self.userService = userService
         self.userName = userName
         self.coordinator = coordinator
+        self.controller = controller
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {

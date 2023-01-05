@@ -10,6 +10,9 @@ import SnapKit
 
 final class ProfileHeaderView: UIView {
     
+    let loginViewController: LogInViewController
+    let profileViewController: ProfileViewController
+    
     let fullNameLabel: UILabel = {
         let fullName = UILabel()
         fullName.text = "Hipster Guy"
@@ -55,14 +58,25 @@ final class ProfileHeaderView: UIView {
             self?.statusLabel.text = self?.statusText
         })
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setUP()
+    private lazy var logoutButton = CustomButton(title: ("Выйти", nil), titleColor: (.white, .normal), titleLabelColor: .white, titleFont: nil, cornerRadius: 4, backgroundColor: .black, backgroundImage: (nil, nil), clipsToBounds: nil, action: { [weak self] in
+        LoginRealmModel.shared.statusLoggedOut()
+        self!.profileViewController.navigationController?.popToRootViewController(animated: true)
+        self!.loginViewController.passwordTextField.text = ""
+        self!.loginViewController.nameTextField.text = ""
+
+    })
+    
+    init(controller: LogInViewController, currentController: ProfileViewController) {
+        self.loginViewController = controller
+        self.profileViewController = currentController
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        setUP()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     @objc private func statusTextChanged(_ textField: UITextField) {
         
@@ -83,6 +97,7 @@ final class ProfileHeaderView: UIView {
         self.addSubview(setStatusButton)
         self.addSubview(statusLabel)
         self.addSubview(statusTextField)
+        self.addSubview(logoutButton)
         
         //MARK: - autolayout by Snapkit
         
@@ -112,6 +127,13 @@ final class ProfileHeaderView: UIView {
             make.leading.equalToSuperview().inset(136)
             make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(40)
+        }
+        
+        logoutButton.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(5)
+            make.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(20)
+            make.width.equalTo(100)
         }
         
         //MARK: - autolayout by autolayot

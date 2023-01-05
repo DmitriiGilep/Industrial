@@ -14,6 +14,6 @@ class CurrentUserService: UserService {
     
     func userInfo(name: String) -> User? {
         if name == user.name  {return user}
-        else {return User(name: "NoName", avatar: UIImage(named: "Avatar.jpeg")!, status: "Not logged in")}
+        else {return User(name: name, avatar: UIImage(named: "Avatar.jpeg")!, status: "Dreaming")}
     }
 }
