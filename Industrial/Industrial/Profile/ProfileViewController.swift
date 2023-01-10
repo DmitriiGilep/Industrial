@@ -12,6 +12,7 @@ import StorageService
 final class ProfileViewController: UIViewController {
     
     //MARK: - let and var
+    let favoritesCell =  FavoritesCell()
     let coordinator: ProfileCoordinator
     let controller: LogInViewController
     var userService: UserService
@@ -235,6 +236,7 @@ final class ProfileViewController: UIViewController {
         self.profileTableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: ProfileHeaderView.self))
         self.profileTableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: String(describing: PhotosTableViewCell.self))
         self.profileTableView.register(PostTableViewCell.self, forCellReuseIdentifier: String(describing: PostTableViewCell.self))
+        profileTableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: FavoritesCell.self))
    //     profileTableView.rowHeight = UITableView.automaticDimension
         profileTableView.estimatedRowHeight = 310
         
@@ -278,13 +280,13 @@ final class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     // rows quantity
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionNumber = section
-        if sectionNumber == 0 || sectionNumber == 1 {
+        if sectionNumber == 0 || sectionNumber == 1 || sectionNumber == 3 {
             return 1
         } else if sectionNumber == 2 {
             return (postDataArray.count)
@@ -322,6 +324,19 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             }
             return cell
             
+        } else if indexPath.section == 3 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FavoritesCell.self), for: indexPath)
+            
+            cell.contentView.addSubview(favoritesCell)
+            NSLayoutConstraint.activate([
+                favoritesCell.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                favoritesCell.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                favoritesCell.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                favoritesCell.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+            ])
+            
+            return cell
+            
         } else {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: String(describing: PostTableViewCell.self),
@@ -332,6 +347,27 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             
             let data = postDataArray[indexPath.row]
             cell.post = data
+            
+            cell.tapAddToFavorites = { [weak self] cell in
+                
+                guard let post = cell.post else { return }
+                
+                var searchFlag = false
+                for postSaved in FavoritesCoreData.shared.posts {
+                    if postSaved.author == post.author, postSaved.descriptionOfPost == post.descriptionOfPost, postSaved.image == post.image {
+                        searchFlag = true
+                    }
+                }
+                
+                if searchFlag {
+                    let alert = CustomAlert.shared.createAlertNoCompletion(title: "Пост не добавлен", message: "Данный пост уже содержится в избранном", titleAction: "Ок")
+                    self!.present(alert, animated: true)
+                } else {
+                    FavoritesCoreData.shared.addPost(post: post)
+                }
+
+            }
+            
             return cell
         }
         
@@ -340,6 +376,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             coordinator.photosViewController(profileViewController: self)
+        } else if indexPath.section == 3 {
+            coordinator.favoritesTableViewController()
         }
     }
     

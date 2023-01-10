@@ -9,7 +9,9 @@ import Foundation
 import UIKit
 
 final class CustomAlert {
-        
+    
+    static let shared = CustomAlert()
+    
     func createAlertWithCompletion(title: String?, message: String?, placeholder: String?, titleAction: String?, action: @escaping () -> Void) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -26,11 +28,8 @@ final class CustomAlert {
         return alertController
     }
     
-    func createAlertNoCompletion(title: String?, message: String?, placeholder: String?, titleAction: String?) -> UIAlertController {
+    func createAlertNoCompletion(title: String?, message: String?, titleAction: String?) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addTextField { text in
-            text.placeholder = placeholder
-        }
         let alertAction = UIAlertAction(title: titleAction, style: .default)
         alertController.addAction(alertAction)
         return alertController
