@@ -19,11 +19,11 @@ final class ProfileCoordinator {
         let userService = CurrentUserService()
 #endif
         let profileViewController = ProfileViewController(userService: userService, userName: LoginRealmModel.shared.status.login ?? "Не определен", coordinator: coordinator, controller: controller)
-        if let navFromFactory = navControllerFromFactory {
-            navFromFactory.pushViewController(profileViewController, animated: true)
-        } else {
+//        if let navFromFactory = navControllerFromFactory {
+//            navFromFactory.pushViewController(profileViewController, animated: true)
+//        } else {
             navController?.pushViewController(profileViewController, animated: true)
-        }
+ //       }
         
     }
     
@@ -31,6 +31,12 @@ final class ProfileCoordinator {
         let photosViewController = PhotosViewController()
         photosViewController.navigationController?.isNavigationBarHidden = false
         profileViewController.navigationController?.pushViewController(photosViewController, animated: true)
+    }
+    
+    func favoritesTableViewController() {
+        let favoritesTableViewController = FavoritesTableViewController()
+        navController?.navigationBar.isHidden = false
+        navController?.pushViewController(favoritesTableViewController, animated: true)
     }
     
     

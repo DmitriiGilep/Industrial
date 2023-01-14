@@ -12,11 +12,21 @@ import StorageService
 
 final class PostTableViewCell: UITableViewCell {
     
+    var tapAddToFavorites: ((PostTableViewCell) -> Void)?
+    
+    lazy var tapAddToFavoritesGesture: UITapGestureRecognizer = {
+        let recognizer = UITapGestureRecognizer()
+        recognizer.numberOfTouchesRequired = 1
+        recognizer.numberOfTapsRequired = 2
+        recognizer.addTarget(self, action: #selector(addToFavorites))
+        return recognizer
+    }()
+    
     var post: PostProtocol? {
         didSet {
             authorLabel.text = post?.author
             postImage.image = UIImage(named: "\(post?.image ?? "1")")
-            descriprionLabel.text = post?.description
+            descriprionLabel.text = post?.descriptionOfPost
             likesLabel.text = "Likes: \(post?.likes ?? 0)"
             viewsLabel.text = "Views: \(post?.views ?? 0)"
         }
@@ -61,11 +71,18 @@ final class PostTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setViews()
         self.backgroundColor = .white
+        addGestureRecognizer(tapAddToFavoritesGesture)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+        
+    @objc
+    private func addToFavorites() {
+        tapAddToFavorites?(self)
+    }
+    
     
     private func setViews() {
         

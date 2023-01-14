@@ -55,13 +55,12 @@ final class NavControllerFactory {
             navController.setViewControllers([loginViewController], animated: true)
  
             if LoginRealmModel.shared.status.status {
-                let coordinator = ProfileCoordinator()
                 
 //                let userService = CurrentUserService()
 //                let profileViewController = ProfileViewController(userService: userService, userName: loginViewController.nameTextField.text ?? "", coordinator: coordinator, controller: loginViewController)
 //                navController.pushViewController(profileViewController, animated: true)
                 
-                coordinator.profileViewController(coordinator: coordinator, controller: loginViewController, navControllerFromFactory: navController)
+                profileCoordinator.profileViewController(coordinator: profileCoordinator, controller: loginViewController, navControllerFromFactory: navController)
             }
 
             navController.navigationBar.isHidden = true
