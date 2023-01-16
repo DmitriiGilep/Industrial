@@ -34,9 +34,13 @@ final class ProfileCoordinator {
     }
     
     func favoritesTableViewController() {
-        let favoritesTableViewController = FavoritesTableViewController()
-        navController?.navigationBar.isHidden = false
-        navController?.pushViewController(favoritesTableViewController, animated: true)
+        if #available(iOS 16.0, *) {
+            let favoritesTableViewController = FavoritesTableViewController()
+            
+            
+            navController?.navigationBar.isHidden = false
+            navController?.pushViewController(favoritesTableViewController, animated: true)
+        }
     }
     
     

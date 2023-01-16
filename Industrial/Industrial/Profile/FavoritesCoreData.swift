@@ -28,40 +28,79 @@ final class FavoritesCoreData {
             return container
         }()
     
-    func saveContext() {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+    lazy var contextBackground: NSManagedObjectContext = {
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        context.persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
+        return context
+    }()
+    
+//    lazy var contextMain: NSManagedObjectContext = {
+//        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+//        context.persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
+//        return context
+//    }()
+
+//    func saveContext() {
+//        let context = persistentContainer.viewContext
+//        if context.hasChanges {
+//            do {
+//                try context.save()
+//            } catch {
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//        }
+//    }
+    
+//    func saveMainContext() {
+//            if self.contextMain.hasChanges {
+//                do {
+//                    try self.contextMain.save()
+//                } catch {
+//                    let nserror = error as NSError
+//                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//                }
+//            }
+//    }
+    
+    func saveBackgroundContext() {
+        if self.contextBackground.hasChanges {
+                do {
+                    try self.contextBackground.save()
+                } catch {
+                    let nserror = error as NSError
+                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                }
             }
-        }
     }
     
     func loadPosts() {
         let request = PostFav.fetchRequest()
-        let posts = (try? persistentContainer.viewContext.fetch(request)) ?? []
+        let posts = (try? contextBackground.fetch(request)) ?? []
         self.posts = posts
 
     }
 
     func addPost(post: PostProtocol) {
-        var postFav = PostFav(context: persistentContainer.viewContext)
-        postFav.author = post.author
-        postFav.descriptionOfPost = post.descriptionOfPost
-        postFav.image = post.image
-        postFav.likes = post.likes
-        postFav.views = post.views
-        saveContext()
-        loadPosts()
+        contextBackground.perform {
+            let postFav = PostFav(context: self.contextBackground)
+            postFav.author = post.author
+            postFav.descriptionOfPost = post.descriptionOfPost
+            postFav.image = post.image
+            postFav.likes = post.likes
+            postFav.views = post.views
+            self.saveBackgroundContext()
+            self.loadPosts()
+        }
     }
     
     func deletePost(post: PostFav) {
-        persistentContainer.viewContext.delete(post)
-        saveContext()
-        loadPosts()
+//        persistentContainer.viewContext.delete(post)
+//        saveContext()
+            self.contextBackground.delete(post)
+            self.saveBackgroundContext()
+            self.loadPosts()
+        
     }
     
 }
