@@ -18,6 +18,7 @@ final class FavoritesCoreData {
         loadPosts()
     }
     
+    
     lazy var persistentContainer: NSPersistentContainer = {
             let container = NSPersistentContainer(name: "Industrial")
             container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -40,17 +41,17 @@ final class FavoritesCoreData {
 //        return context
 //    }()
 
-//    func saveContext() {
-//        let context = persistentContainer.viewContext
-//        if context.hasChanges {
-//            do {
-//                try context.save()
-//            } catch {
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//        }
-//    }
+    func saveContext() {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
     
 //    func saveMainContext() {
 //            if self.contextMain.hasChanges {
@@ -95,10 +96,10 @@ final class FavoritesCoreData {
     }
     
     func deletePost(post: PostFav) {
-//        persistentContainer.viewContext.delete(post)
-//        saveContext()
-            self.contextBackground.delete(post)
-            self.saveBackgroundContext()
+        persistentContainer.viewContext.delete(post)
+        saveContext()
+//            self.contextBackground.delete(post)
+//            self.saveBackgroundContext()
             self.loadPosts()
         
     }

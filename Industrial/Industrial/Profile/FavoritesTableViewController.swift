@@ -6,29 +6,51 @@
 //
 
 import UIKit
+import CoreData
 
 
-final class FavoritesTableViewController: UITableViewController {
+final class FavoritesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    var posts: [PostFav] = {
+    var fetchResultsController: NSFetchedResultsController<PostFav>!
+
+    func initFetchResultsController() {
+        let request = PostFav.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "author", ascending: false)]
         
-       return FavoritesCoreData.shared.posts
-
-    }()
-    
-    var searchRequest: String? {
-        didSet {
-            posts = {
-                if searchRequest == nil {
-                    return FavoritesCoreData.shared.posts
-                } else {
-                    return FavoritesCoreData.shared.posts.filter({ post in
-                        post.author == searchRequest
-                    })
-                }
-            }()
+        if let searchRequest = textFieldForFilter.text, searchRequest != "" {
+            request.predicate = NSPredicate(format: "author contains[cd] %@", searchRequest)
         }
+        
+        let fetchResultsControllerToDeliver = NSFetchedResultsController(fetchRequest: request, managedObjectContext: FavoritesCoreData.shared.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        try? fetchResultsControllerToDeliver.performFetch()
+        
+        fetchResultsController = fetchResultsControllerToDeliver
+        
+        fetchResultsController.delegate = self
+
     }
+    
+    
+//    var posts: [PostFav] = {
+//
+//       return FavoritesCoreData.shared.posts
+//
+//    }()
+    
+//    var searchRequest: String? {
+//        didSet {
+//            posts = {
+//                if searchRequest == nil {
+//                    return FavoritesCoreData.shared.posts
+//                } else {
+//                    return FavoritesCoreData.shared.posts.filter({ post in
+//                        post.author == searchRequest
+//                    })
+//                }
+//            }()
+//        }
+//    }
     
     let emptyLabel: UILabel = {
         let label = UILabel()
@@ -60,9 +82,10 @@ final class FavoritesTableViewController: UITableViewController {
     
     
     lazy var applyButton = CustomButton(title: (name: "Apply", state: .normal), titleColor: (color: .black, state: .normal), backgroundImage: (image: nil, state: nil)) {
-        self.searchRequest = self.textFieldForFilter.text
-        self.tableView.reloadData()
+//        self.searchRequest = self.textFieldForFilter.text
         self.contentView.removeFromSuperview()
+        self.initFetchResultsController()
+        self.tableView.reloadData()
     }
     
     lazy var searchButton = CustomButton(title: (name: "Search", state: .normal), titleColor: (color: .systemBlue, state: .normal), backgroundImage: (image: nil, state: nil)) {
@@ -77,7 +100,10 @@ final class FavoritesTableViewController: UITableViewController {
 //    }
     
     lazy var cancelButton = CustomButton(title: (name: "Cancel", state: .normal), titleColor: (color: .red, state: .normal), backgroundImage: (image: nil, state: nil)) {
-        self.searchRequest = nil
+   //     self.searchRequest = nil
+        self.contentView.removeFromSuperview()
+        self.textFieldForFilter.text = ""
+        self.initFetchResultsController()
         self.tableView.reloadData()
     }
     
@@ -91,6 +117,7 @@ final class FavoritesTableViewController: UITableViewController {
         searchButton.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         navigationItem.titleView = searchButton
         navigationItem.rightBarButtonItem = cancelButtonItem
+        initFetchResultsController()
     }
     
     private func setUpContentView() {
@@ -122,19 +149,23 @@ final class FavoritesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return fetchResultsController.sections?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRows: Int
-        if posts.isEmpty {
+//        if posts.isEmpty {
+        if fetchResultsController.sections?[section].numberOfObjects == 0 {
+
             emptyLabel.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
             tableView.backgroundView = emptyLabel
             tableView.separatorStyle = .none
             numberOfRows = 0
+
         } else {
             //numberOfRows = FavoritesCoreData.shared.posts.count
-            numberOfRows = posts.count
+            // numberOfRows = posts.count
+            numberOfRows = fetchResultsController.sections?[section].numberOfObjects ?? 0
         }
         return numberOfRows
     }
@@ -151,7 +182,8 @@ final class FavoritesTableViewController: UITableViewController {
         
         
    //     let data = FavoritesCoreData.shared.posts[indexPath.row]
-        let data = posts[indexPath.row]
+   //     let data = posts[indexPath.row]
+        let data = fetchResultsController.object(at: indexPath)
         cell.post = data
         
         return cell
@@ -179,9 +211,9 @@ final class FavoritesTableViewController: UITableViewController {
        
         let actionDelete = UIContextualAction(style: .destructive, title: "Delete") { actionDelete, swipeButtonView, completion in
 //            let post = FavoritesCoreData.shared.posts[indexPath.row]
-            let post = self.posts[indexPath.row]
+//            let post = self.posts[indexPath.row]
+            let post = self.fetchResultsController.object(at: indexPath)
             FavoritesCoreData.shared.deletePost(post: post)
-            tableView.reloadData()
             completion(true)
         }
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [actionDelete])
@@ -189,5 +221,10 @@ final class FavoritesTableViewController: UITableViewController {
         return swipeConfiguration
     }
 
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        tableView.reloadData()
+
+    }
+    
 }
 
