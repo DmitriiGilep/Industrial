@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainCoordinator = MainCoordinator()
         window?.rootViewController = mainCoordinator.startApplication()
         
+        print("This is my Bundle url: \(Bundle.main.bundleURL)") // my Bundle
+        print("This is my Sandbox url: \(FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask))")
         return true
     }
 
