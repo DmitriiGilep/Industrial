@@ -25,6 +25,8 @@ final class Status: Object {
 final class LoginRealmModel {
     
     static let shared = LoginRealmModel()
+    
+    lazy var config = Realm.Configuration(encryptionKey: getKey())
 
     var status = Status()
     
@@ -33,10 +35,11 @@ final class LoginRealmModel {
     init() {
         migrate()
         refreshData()
-    }
+        }
+
     
     func addLoginModel(login: String, password: String) {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: config)
         try! realm.write {
             let loginPair = LoginModel()
             loginPair.login = login
@@ -47,7 +50,7 @@ final class LoginRealmModel {
     }
     
     func refreshData() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: config)
         loginPairArray = Array(realm.objects(LoginModel.self))
         if let statusNew = realm.objects(Status.self).first {
             status = statusNew
@@ -56,7 +59,7 @@ final class LoginRealmModel {
     }
     
     func statusLoggedIn(login: String) {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: config)
         if let statusUpdate = realm.objects(Status.self).first {
             try! realm.write {
                 statusUpdate.status = true
@@ -74,7 +77,7 @@ final class LoginRealmModel {
     }
     
     func statusLoggedOut() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: config)
         if let statusUpdate = realm.objects(Status.self).first {
             try! realm.write {
                 statusUpdate.status = false
@@ -82,7 +85,6 @@ final class LoginRealmModel {
                 refreshData()
             }
         }
-        
     }
     
 //    func deleteData(login: String, password: String) {
@@ -98,8 +100,49 @@ final class LoginRealmModel {
 //    }
     
     private func migrate() {
-        let config = Realm.Configuration(schemaVersion: 2) // update the scheme number after the model has been changed
+        let config = Realm.Configuration(schemaVersion: 4) // update the scheme number after the model has been changed
         Realm.Configuration.defaultConfiguration = config
+        
+    }
+    
+    func getKey() -> Data {
+        
+        let keychainIdentifier = "com.Dmitry.Gilep"
+        let keychainIdentifierData = keychainIdentifier.data(using: String.Encoding.utf8, allowLossyConversion: false)!
+        
+        // First check in the keychain for an existing key
+        var query: [NSString: AnyObject] = [
+            kSecClass: kSecClassKey,
+            kSecAttrApplicationTag: keychainIdentifierData as AnyObject,
+            kSecAttrKeySizeInBits: 512 as AnyObject,
+            kSecReturnData: true as AnyObject
+        ]
+        
+        var dataTypeRef: AnyObject?
+        var status = withUnsafeMutablePointer(to: &dataTypeRef) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
+        
+        // получили key
+        if status == errSecSuccess {
+            return dataTypeRef as! Data
+        } else {
+            // не получили key => generate a random encryption key
+            var key = Data(count: 64)
+            key.withUnsafeMutableBytes({ (pointer: UnsafeMutableRawBufferPointer) in
+                let result = SecRandomCopyBytes(kSecRandomDefault, 64, pointer.baseAddress!)
+                assert(result == 0, "Failed to get random bytes")
+            })
+            
+            // Store the key in the keychain
+            query = [
+                kSecClass: kSecClassKey,
+                kSecAttrApplicationTag: keychainIdentifierData as AnyObject,
+                kSecAttrKeySizeInBits: 512 as AnyObject,
+                kSecValueData: key as AnyObject
+            ]
+            status = SecItemAdd(query as CFDictionary, nil)
+            assert(status == errSecSuccess, "Failed to insert the new key in the keychain")
+            return key
+        }
     }
     
 }
