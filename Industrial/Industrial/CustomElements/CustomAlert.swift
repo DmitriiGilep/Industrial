@@ -28,6 +28,30 @@ final class CustomAlert {
         return alertController
     }
     
+    func createAlertWithCompletionTwoField(controller: UITextFieldDelegate, title: String?, message: String?, placeholder1: String?, placeholder2: String?,titleAction: String?, action: @escaping () -> Void) -> UIAlertController {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        if placeholder1 != nil {
+            alertController.addTextField { text in
+                text.placeholder = placeholder1
+                text.delegate = controller
+            }
+        }
+        
+        if placeholder2 != nil {
+            alertController.addTextField { text in
+                text.placeholder = placeholder2
+                text.delegate = controller
+            }
+        }
+        
+        let alertAction = UIAlertAction(title: titleAction, style: .default) { UIAlertAction in
+            action()
+        }
+        alertController.addAction(alertAction)
+        return alertController
+    }
+    
     func createAlertNoCompletion(title: String?, message: String?, titleAction: String?) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: titleAction, style: .default)

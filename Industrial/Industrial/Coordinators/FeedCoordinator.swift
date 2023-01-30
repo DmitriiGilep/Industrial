@@ -20,6 +20,11 @@ final class FeedCoordinator {
   //      navController?.popViewController(animated: true) // takes from the stack
     }
     
+    func mapViewController() {
+        let mapViewController = MapViewController()
+        navController?.pushViewController(mapViewController, animated: true)
+    }
+    
     func infoViewController(postViewController: PostViewController) {
         let coordinator = FeedCoordinator()
         let model = InfoViewModel()

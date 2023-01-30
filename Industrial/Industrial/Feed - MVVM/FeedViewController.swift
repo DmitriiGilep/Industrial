@@ -117,16 +117,16 @@ final class FeedViewController: UIViewController {
             self?.buttonGoToPostViewControllerPressed()
         })
     
-    // кнопка 2 для перехода на postViewController и сам переход
+    // кнопка для перехода на mapViewController и сам переход
     lazy var button2 = CustomButton(
-        title: (name: "PostButton2", state: .normal),
+        title: (name: "MapView", state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 8,
         backgroundColor: .systemPink,
         backgroundImage: (image: nil, state: nil),
         action: {
             [weak self] in
-            self?.buttonGoToPostViewControllerPressed()
+            self?.buttonGoToMapViewControllerPressed()
         })
     
     let buttonsForPost: UIStackView = {
@@ -215,6 +215,11 @@ final class FeedViewController: UIViewController {
         
     }
     
+    func buttonGoToMapViewControllerPressed() {
+        self.feedViewModel.changeState(interfaceEvent: .buttonGoToMapViewControllerPressed, controller: self)
+        
+    }
+    
     private func remindPassword() {
         var count = 0
         
@@ -261,6 +266,9 @@ final class FeedViewController: UIViewController {
                 }
             case .goToPostViewController:
                 self?.coordinator.postViewController()
+                
+            case .goToMapViewController:
+                self?.coordinator.mapViewController()
                 
             }
         }
