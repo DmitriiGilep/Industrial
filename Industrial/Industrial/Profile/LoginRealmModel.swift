@@ -27,7 +27,7 @@ final class LoginRealmModel {
     static let shared = LoginRealmModel()
     
     lazy var config = Realm.Configuration(encryptionKey: getKey())
-
+    
     var status = Status()
     
     var loginPairArray: [LoginModel] = []
@@ -35,69 +35,91 @@ final class LoginRealmModel {
     init() {
         migrate()
         refreshData()
-        }
-
+    }
+    
     
     func addLoginModel(login: String, password: String) {
-        let realm = try! Realm(configuration: config)
-        try! realm.write {
-            let loginPair = LoginModel()
-            loginPair.login = login
-            loginPair.password = password
-            realm.add(loginPair)
-            refreshData()
+        do {
+            let realm = try Realm(configuration: config)
+            try realm.write {
+                let loginPair = LoginModel()
+                loginPair.login = login
+                loginPair.password = password
+                realm.add(loginPair)
+                refreshData()
+            }
+        } catch {
+            print(error.localizedDescription)
         }
+        
+        
     }
     
     func refreshData() {
-        let realm = try! Realm(configuration: config)
-        loginPairArray = Array(realm.objects(LoginModel.self))
-        if let statusNew = realm.objects(Status.self).first {
-            status = statusNew
+        do {
+            let realm = try Realm(configuration: config)
+            loginPairArray = Array(realm.objects(LoginModel.self))
+            if let statusNew = realm.objects(Status.self).first {
+                status = statusNew
+            }
+        } catch {
+            
+            print(error.localizedDescription)
+            
         }
+        
         
     }
     
     func statusLoggedIn(login: String) {
-        let realm = try! Realm(configuration: config)
-        if let statusUpdate = realm.objects(Status.self).first {
-            try! realm.write {
-                statusUpdate.status = true
-                statusUpdate.login = login
+        do {
+            let realm = try Realm(configuration: config)
+            if let statusUpdate = realm.objects(Status.self).first {
+                try realm.write {
+                    statusUpdate.status = true
+                    statusUpdate.login = login
+                }
+            } else {
+                try realm.write {
+                    let statusUpdate = Status()
+                    statusUpdate.status = true
+                    statusUpdate.login = login
+                    realm.add(statusUpdate)
+                }
             }
-        } else {
-            try! realm.write {
-                let statusUpdate = Status()
-                statusUpdate.status = true
-                statusUpdate.login = login
-                realm.add(statusUpdate)
-            }
+        } catch {
+            print(error.localizedDescription)
         }
+        
         refreshData()
     }
     
     func statusLoggedOut() {
-        let realm = try! Realm(configuration: config)
-        if let statusUpdate = realm.objects(Status.self).first {
-            try! realm.write {
-                statusUpdate.status = false
-                statusUpdate.login = nil
-                refreshData()
+        do {
+            let realm = try Realm(configuration: config)
+            if let statusUpdate = realm.objects(Status.self).first {
+                try realm.write {
+                    statusUpdate.status = false
+                    statusUpdate.login = nil
+                    refreshData()
+                }
             }
+        } catch {
+            print(error.localizedDescription)
         }
     }
     
-//    func deleteData(login: String, password: String) {
-//        let realm = try! Realm()
-//        try! realm.write {
-//            for i in realm.objects(LoginModel.self) {
-//                if i.login == login, i.password == password {
-//                    realm.delete(i)
-//                }
-//            }
-//        }
-//        refreshData()
-//    }
+    //    func deleteData(login: String, password: String) {
+    //        let realm = try! Realm()
+    //        try! realm.write {
+    //            for i in realm.objects(LoginModel.self) {
+    //                if i.login == login, i.password == password {
+    //                    realm.delete(i)
+    //                }
+    //            }
+    //        }
+    //        refreshData()
+    //    }
     
     private func migrate() {
         let config = Realm.Configuration(schemaVersion: 4) // update the scheme number after the model has been changed

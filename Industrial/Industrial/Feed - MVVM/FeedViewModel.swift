@@ -13,12 +13,14 @@ final class FeedViewModel {
     enum InterfaceEvents{
         case checkGuessButtonPressed
         case buttonGoToPostViewControllerPressed
+        case buttonGoToMapViewControllerPressed
     }
     
     enum State {
         case resultGuessCheckTrue
         case resultGuessCheckFalse
         case goToPostViewController
+        case goToMapViewController
     }
     
     var processInterfaceEvents: ((State) -> Void)?
@@ -44,6 +46,8 @@ final class FeedViewModel {
         case .buttonGoToPostViewControllerPressed:
             state = .goToPostViewController
             
+        case .buttonGoToMapViewControllerPressed:
+            state = .goToMapViewController
             
         }
     }
