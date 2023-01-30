@@ -39,7 +39,7 @@ final class ProfileHeaderView: UIView {
         statusText.layer.cornerRadius = 12
         statusText.layer.backgroundColor = CGColor(red: 255, green: 255, blue: 255, alpha: 1)
         statusText.placeholder = "Set your status"
-        statusText.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+        statusText.addTarget(ProfileHeaderView.self, action: #selector(statusTextChanged), for: .editingChanged)
         statusText.translatesAutoresizingMaskIntoConstraints = false
         return statusText
     }()

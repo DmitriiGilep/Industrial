@@ -109,7 +109,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         manager.desiredAccuracy = 100
         guard let location = locations.first else {return}
-        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 100, longitudinalMeters: 100)
+   //     let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 100, longitudinalMeters: 100)
   //      mapView.setRegion(region, animated: true)
         mapView.setCenter(location.coordinate, animated: true)
         

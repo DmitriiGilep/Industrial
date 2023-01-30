@@ -47,7 +47,7 @@ struct NetworkService {
             if let data = data {
                 
                 print("-----------------------data-------------------------")
-                print("🤓 \(String(data: data, encoding: .utf8))")
+                print("🤓 \(String(describing: String(data: data, encoding: .utf8)))")
             }
 //            print("------------------response.allHeaderFields-------------------------")
 //            print("😂 \((response as! HTTPURLResponse).allHeaderFields)")

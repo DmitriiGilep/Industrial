@@ -84,7 +84,7 @@ final class InfoViewModel {
                 do {
                     let object = try JSONSerialization.jsonObject(with: data)
                     if let dictionary = object as? [String: Any] {
-                        let sentData = try JSONSerialization.data(withJSONObject: dictionary)
+                        _ = try JSONSerialization.data(withJSONObject: dictionary)
                         
                         DispatchQueue.main.async { // возвращаем в главный поток, тк JSONSerilization работает ассинхронно
                             self.title = dictionary["title"] as! String
