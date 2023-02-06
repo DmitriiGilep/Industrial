@@ -37,7 +37,7 @@ struct NetworkService {
     
     static func request (with config: AppConfiguration) {
         guard let url = config.url else {
-            print ("URL не найден")
+            print ("URL_not_found".localizable)
             return
         }
         

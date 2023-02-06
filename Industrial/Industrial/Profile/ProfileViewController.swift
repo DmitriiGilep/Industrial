@@ -360,7 +360,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 if searchFlag {
-                    let alert = CustomAlert.shared.createAlertNoCompletion(title: "Пост не добавлен", message: "Данный пост уже содержится в избранном", titleAction: "Ок")
+                    let alert = CustomAlert.shared.createAlertNoCompletion(title: "post_not_added".localizable, message: "post_already_contained".localizable, titleAction: "Ок")
                     self!.present(alert, animated: true)
                 } else {
                     FavoritesCoreData.shared.addPost(post: post)

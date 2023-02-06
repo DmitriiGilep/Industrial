@@ -9,13 +9,13 @@ import Foundation
 
 final class InfoViewModel {
     
-    var title: String = "fetching data in process" {
+    var title: String = "fetching_in_process".localizable {
         didSet {
             processInterfaceEvents?(.processUrlRequest) // как только появляется значение title запусается case .processURLReques, который в контроллере присваивает лэйблу текст
         }
     }
     
-    var orbitalPeriod: String = "fetching data in process" {
+    var orbitalPeriod: String = "fetching_in_process".localizable {
         didSet {
             processInterfaceEvents?(.processUrlRequest2) // аналогично указанному выше в отношении орбитал периода
         }
@@ -67,17 +67,17 @@ final class InfoViewModel {
             state = .goToAlertView
         case .urlRequest: // serilization
             guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/9") else {
-                print("error")
+                print("error".localizable)
                 return
             }
             
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
                 guard error == nil else {
-                    print("error")
+                    print("error".localizable)
                     return
                 }
                 guard let data = data else {
-                    print("error")
+                    print("error".localizable)
                     return
                 }
                 
@@ -91,7 +91,7 @@ final class InfoViewModel {
                         }
                     }
                 } catch {
-                    print("error")
+                    print("error".localizable)
                     return
                 }
             }

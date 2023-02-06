@@ -13,7 +13,7 @@ import FirebaseAuth
 final class CheckerService: CheckerServiceProtocol {
         
     func signUp(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator) {
-        let alertViewFailure = self.createAlertView(viewTitle: "Ошибка регистрации", message: "Пользователь существует или что-то не так с логином или паролем", actionTitle: "ok", action: nil)
+        let alertViewFailure = self.createAlertView(viewTitle: "failure_registration".localizable, message: "user_existed_something_wrong".localizable, actionTitle: "ok", action: nil)
         
         guard !login.isEmpty, !password.isEmpty else {
             return controller.present(alertViewFailure, animated: true, completion: nil)
@@ -33,7 +33,7 @@ final class CheckerService: CheckerServiceProtocol {
         } else {
             LoginRealmModel.shared.addLoginModel(login: login, password: password)
             LoginRealmModel.shared.statusLoggedIn(login: login)
-            let alertViewSuccess = self.createAlertView(viewTitle: "Успешная регистрация", message: "Пользователь успешно зарегистрирован", actionTitle: "ok") {
+            let alertViewSuccess = self.createAlertView(viewTitle: "successful_registrarion".localizable, message: "user_registered".localizable, actionTitle: "ok") {
                 coordinator.profileViewController(coordinator: coordinator, controller: controller, navControllerFromFactory: nil)
             }
             controller.present(alertViewSuccess, animated: true, completion: nil)
@@ -56,7 +56,7 @@ final class CheckerService: CheckerServiceProtocol {
     }
     
     func checkCredentials(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator) {
-        let alertView = self.createAlertView(viewTitle: "Ошибка", message: "Неверный логин или пароль", actionTitle: "Ок", action: nil)
+        let alertView = self.createAlertView(viewTitle: "error".localizable, message: "password_login_incorrect".localizable, actionTitle: "Ок", action: nil)
         
         guard !login.isEmpty, !password.isEmpty else {
             return controller.present(alertView, animated: true, completion: nil)

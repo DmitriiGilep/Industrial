@@ -44,14 +44,14 @@ final class SettingsTableViewController: UITableViewController {
 
         var content = cell.defaultContentConfiguration()
         if indexPath.row == 1 {
-            content.text = "Sort"
+            content.text = "sort".localizable
             if controller.sortStatus {
-                content.secondaryText = "A->Z"
+                content.secondaryText = "A->Z".localizable
             } else {
-                content.secondaryText = "Z->A"
+                content.secondaryText = "Z->A".localizable
             }
         } else {
-            content.text = "Change a password"
+            content.text = "change_password".localizable
         }
         
         cell.contentConfiguration = content

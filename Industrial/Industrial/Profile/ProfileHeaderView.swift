@@ -15,7 +15,7 @@ final class ProfileHeaderView: UIView {
     
     let fullNameLabel: UILabel = {
         let fullName = UILabel()
-        fullName.text = "Hipster Guy"
+//        fullName.text = "Hipster Guy"
         fullName.textColor = UIColor.black
         fullName.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         fullName.textAlignment = .center
@@ -38,7 +38,7 @@ final class ProfileHeaderView: UIView {
         statusText.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
         statusText.layer.cornerRadius = 12
         statusText.layer.backgroundColor = CGColor(red: 255, green: 255, blue: 255, alpha: 1)
-        statusText.placeholder = "Set your status"
+        statusText.placeholder = "set_your_status".localizable
         statusText.addTarget(ProfileHeaderView.self, action: #selector(statusTextChanged), for: .editingChanged)
         statusText.translatesAutoresizingMaskIntoConstraints = false
         return statusText
@@ -48,7 +48,7 @@ final class ProfileHeaderView: UIView {
     
     // переинициализивал кнопку при помощи класса CustomButton
     private lazy var setStatusButton = CustomButton(
-        title: (name: "Set status", state: .normal),
+        title: (name: "set_status".localizable, state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 4,
         backgroundColor: .blue,
@@ -58,7 +58,7 @@ final class ProfileHeaderView: UIView {
             self?.statusLabel.text = self?.statusText
         })
     
-    private lazy var logoutButton = CustomButton(title: ("Выйти", nil), titleColor: (.white, .normal), titleLabelColor: .white, titleFont: nil, cornerRadius: 4, backgroundColor: .black, backgroundImage: (nil, nil), clipsToBounds: nil, action: { [weak self] in
+    private lazy var logoutButton = CustomButton(title: ("exit".localizable, nil), titleColor: (.white, .normal), titleLabelColor: .white, titleFont: nil, cornerRadius: 4, backgroundColor: .black, backgroundImage: (nil, nil), clipsToBounds: nil, action: { [weak self] in
         LoginRealmModel.shared.statusLoggedOut()
         self!.profileViewController.navigationController?.popToRootViewController(animated: true)
         self!.loginViewController.passwordTextField.text = ""

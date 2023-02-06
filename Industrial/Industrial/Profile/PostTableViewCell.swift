@@ -27,8 +27,12 @@ final class PostTableViewCell: UITableViewCell {
             authorLabel.text = post?.author
             postImage.image = UIImage(named: "\(post?.image ?? "1")")
             descriprionLabel.text = post?.descriptionOfPost
-            likesLabel.text = "Likes: \(post?.likes ?? 0)"
-            viewsLabel.text = "Views: \(post?.views ?? 0)"
+            let formattedLikes = String(format: "likes".localizable, post?.likes ?? 0)
+            likesLabel.text = formattedLikes
+ //           likesLabel.text = "likes:".localizable + "\(post?.likes ?? 0)"
+            let formattedViews = String(format: "views".localizable, post?.views ?? 0)
+            viewsLabel.text = formattedViews
+ //           viewsLabel.text = "views:".localizable + "\(post?.views ?? 0)"
         }
     }
     
@@ -63,6 +67,7 @@ final class PostTableViewCell: UITableViewCell {
     
     let viewsLabel: UILabel = {
         let views = UILabel()
+        views.textAlignment = .right
         views.translatesAutoresizingMaskIntoConstraints = false
         return views
     }()
@@ -113,11 +118,11 @@ final class PostTableViewCell: UITableViewCell {
                 self.likesLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
                 self.likesLabel.topAnchor.constraint(equalTo: self.descriprionLabel.bottomAnchor, constant: 5),
                 self.likesLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-                self.likesLabel.widthAnchor.constraint(equalToConstant: 100),
+                self.likesLabel.widthAnchor.constraint(equalToConstant: 150),
                 
                 self.viewsLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
                 self.viewsLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-                self.viewsLabel.widthAnchor.constraint(equalToConstant: 100)
+                self.viewsLabel.widthAnchor.constraint(equalToConstant: 200)
             ]
         )
     }

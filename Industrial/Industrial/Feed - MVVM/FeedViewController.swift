@@ -26,13 +26,13 @@ final class FeedViewController: UIViewController {
     private var timer1: Timer?
     private var timer2: Timer?
     
-    let titleForPost = "PostViewController"
+    let titleForPost = "postViewController".localizable
     
     let reminderLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
-        label.text = "Пароль начинается на букву 'п'"
+        label.text = "password_prompt".localizable
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -56,14 +56,14 @@ final class FeedViewController: UIViewController {
         // убрал автоматические заглавные буквы
         textField.autocapitalizationType = UITextAutocapitalizationType.none
         textField.layer.cornerRadius = 8
-        textField.placeholder = "Insert a password"
+        textField.placeholder = "insert_password".localizable
         textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
     private lazy var checkGuessButton = CustomButton(
-        title: (name: "Check", state: .normal),
+        title: (name: "check".localizable, state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 8,
         backgroundColor: .systemMint,
@@ -93,7 +93,7 @@ final class FeedViewController: UIViewController {
         let attributes: [NSAttributedString.Key: Any] = [
             .paragraphStyle: paragraphStyle
         ]
-        let attributedQuote = NSMutableAttributedString(string: "Green if true, red if false", attributes: attributes)
+        let attributedQuote = NSMutableAttributedString(string: "password_prompt_descript".localizable, attributes: attributes)
         attributedQuote.addAttribute(.foregroundColor, value: UIColor.green, range: NSRange(location: 0, length: 5))
         attributedQuote.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: 15, length: 3))
         
@@ -107,7 +107,7 @@ final class FeedViewController: UIViewController {
     
     // кнопка 1 для перехода на postViewController и сам переход
     lazy var button1 = CustomButton(
-        title: (name: "PostButton1", state: .normal),
+        title: (name: "postButton1".localizable, state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 8,
         backgroundColor: .systemBlue,
@@ -119,7 +119,7 @@ final class FeedViewController: UIViewController {
     
     // кнопка для перехода на mapViewController и сам переход
     lazy var button2 = CustomButton(
-        title: (name: "MapView", state: .normal),
+        title: (name: "mapView".localizable, state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 8,
         backgroundColor: .systemPink,
@@ -152,7 +152,7 @@ final class FeedViewController: UIViewController {
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "FeedView"
+        self.title = "feedView".localizable
         view.backgroundColor = .darkGray
         setup()
         bindViewModel()

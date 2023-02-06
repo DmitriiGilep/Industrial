@@ -15,7 +15,7 @@ final class FeedModel {
     
     let passwordForCheck: String
     
-    private let secretWord = "пароль"
+    private let secretWord = "secretWord".localizable
     
     init(passwordForCheck: String) {
         self.passwordForCheck = passwordForCheck

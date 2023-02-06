@@ -12,7 +12,7 @@ final class FavoritesCell: UIView {
     
     private let textLabel: UILabel = {
        let text = UILabel()
-        text.text = "Favorites"
+        text.text = "favorites".localizable
         text.adjustsFontSizeToFitWidth = true
         text.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
         text.translatesAutoresizingMaskIntoConstraints = false

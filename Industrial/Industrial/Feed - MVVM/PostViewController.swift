@@ -31,7 +31,7 @@ class PostViewController: UIViewController {
         view.backgroundColor = .brown
         
         //создал кнопку в bar и поставил ее в свойство, далее назначил ей переход на infoViewController
-        let tabBar = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(buttonGoToInfoViewControllerTapped))
+        let tabBar = UIBarButtonItem(title: "info".localizable, style: .plain, target: self, action: #selector(buttonGoToInfoViewControllerTapped))
         navigationItem.rightBarButtonItem = tabBar
         
         bindViewModel()
