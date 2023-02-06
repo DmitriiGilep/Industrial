@@ -46,7 +46,7 @@ final class InfoViewController: UIViewController {
     //создал кнопку, назначил ей вывод AlertView
     // переинициализировал кнопку при помощи CustomButton
     private lazy var button = CustomButton(
-        title: (name: "Alert", state: .normal),
+        title: (name: "alert_title".localizable, state: .normal),
         titleColor: (color: nil, state: nil),
         backgroundColor: .magenta,
         backgroundImage: (image: nil, state: nil),
@@ -68,7 +68,7 @@ final class InfoViewController: UIViewController {
         super.viewDidLoad()
         
         // поменял фон и имя
-        title = "Info"
+        title = "info".localizable
         view.backgroundColor = .cyan
         infoTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellForNames)
 
@@ -148,7 +148,7 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellForNames, for: indexPath)
         var cellContent = cell.defaultContentConfiguration()
         if infoViewModel.residentsName.isEmpty {
-            cellContent.text = "data loading in process"
+            cellContent.text = "data_loading_process".localizable
         }
             else {
                 cellContent.text = infoViewModel.residentsName[indexPath.row]

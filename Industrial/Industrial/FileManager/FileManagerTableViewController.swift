@@ -41,14 +41,14 @@ final class FileManagerTableViewController: UITableViewController {
     let passwordView = PasswordView()
     
     private func setUpAndLaunchAlertController() {
-        let alertController = UIAlertController(title: "Save a picture", message: "Choose the name of the picture", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "save_picture".localizable, message: "choose_name_picture".localizable, preferredStyle: .alert)
         alertController.addTextField { text in
-            text.placeholder = "Insert the filename"
+            text.placeholder = "insert_filename".localizable
         }
-        let alertActionSave = UIAlertAction(title: "Save", style: .default) { UIAlertAction in
+        let alertActionSave = UIAlertAction(title: "save".localizable, style: .default) { UIAlertAction in
             self.savePhoto(alertController: alertController)
         }
-        let alertActionCancel = UIAlertAction(title: "Cancel", style: .default)
+        let alertActionCancel = UIAlertAction(title: "cancel".localizable, style: .default)
         alertController.addAction(alertActionSave)
         alertController.addAction(alertActionCancel)
         self.present(alertController, animated: true)
@@ -64,7 +64,7 @@ final class FileManagerTableViewController: UITableViewController {
             }
         })
         guard unique else {
-            let alert = UIAlertController(title: "Ошибка", message: "Такое имя уже существует", preferredStyle: .alert)
+            let alert = UIAlertController(title: "error".localizable, message: "name_exist".localizable, preferredStyle: .alert)
             let actionOk = UIAlertAction(title: "Ok", style: .default)
             alert.addAction(actionOk)
             self.present(alert, animated: true)
@@ -95,7 +95,7 @@ final class FileManagerTableViewController: UITableViewController {
     }
     
     @objc func launchSettingsTableViewController() {
-        settingsTableViewController.title = "Settings"
+        settingsTableViewController.title = "settings".localizable
  //       self.present(settingsTableViewController, animated: true)
         self.navigationController?.pushViewController(settingsTableViewController, animated: true)
     }
@@ -103,12 +103,13 @@ final class FileManagerTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        self.navigationItem.title = "Directory"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add photo", style: .done, target: self, action: #selector(addPhoto))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(launchSettingsTableViewController))
+        self.navigationItem.title = "directory".localizable
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "add_photo".localizable, style: .done, target: self, action: #selector(addPhoto))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "settings".localizable, style: .plain, target: self, action: #selector(launchSettingsTableViewController))
         sortStatus = UserDefaults.standard.bool(forKey: "sortStatus")
   
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         if passwordView.loginStatus == false {

@@ -41,7 +41,7 @@ final class NavControllerFactory {
             navController.setViewControllers([feedViewController], animated: true)
             
             let tabBar1 = UITabBarItem()
-            tabBar1.title = "Лента"
+            tabBar1.title = "band".localizable
             tabBar1.image = UIImage(systemName: "person.3.sequence.fill")
             navController.tabBarItem = tabBar1
             
@@ -66,7 +66,7 @@ final class NavControllerFactory {
             navController.navigationBar.isHidden = true
             
             let tabBar2 = UITabBarItem()
-            tabBar2.title = "Профиль"
+            tabBar2.title = "profile".localizable
             tabBar2.image = UIImage(systemName: "person.fill")
             navController.tabBarItem = tabBar2
             
@@ -74,7 +74,7 @@ final class NavControllerFactory {
             let fileManagerTableViewController = FileManagerTableViewController(style: .plain)
             navController.navigationBar.barStyle = .default
             navController.setViewControllers([fileManagerTableViewController], animated: true)
-            navController.tabBarItem = UITabBarItem(title: "FileManager", image: UIImage(systemName: "photo"), selectedImage: nil)
+            navController.tabBarItem = UITabBarItem(title: "fileManager".localizable, image: UIImage(systemName: "photo"), selectedImage: nil)
         }
     }
     

@@ -25,24 +25,24 @@ final class ProfileErrorsProcessor {
         var alertView = UIAlertController()
         switch error {
         case .noLogInNoPassword:
-            alertView = profileErrorAlert(message: "Введите логин и пароль")
+            alertView = profileErrorAlert(message: "insert_login_password".localizable)
         case .noLogIn:
-            alertView = profileErrorAlert(message: "Введите логин")
+            alertView = profileErrorAlert(message: "insert_login".localizable)
         case .noPassword:
-            alertView = profileErrorAlert(message: "Введите пароль")
+            alertView = profileErrorAlert(message: "insert_password".localizable)
         case .wrongPassword:
-            alertView = profileErrorAlert(message: "Неверный логин или пароль")
+            alertView = profileErrorAlert(message: "password_login_incorrect".localizable)
         case.unknownError:
-            alertView = profileErrorAlert(message: "Неизвестная ошибка")
+            alertView = profileErrorAlert(message: "unknown_error".localizable)
         case .noImagesForCollection:
-            alertView = profileErrorAlert(message: "В коллекции нет изображений")
+            alertView = profileErrorAlert(message: "no_images_in_collection".localizable)
         }
         return alertView
     }
     
     // функция выводит alert при ошибках
     private func profileErrorAlert(message: String) -> UIAlertController {
-        let alertView = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        let alertView = UIAlertController(title: "error".localizable, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "ok", style: .default)
         alertView.addAction(ok)
         return alertView

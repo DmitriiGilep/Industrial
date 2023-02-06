@@ -90,14 +90,14 @@ final class LogInViewController: UIViewController {
         passwordText.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         passwordText.tintColor = UIColor(named: "AccentColor")
         passwordText.autocapitalizationType = .none
-        passwordText.placeholder = "Password"
+        passwordText.placeholder = "password".localizable
         passwordText.isSecureTextEntry = true
         passwordText.translatesAutoresizingMaskIntoConstraints = false
         return passwordText
     }()
     
     private lazy var logInButton = CustomButton(
-        title: (name: "Log In", state: nil),
+        title: (name: "log_in".localizable, state: nil),
         titleColor: (color: nil, state: nil),
         titleLabelColor: .white,
         titleFont: nil,
@@ -113,7 +113,7 @@ final class LogInViewController: UIViewController {
         })
     
     private lazy var signUpButton = CustomButton(
-        title: (name: "Sign Up", state: nil),
+        title: (name: "sign_up".localizable, state: nil),
         titleColor: (color: nil, state: nil),
         titleLabelColor: .white,
         titleFont: nil,
@@ -135,14 +135,14 @@ final class LogInViewController: UIViewController {
         passwordText.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         passwordText.tintColor = UIColor(named: "AccentColor")
         passwordText.autocapitalizationType = .none
-        passwordText.placeholder = "A random password"
+        passwordText.placeholder = "random_password".localizable
         passwordText.isSecureTextEntry = true
         passwordText.translatesAutoresizingMaskIntoConstraints = false
         return passwordText
     }()
     
     private lazy var generateRandomPasswordButton = CustomButton(
-        title: (name: "Generate a random password", state: nil),
+        title: (name: "generate_random_password".localizable, state: nil),
         titleColor: (color: nil, state: nil),
         titleLabelColor: .white,
         titleFont: nil,
@@ -157,7 +157,7 @@ final class LogInViewController: UIViewController {
         })
     
     private lazy var bruteForceRandomPasswordButton = CustomButton(
-        title: (name: "Hack and use the random password", state: nil),
+        title: (name: "hack_use_random_password".localizable, state: nil),
         titleColor: (color: nil, state: nil),
         titleLabelColor: .red,
         titleFont: nil,

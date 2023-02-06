@@ -34,9 +34,9 @@ final class FeedCoordinator {
     }
     
     func alertView(infoViewController: InfoViewController) {
-        let alertView = UIAlertController(title: "Alert", message: "Don't press this button", preferredStyle: .alert)
-        let accepted = UIAlertAction(title: "Accepted", style: .default, handler: {(Accepted) in print("well done")})
-        let notAccepted = UIAlertAction(title: "Did't accepted", style: .cancel, handler: {(notAccepted) in print("well done")})
+        let alertView = UIAlertController(title: "alert_title".localizable, message: "don't_press_message".localizable, preferredStyle: .alert)
+        let accepted = UIAlertAction(title: "accepted".localizable, style: .default, handler: {(Accepted) in print("well_done".localizable)})
+        let notAccepted = UIAlertAction(title: "did't_accepted".localizable, style: .cancel, handler: {(notAccepted) in print("well_done".localizable)})
         alertView.addAction(accepted)
         alertView.addAction(notAccepted)
         

@@ -18,7 +18,7 @@ final class ProfileCoordinator {
 #else
         let userService = CurrentUserService()
 #endif
-        let profileViewController = ProfileViewController(userService: userService, userName: LoginRealmModel.shared.status.login ?? "Не определен", coordinator: coordinator, controller: controller)
+        let profileViewController = ProfileViewController(userService: userService, userName: LoginRealmModel.shared.status.login ?? "undefined".localizable, coordinator: coordinator, controller: controller)
 //        if let navFromFactory = navControllerFromFactory {
 //            navFromFactory.pushViewController(profileViewController, animated: true)
 //        } else {

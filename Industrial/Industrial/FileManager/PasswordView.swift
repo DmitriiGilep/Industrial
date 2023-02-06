@@ -21,13 +21,13 @@ final class PasswordView {
         blurVisualEffectView.frame = controller.view.bounds
         controller.view.addSubview(blurVisualEffectView)
         
-        lazy var alertControllerCreatePassword = alert.createAlertWithThreeCompletion(title: "Create a password", message: "The length is not less 4 symbols", placeholder1: "Insert a login", placeholder2: "Insert a password" , titleAction1: "Ok", action1: {
+        lazy var alertControllerCreatePassword = alert.createAlertWithThreeCompletion(title: "create_password".localizable, message: "length_ not_less_4_symbols".localizable, placeholder1: "insert_login".localizable, placeholder2: "insert_password".localizable , titleAction1: "Ok", action1: {
             [weak self] in
             guard let login = alertControllerCreatePassword.textFields?[0].text else {return}
             guard let password = alertControllerCreatePassword.textFields?[1].text else {return}
             
             if login.count == 0 || password.count < 4 {
-                let alert = self?.alert.createAlertWithCompletion(title: "Error", message: "The login or password doesn't meet the rules", placeholder: nil, titleAction: "Repeat") {
+                let alert = self?.alert.createAlertWithCompletion(title: "error".localizable, message: "login_doesn't_meet_rules".localizable, placeholder: nil, titleAction: "repeat".localizable) {
                     self?.launchCreatePasswordAlertWindow(controller: controller)
                 }
                 controller.present(alert!, animated: true)
@@ -35,10 +35,10 @@ final class PasswordView {
                 self?.launchCreatePasswordAlertWindow2(login: login, password: password, controller: controller)
             }
 
-        }, titleAction2: "Already have a password", action2: {
+        }, titleAction2: "already_have_password".localizable, action2: {
             [weak self] in
             self?.launchInsertPasswordAlertWindow(controller: controller)
-        }, titleAction3: "Cancel", action3: {
+        }, titleAction3: "cancel".localizable, action3: {
             ()
         })
         alertControllerCreatePassword.textFields?[1].isSecureTextEntry = true
@@ -46,12 +46,12 @@ final class PasswordView {
     }
     
     func launchCreatePasswordAlertWindow2(login: String, password: String, controller: UIViewController) {
- 
-        lazy var alertControllerCreatePassword2 = alert.createAlertWithTwoCompletion(title: "Repeat a password", message: "Insert a password again", placeholder: "Insert a password", titleAction1: "Ok", action1: {
+        
+        lazy var alertControllerCreatePassword2 = alert.createAlertWithTwoCompletion(title: "repeat_password".localizable, message: "insert_password_again".localizable, placeholder: "insert_password".localizable, titleAction1: "Ok", action1: {
             [weak self] in
             guard let passwordRep = alertControllerCreatePassword2.textFields?[0].text else {return}
             if password != passwordRep {
-                let alertRepeat = self?.alert.createAlertWithCompletion(title: "Error", message: "Passwords don't match", placeholder: nil, titleAction: "Repeat") {
+                let alertRepeat = self?.alert.createAlertWithCompletion(title: "error".localizable, message: "passwords_don't_match".localizable, placeholder: nil, titleAction: "repeat".localizable) {
                     self?.launchCreatePasswordAlertWindow(controller: controller)
                 }
                 controller.present(alertRepeat!, animated: true)
@@ -59,7 +59,7 @@ final class PasswordView {
                 self?.addPassword(login: login, password: password, controller: controller)
             }
             
-        }, titleAction2: "Cancel", action2: {
+        }, titleAction2: "cancel".localizable, action2: {
             ()
         })
         alertControllerCreatePassword2.textFields?[0].isSecureTextEntry = true
@@ -68,14 +68,14 @@ final class PasswordView {
     
     func launchInsertPasswordAlertWindow(controller: UIViewController) {
         
-        lazy var alertControllerInsertPassword = alert.createAlertWithThreeCompletion(title: "Insert a password", message: "Please, insert a password", placeholder1: "Insert a login", placeholder2: "Insert a password", titleAction1: "Ok", action1: { [weak self] in
+        lazy var alertControllerInsertPassword = alert.createAlertWithThreeCompletion(title: "insert_password".localizable, message: "insert_password".localizable, placeholder1: "insert_login".localizable, placeholder2: "insert_password".localizable, titleAction1: "Ok", action1: { [weak self] in
             guard let login = alertControllerInsertPassword.textFields?[0].text else {return}
             guard let password = alertControllerInsertPassword.textFields?[1].text else {return}
             self?.getPassword(login: login, password: password, controller: controller)
-        }, titleAction2: "Create a password", action2: {
+        }, titleAction2: "create_password".localizable, action2: {
             [weak self] in
             self?.launchCreatePasswordAlertWindow(controller: controller)
-        }, titleAction3: "Cancel", action3: {
+        }, titleAction3: "cancel".localizable, action3: {
             ()
         })
         alertControllerInsertPassword.textFields?[1].isSecureTextEntry = true
@@ -84,10 +84,12 @@ final class PasswordView {
     
     func launchChangePasswordAlertWindow(controller: UIViewController) {
         
-        lazy var alertControllerChangePassword = alert.createAlertWithTwoCompletion(title: "Change a password", message: "Please, insert a password", placeholder: "Insert a password", titleAction1: "Ok", action1: { [weak self] in
+        
+        
+        lazy var alertControllerChangePassword = alert.createAlertWithTwoCompletion(title: "change_password".localizable, message: "insert_password".localizable, placeholder: "insert_password".localizable, titleAction1: "Ok", action1: { [weak self] in
             guard let password = alertControllerChangePassword.textFields?[0].text else {return}
             if password.count < 4 {
-                let alert = self?.alert.createAlertWithCompletion(title: "Error", message: "The login or password doesn't meet the rules", placeholder: nil, titleAction: "Repeat") {
+                let alert = self?.alert.createAlertWithCompletion(title: "error".localizable, message: "login_doesn't_meet_rules".localizable, placeholder: nil, titleAction: "repeat".localizable) {
                     self?.launchChangePasswordAlertWindow(controller: controller)
                 }
                 controller.present(alert!, animated: true)
@@ -96,7 +98,7 @@ final class PasswordView {
             }
             
             
-        }, titleAction2: "Cancel") {
+        }, titleAction2: "cancel".localizable) {
             ()
         }
         alertControllerChangePassword.textFields?[0].isSecureTextEntry = true
@@ -106,18 +108,18 @@ final class PasswordView {
     
     func launchChangePasswordAlertWindow2(password: String, controller: UIViewController) {
  
-        lazy var alertControllerCreatePassword2 = alert.createAlertWithTwoCompletion(title: "Repeat a password", message: "Insert a password again", placeholder: "Insert a password", titleAction1: "Ok", action1: {
+        lazy var alertControllerCreatePassword2 = alert.createAlertWithTwoCompletion(title: "repeat_password".localizable, message: "insert_password_again".localizable, placeholder: "insert_password".localizable, titleAction1: "Ok", action1: {
             [weak self] in
             guard let passwordRep = alertControllerCreatePassword2.textFields?[0].text else {return}
             if password != passwordRep {
-                let alertRepeat = self?.alert.createAlertWithCompletion(title: "Error", message: "Passwords don't match", placeholder: nil, titleAction: "Repeat") {
+                let alertRepeat = self?.alert.createAlertWithCompletion(title: "error".localizable, message: "passwords_don't_match".localizable, placeholder: nil, titleAction: "repeat".localizable) {
                     self?.launchChangePasswordAlertWindow(controller: controller)
                 }
                 controller.present(alertRepeat!, animated: true)
             } else {
                 self?.updatePassword(newPassword: password, controller: controller)
             }
-        }, titleAction2: "Cancel", action2: {
+        }, titleAction2: "cancel".localizable, action2: {
             ()
         })
         alertControllerCreatePassword2.textFields?[0].isSecureTextEntry = true
@@ -127,7 +129,7 @@ final class PasswordView {
     
     private func addPassword(login: String, password: String, controller: UIViewController) {
         guard let passData = password.data(using: .utf8) else {
-            print("Ошибка преобразования пароля")
+            print("error_transforming_password".localizable)
             return
         }
         
@@ -140,14 +142,14 @@ final class PasswordView {
         let status = SecItemAdd(attribute, nil)
         
         if status == errSecSuccess {
-            print("Пароль добавлен")
+            print("password_added".localizable)
             self.login = login
             blurVisualEffectView.removeFromSuperview()
             loginStatus = true
 
         } else {
-            print("Ошибка добавления пароля: \(status)")
-            lazy var alert = alert.createAlertWithCompletion(title: "Error", message: "The pair 'login/password' could not be added", placeholder: nil, titleAction: "Ok") {
+            print("error_adding_password:".localizable + "\(status)")
+            lazy var alert = alert.createAlertWithCompletion(title: "error".localizable, message: "error_pair_login/password".localizable, placeholder: nil, titleAction: "Ok") {
                 [weak self] in
                 self?.launchCreatePasswordAlertWindow(controller: controller)
             }
@@ -168,8 +170,8 @@ final class PasswordView {
         let status = SecItemCopyMatching(query, &extractedData)
         
         if status != errSecSuccess {
-            print("Ошибка получения пароля: \(status)")
-            lazy var alert = alert.createAlertWithCompletion(title: "Error", message: "The password doesn't exist", placeholder: nil, titleAction: "Ok") {
+            print("error_receiving_password:".localizable + "\(status)")
+            lazy var alert = alert.createAlertWithCompletion(title: "error".localizable, message: "error_password_doesn't_exist".localizable, placeholder: nil, titleAction: "Ok") {
                 [weak self] in
                 self?.launchInsertPasswordAlertWindow(controller: controller)
             }
@@ -179,7 +181,7 @@ final class PasswordView {
         
         guard let passData = extractedData as? Data,
               let passwordExtracted = String(data: passData, encoding: .utf8) else {
-            print("Ошибка преобразования пароля")
+            print("error_transforming_password".localizable)
             return
         }
         
@@ -190,7 +192,7 @@ final class PasswordView {
             self.login = login
             
         } else {
-            lazy var alert = alert.createAlertWithCompletion(title: "Error", message: "The password is incorrect", placeholder: nil, titleAction: "Ok") {
+            lazy var alert = alert.createAlertWithCompletion(title: "error".localizable, message: "password_incorrect".localizable, placeholder: nil, titleAction: "Ok") {
                 [weak self] in
                 self?.launchInsertPasswordAlertWindow(controller: controller)
             }
@@ -203,7 +205,7 @@ final class PasswordView {
     func updatePassword(newPassword: String, controller: UIViewController) {
         
         guard let passData = newPassword.data(using: .utf8) else {
-            print("Ошибка преобразования пароля")
+            print("error_transforming_password".localizable)
             return
         }
         
@@ -220,14 +222,14 @@ final class PasswordView {
         let status = SecItemUpdate(query, attribute)
         
         if status == errSecSuccess {
-            print("Пароль обновлен")
-            lazy var alert = alert.createAlertWithCompletion(title: "The password has been updated", message: nil, placeholder: nil, titleAction: "Ok") {
+            print("password_updated".localizable)
+            lazy var alert = alert.createAlertWithCompletion(title: "password_updated".localizable, message: nil, placeholder: nil, titleAction: "Ok") {
                 ()
             }
             controller.present(alert, animated: true)
         } else {
-            print("Ошибка обновления пароля: \(status)")
-            lazy var alert = alert.createAlertWithCompletion(title: "Error", message: nil, placeholder: nil, titleAction: "Ok") {
+            print("error_updating_password:".localizable + "\(status)")
+            lazy var alert = alert.createAlertWithCompletion(title: "error".localizable, message: nil, placeholder: nil, titleAction: "Ok") {
                 ()
             }
             controller.present(alert, animated: true)

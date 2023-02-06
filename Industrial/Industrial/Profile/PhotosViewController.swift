@@ -41,7 +41,7 @@ final class PhotosViewController: UIViewController {
     }()
     
     private func setUP() {
-        self.title = "Photo Gallery"
+        self.title = "photo_gallery".localizable
         self.view.addSubview(photosCollectionView)
         
         NSLayoutConstraint.activate([

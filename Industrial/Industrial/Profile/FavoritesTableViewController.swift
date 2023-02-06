@@ -54,7 +54,7 @@ final class FavoritesTableViewController: UITableViewController, NSFetchedResult
     
     let emptyLabel: UILabel = {
         let label = UILabel()
-        label.text = "Избранное не содержит постов"
+        label.text = "no_posts_favorites".localizable
         label.textColor = .black
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 25)
@@ -72,7 +72,7 @@ final class FavoritesTableViewController: UITableViewController, NSFetchedResult
     
     let textFieldForFilter: UITextField = {
         let text = UITextField()
-        text.placeholder = " Введите условие поиска"
+        text.placeholder = "search_criteria".localizable
         text.layer.cornerRadius = 5
         text.backgroundColor = .white
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -81,14 +81,14 @@ final class FavoritesTableViewController: UITableViewController, NSFetchedResult
     }()
     
     
-    lazy var applyButton = CustomButton(title: (name: "Apply", state: .normal), titleColor: (color: .black, state: .normal), backgroundImage: (image: nil, state: nil)) {
+    lazy var applyButton = CustomButton(title: (name: "apply".localizable, state: .normal), titleColor: (color: .black, state: .normal), backgroundImage: (image: nil, state: nil)) {
 //        self.searchRequest = self.textFieldForFilter.text
         self.contentView.removeFromSuperview()
         self.initFetchResultsController()
         self.tableView.reloadData()
     }
     
-    lazy var searchButton = CustomButton(title: (name: "Search", state: .normal), titleColor: (color: .systemBlue, state: .normal), backgroundImage: (image: nil, state: nil)) {
+    lazy var searchButton = CustomButton(title: (name: "search".localizable, state: .normal), titleColor: (color: .systemBlue, state: .normal), backgroundImage: (image: nil, state: nil)) {
         self.setUpContentView()
     }
     
@@ -99,7 +99,7 @@ final class FavoritesTableViewController: UITableViewController, NSFetchedResult
 //        tableView.reloadData()
 //    }
     
-    lazy var cancelButton = CustomButton(title: (name: "Cancel", state: .normal), titleColor: (color: .red, state: .normal), backgroundImage: (image: nil, state: nil)) {
+    lazy var cancelButton = CustomButton(title: (name: "cancel".localizable, state: .normal), titleColor: (color: .red, state: .normal), backgroundImage: (image: nil, state: nil)) {
    //     self.searchRequest = nil
         self.contentView.removeFromSuperview()
         self.textFieldForFilter.text = ""
