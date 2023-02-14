@@ -76,6 +76,8 @@
 		CEEC4A2D298AB4C400CDE39B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEEC4A2F298AB4C400CDE39B /* Localizable.strings */; };
 		CEEC4A34298AB55100CDE39B /* ExtensionForLocalizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC4A33298AB55100CDE39B /* ExtensionForLocalizing.swift */; };
 		CEEC4A39298BBF2700CDE39B /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = CEEC4A3B298BBF2700CDE39B /* Localizable.stringsdict */; };
+		CEEC4A44299A61AF00CDE39B /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC4A43299A61AF00CDE39B /* ColorExtension.swift */; };
+		CEEC4A46299A63D100CDE39B /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC4A45299A63D100CDE39B /* CustomColors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +196,8 @@
 		CEEC4A33298AB55100CDE39B /* ExtensionForLocalizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionForLocalizing.swift; sourceTree = "<group>"; };
 		CEEC4A3A298BBF2700CDE39B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		CEEC4A3D298BE4DF00CDE39B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		CEEC4A43299A61AF00CDE39B /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		CEEC4A45299A63D100CDE39B /* CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,8 +353,6 @@
 		CECD181F27B83C8B00D89B3F = {
 			isa = PBXGroup;
 			children = (
-				CEEC4A32298AB52100CDE39B /* Localizing */,
-				CEB1845929675E0500A26EF7 /* CoreData */,
 				CECD182A27B83C8B00D89B3F /* Industrial */,
 				CECA1FD928814911000595A4 /* StorageService */,
 				CECD182927B83C8B00D89B3F /* Products */,
@@ -371,6 +373,9 @@
 		CECD182A27B83C8B00D89B3F /* Industrial */ = {
 			isa = PBXGroup;
 			children = (
+				CEEC4A42299A619500CDE39B /* Themes */,
+				CEEC4A32298AB52100CDE39B /* Localizing */,
+				CEB1845929675E0500A26EF7 /* CoreData */,
 				CECA87132946440C004CB840 /* Industrial.entitlements */,
 				CEC254A128B76B9F00FD6852 /* TabBarController */,
 				CE02BA5928AE9D560084C663 /* CustomElements */,
@@ -416,6 +421,15 @@
 				CEEC4A3B298BBF2700CDE39B /* Localizable.stringsdict */,
 			);
 			path = Localizing;
+			sourceTree = "<group>";
+		};
+		CEEC4A42299A619500CDE39B /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				CEEC4A43299A61AF00CDE39B /* ColorExtension.swift */,
+				CEEC4A45299A63D100CDE39B /* CustomColors.swift */,
+			);
+			path = Themes;
 			sourceTree = "<group>";
 		};
 		D367114465DACCC7A31A112D /* Pods */ = {
@@ -682,6 +696,7 @@
 				CED0730928A9212600DE68DD /* MyLoginFactory.swift in Sources */,
 				CEC254A928B777F500FD6852 /* ProfileCoordinator.swift in Sources */,
 				CEB1845F296B3C1400A26EF7 /* FavoritesTableViewController.swift in Sources */,
+				CEEC4A46299A63D100CDE39B /* CustomColors.swift in Sources */,
 				CECD182C27B83C8B00D89B3F /* AppDelegate.swift in Sources */,
 				CEC8627928CA241800799361 /* BruteForce.swift in Sources */,
 				CED0730328A8173200DE68DD /* LoginInspector.swift in Sources */,
@@ -705,6 +720,7 @@
 				CEDF761129841BBC002A1267 /* MapViewController.swift in Sources */,
 				CEC254AF28BAA2C800FD6852 /* FeedViewModel.swift in Sources */,
 				CECD184027BAE36400D89B3F /* FeedViewController.swift in Sources */,
+				CEEC4A44299A61AF00CDE39B /* ColorExtension.swift in Sources */,
 				CEEC4A34298AB55100CDE39B /* ExtensionForLocalizing.swift in Sources */,
 				CEC254A528B76CA300FD6852 /* NavControllerFactory.swift in Sources */,
 				CEC254AC28BAA24500FD6852 /* Post.swift in Sources */,
@@ -879,6 +895,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -936,6 +953,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

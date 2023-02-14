@@ -94,6 +94,8 @@
 "data_loading_process" = "data loading in process";
 "build_route" = "Build a route";
 "destination" = "Point of destination";
+"destinationInsert" = "Type an address";
+"insert_address" = "Type an address";
 
 
 

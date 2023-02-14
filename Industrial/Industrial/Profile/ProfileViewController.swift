@@ -30,7 +30,7 @@ final class ProfileViewController: UIViewController {
         let avatar = UIImageView()
         let avatarImage = UIImage(named: "Avatar.jpeg")
         avatar.image = avatarImage
-        avatar.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+        avatar.layer.borderColor = CustomColors.customGray.cgColor
         avatar.layer.borderWidth = 3
         avatar.clipsToBounds = true
         avatar.contentMode = .scaleAspectFill

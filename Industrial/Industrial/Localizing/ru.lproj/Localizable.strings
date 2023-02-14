@@ -94,6 +94,8 @@
 "data_loading_process" = "идет процесс загрузки данных";
 "build_route" = "Построить маршрут";
 "destination" = "Пункт назначения";
+"destinationInsert" = "Введите адрес";
+"insert_address" = "Введите адрес";
 
 
 

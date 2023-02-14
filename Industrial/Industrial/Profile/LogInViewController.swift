@@ -27,7 +27,7 @@ final class LogInViewController: UIViewController {
         
     var logInScrollView: UIScrollView = {
         var logInScroll = UIScrollView()
-        logInScroll.backgroundColor = .white
+        logInScroll.backgroundColor = CustomColors.customViewColor
         logInScroll.isScrollEnabled = true
         logInScroll.showsVerticalScrollIndicator = true
         logInScroll.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +36,7 @@ final class LogInViewController: UIViewController {
     
     var logInContentView: UIView = {
         let logInView = UIView()
-        logInView.backgroundColor = .white
+        logInView.backgroundColor = CustomColors.customViewColor
         logInView.contentMode = .top
         logInView.translatesAutoresizingMaskIntoConstraints = false
         return logInView
@@ -53,9 +53,9 @@ final class LogInViewController: UIViewController {
     
     let loginField: UIView = {
         let loginField = UIView()
-        loginField.backgroundColor = .systemGray6
+        loginField.backgroundColor = CustomColors.customGray
         loginField.layer.borderWidth = 0.5
-        loginField.layer.borderColor = UIColor.lightGray.cgColor
+        loginField.layer.borderColor = CustomColors.customGray.cgColor
         loginField.layer.cornerRadius = 10
         loginField.translatesAutoresizingMaskIntoConstraints = false
         return loginField
@@ -63,13 +63,13 @@ final class LogInViewController: UIViewController {
     
     let nameTextField: UITextField = {
         let nameText = UITextField()
-        nameText.backgroundColor = .systemGray6
+        nameText.backgroundColor = CustomColors.customGray
         nameText.layer.borderWidth = 0.5
-        nameText.layer.borderColor = UIColor.lightGray.cgColor
+        nameText.layer.borderColor = CustomColors.customGray.cgColor
         nameText.clipsToBounds = true
         nameText.layer.cornerRadius = 10
         nameText.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        nameText.textColor = UIColor.black
+        nameText.textColor = CustomColors.customTextColor
         let spacerView = UIView(frame:CGRect(x:0, y:0, width:10, height:10))
         nameText.leftViewMode = .always
         nameText.leftView = spacerView
@@ -83,10 +83,10 @@ final class LogInViewController: UIViewController {
     
     let passwordTextField: UITextField = {
         let passwordText = UITextField()
-        passwordText.backgroundColor = .systemGray6
+        passwordText.backgroundColor = CustomColors.customGray
         //passwordText.layer.borderWidth = 0.5
         //passwordText.layer.borderColor = UIColor.lightGray.cgColor
-        passwordText.textColor = UIColor.black
+        passwordText.textColor = CustomColors.customTextColor
         passwordText.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         passwordText.tintColor = UIColor(named: "AccentColor")
         passwordText.autocapitalizationType = .none
@@ -99,10 +99,10 @@ final class LogInViewController: UIViewController {
     private lazy var logInButton = CustomButton(
         title: (name: "log_in".localizable, state: nil),
         titleColor: (color: nil, state: nil),
-        titleLabelColor: .white,
+        titleLabelColor: CustomColors.customLabelTextColor,
         titleFont: nil,
         cornerRadius: 10,
-        backgroundColor: .blue,
+        backgroundColor: CustomColors.customButtonColor,
         backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
         clipsToBounds: true,
         action: { [weak self] in
@@ -115,10 +115,10 @@ final class LogInViewController: UIViewController {
     private lazy var signUpButton = CustomButton(
         title: (name: "sign_up".localizable, state: nil),
         titleColor: (color: nil, state: nil),
-        titleLabelColor: .white,
+        titleLabelColor: CustomColors.customLabelTextColor,
         titleFont: nil,
         cornerRadius: 10,
-        backgroundColor: .blue,
+        backgroundColor: CustomColors.customButtonColor,
         backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
         clipsToBounds: true,
         action: { [weak self] in
@@ -128,10 +128,10 @@ final class LogInViewController: UIViewController {
     
     let randomPasswordTextField: UITextField = {
         let passwordText = UITextField()
-        passwordText.backgroundColor = .systemGray6
+        passwordText.backgroundColor = CustomColors.customGray
         //passwordText.layer.borderWidth = 0.5
         //passwordText.layer.borderColor = UIColor.lightGray.cgColor
-        passwordText.textColor = UIColor.black
+        passwordText.textColor = CustomColors.customTextColor
         passwordText.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         passwordText.tintColor = UIColor(named: "AccentColor")
         passwordText.autocapitalizationType = .none
@@ -144,10 +144,10 @@ final class LogInViewController: UIViewController {
     private lazy var generateRandomPasswordButton = CustomButton(
         title: (name: "generate_random_password".localizable, state: nil),
         titleColor: (color: nil, state: nil),
-        titleLabelColor: .white,
+        titleLabelColor: CustomColors.customLabelTextColor,
         titleFont: nil,
         cornerRadius: 10,
-        backgroundColor: .blue,
+        backgroundColor: CustomColors.customButtonColor,
         backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
         clipsToBounds: true,
         action: {
@@ -159,10 +159,10 @@ final class LogInViewController: UIViewController {
     private lazy var bruteForceRandomPasswordButton = CustomButton(
         title: (name: "hack_use_random_password".localizable, state: nil),
         titleColor: (color: nil, state: nil),
-        titleLabelColor: .red,
+        titleLabelColor: CustomColors.customLabelColor,
         titleFont: nil,
         cornerRadius: 10,
-        backgroundColor: .systemMint,
+        backgroundColor: CustomColors.customButtonColor,
         backgroundImage: (image: nil, state: nil),
         clipsToBounds: true,
         action: {
@@ -192,7 +192,7 @@ final class LogInViewController: UIViewController {
     
     private let activityIndicatior: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: .medium)
-        activity.color = .red
+        activity.color = CustomColors.customLabelColor
         //       activity.isHidden = false
         activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
@@ -294,7 +294,7 @@ final class LogInViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = CustomColors.customViewColor
         addAllViews()
         setAllConstraints()
         
