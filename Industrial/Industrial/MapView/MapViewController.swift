@@ -210,7 +210,7 @@ final class MapViewController: UIViewController {
             } else {
                 print(error?.localizedDescription)
             }
-            guard let destinationUnwrapped = destination else {print("❤️❤️❤️❤️❤️❤️❤️❤️❤️")
+            guard let destinationUnwrapped = destination else {print("error")
                 return
             }
             self.addRoute(from: currentLocationCoordinate, to: destinationUnwrapped.coordinate)
