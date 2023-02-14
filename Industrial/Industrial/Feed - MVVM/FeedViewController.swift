@@ -30,8 +30,8 @@ final class FeedViewController: UIViewController {
     
     let reminderLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .white
-        label.textColor = .black
+        label.backgroundColor = UIColor.label
+        label.textColor = UIColor.lightText
         label.text = "password_prompt".localizable
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
@@ -41,8 +41,8 @@ final class FeedViewController: UIViewController {
     
     let timerLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .white
-        label.textColor = .systemCyan
+        label.backgroundColor = UIColor.label
+        label.textColor = UIColor.lightText
         label.layer.cornerRadius = 10
         label.textAlignment = .center
         label.clipsToBounds = true
@@ -52,7 +52,7 @@ final class FeedViewController: UIViewController {
     
     let guessTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .white
+        textField.backgroundColor = CustomColors.customViewColor
         // убрал автоматические заглавные буквы
         textField.autocapitalizationType = UITextAutocapitalizationType.none
         textField.layer.cornerRadius = 8
@@ -66,7 +66,7 @@ final class FeedViewController: UIViewController {
         title: (name: "check".localizable, state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 8,
-        backgroundColor: .systemMint,
+        backgroundColor: CustomColors.customButtonMint,
         backgroundImage: (image: nil, state: nil),
         clipsToBounds: true,
         action: {
@@ -98,7 +98,7 @@ final class FeedViewController: UIViewController {
         attributedQuote.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: 15, length: 3))
         
         label.attributedText = attributedQuote
-        label.backgroundColor = .darkGray
+        label.backgroundColor = .systemGray
         label.layer.cornerRadius = 15
         label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -110,7 +110,7 @@ final class FeedViewController: UIViewController {
         title: (name: "postButton1".localizable, state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 8,
-        backgroundColor: .systemBlue,
+        backgroundColor: CustomColors.customButtonBlue,
         backgroundImage: (image: nil, state: nil),
         action: {
             [weak self] in
@@ -122,7 +122,7 @@ final class FeedViewController: UIViewController {
         title: (name: "mapView".localizable, state: .normal),
         titleColor: (color: nil, state: nil),
         cornerRadius: 8,
-        backgroundColor: .systemPink,
+        backgroundColor: CustomColors.customButtonPink,
         backgroundImage: (image: nil, state: nil),
         action: {
             [weak self] in
