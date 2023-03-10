@@ -118,7 +118,7 @@ final class LogInViewController: UIViewController {
         titleLabelColor: CustomColors.customLabelTextColor,
         titleFont: nil,
         cornerRadius: 10,
-        backgroundColor: CustomColors.customButtonColor,
+        backgroundColor: UIColor(named: "Color"), // light and dark theme with Assets
         backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
         clipsToBounds: true,
         action: { [weak self] in
