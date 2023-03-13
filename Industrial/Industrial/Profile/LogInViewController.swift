@@ -9,21 +9,21 @@ import UIKit
 import FirebaseAuth
 
 protocol CheckerServiceProtocol: AnyObject {
-    func checkCredentials(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator)
-    func signUp(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator)
+    func checkCredentials(login: String, password: String)
+    func signUp(login: String, password: String)
 }
 
 protocol LoginViewControllerDelegate: AnyObject {
-    func checkCredentials(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator)
-    func signUp(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator)
+    func checkCredentials(login: String, password: String, controller: LogInViewController)
+    func signUp(login: String, password: String, controller: LogInViewController)
 }
 
-final class LogInViewController: UIViewController {
+final class LogInViewController: UIViewController, CheckerServiceControllerProtocol {
     
     let coordinator: ProfileCoordinator
     
     // переменная делегата со слабой ссылкой
-    var delegate: LoginViewControllerDelegate?
+    var delegate: LoginViewControllerDelegate? // класс, ответственный за авторизацию, соответствует протоколу LoginViewControllerDelegate, то есть имеет 2 функции (проверка и подписка)
         
     var logInScrollView: UIScrollView = {
         var logInScroll = UIScrollView()
@@ -107,8 +107,7 @@ final class LogInViewController: UIViewController {
         clipsToBounds: true,
         action: { [weak self] in
             
-            self!.delegate?.checkCredentials(login: self!.nameTextField.text!, password: self!.passwordTextField.text!, controller: self!, coordinator: self!.coordinator)
-            
+            self!.delegate?.checkCredentials(login: self!.nameTextField.text!, password: self!.passwordTextField.text!, controller: self!)
             
         })
     
@@ -122,7 +121,7 @@ final class LogInViewController: UIViewController {
         backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
         clipsToBounds: true,
         action: { [weak self] in
-            self!.delegate?.signUp(login: self!.nameTextField.text!, password: self!.passwordTextField.text!, controller: self!, coordinator: self!.coordinator)
+            self!.delegate?.signUp(login: self!.nameTextField.text!, password: self!.passwordTextField.text!, controller: self!)
             
         })
     
@@ -317,6 +316,38 @@ final class LogInViewController: UIViewController {
         notificationCentre.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
+    
+    func goToProfilePage() {
+        coordinator.profileViewController(coordinator: coordinator, controller: self, navControllerFromFactory: nil)
+    }
+    
+    func callAlertViewSignUpFailure() {
+        let alertViewFailure = self.createAlertView(viewTitle: "failure_registration".localizable, message: "user_existed_something_wrong".localizable, actionTitle: "ok", action: nil)
+        self.present(alertViewFailure, animated: true)
+    }
+    
+    func callAlertViewSignUpSuccess() {
+        let alertViewSuccess = self.createAlertView(viewTitle: "successful_registrarion".localizable, message: "user_registered".localizable, actionTitle: "ok") {
+            self.goToProfilePage()
+        }
+    }
+    
+    func callAlertViewCredentialFailure() {
+        let alertView = self.createAlertView(viewTitle: "error".localizable, message: "password_login_incorrect".localizable, actionTitle: "Ок", action: nil)
+        self.present(alertView, animated: true)
+
+    }
+    
+    private func createAlertView(viewTitle: String, message: String, actionTitle: String, action: (() -> Void)?) -> UIAlertController {
+        let alertView = UIAlertController(title: viewTitle, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: actionTitle, style: .default) { UIAlertAction in
+            guard let actionUnwrapped = action else {return}
+            actionUnwrapped()
+        }
+        alertView.addAction(action)
+        return alertView
+    }
+    
     
     @objc private func handleKeyboardShow(notification: NSNotification) {
         if let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {

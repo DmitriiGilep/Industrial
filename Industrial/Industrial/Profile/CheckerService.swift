@@ -9,14 +9,23 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
+protocol CheckerServiceControllerProtocol: AnyObject {
+    func callAlertViewSignUpFailure()
+    func callAlertViewSignUpSuccess()
+    func callAlertViewCredentialFailure()
+    func goToProfilePage()
+    
+}
 
 final class CheckerService: CheckerServiceProtocol {
-        
-    func signUp(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator) {
-        let alertViewFailure = self.createAlertView(viewTitle: "failure_registration".localizable, message: "user_existed_something_wrong".localizable, actionTitle: "ok", action: nil)
+    
+    var controller: CheckerServiceControllerProtocol? = nil
+    
+    func signUp(login: String, password: String) {
         
         guard !login.isEmpty, !password.isEmpty else {
-            return controller.present(alertViewFailure, animated: true, completion: nil)
+            controller?.callAlertViewCredentialFailure()
+            return
         }
         
         var checkStatus = false
@@ -27,39 +36,20 @@ final class CheckerService: CheckerServiceProtocol {
             }
         }
         
-        
         if checkStatus {
-            controller.present(alertViewFailure, animated: true, completion: nil)
+            controller?.callAlertViewCredentialFailure()
         } else {
             LoginRealmModel.shared.addLoginModel(login: login, password: password)
             LoginRealmModel.shared.statusLoggedIn(login: login)
-            let alertViewSuccess = self.createAlertView(viewTitle: "successful_registrarion".localizable, message: "user_registered".localizable, actionTitle: "ok") {
-                coordinator.profileViewController(coordinator: coordinator, controller: controller, navControllerFromFactory: nil)
-            }
-            controller.present(alertViewSuccess, animated: true, completion: nil)
-
+            controller?.callAlertViewSignUpSuccess()
         }
-        
-        // firebase
-  /*      Auth.auth().createUser(withEmail: login, password: password) { [weak self] authResult, error in
-            if error == nil {
-                let alertView = self!.createAlertView(viewTitle: "Успешная регистрация", message: "Пользователь успешно зарегистрирован", actionTitle: "ok")
-                controller.present(alertView, animated: true, completion: nil)
-            } else {
-
-                let alertView = self!.createAlertView(viewTitle: "Ошибка регистрации", message: error!.localizedDescription, actionTitle: "ok")
-                controller.present(alertView, animated: true, completion: nil)
-            }
-        }
-      */
-        
     }
     
-    func checkCredentials(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator) {
-        let alertView = self.createAlertView(viewTitle: "error".localizable, message: "password_login_incorrect".localizable, actionTitle: "Ок", action: nil)
+    func checkCredentials(login: String, password: String) {
         
         guard !login.isEmpty, !password.isEmpty else {
-            return controller.present(alertView, animated: true, completion: nil)
+            controller?.callAlertViewCredentialFailure()
+            return
         }
         
         var checkStatus = false
@@ -72,13 +62,26 @@ final class CheckerService: CheckerServiceProtocol {
         if checkStatus {
             LoginRealmModel.shared.statusLoggedIn(login: login)
             
-            coordinator.profileViewController(coordinator: coordinator, controller: controller, navControllerFromFactory: nil)
+            controller?.goToProfilePage()
             
         } else {
-            controller.present(alertView, animated: true)
+            controller?.callAlertViewCredentialFailure()
         }
-        
-        
+    }
+    
+}
+        // firebase
+  /*      Auth.auth().createUser(withEmail: login, password: password) { [weak self] authResult, error in
+            if error == nil {
+                let alertView = self!.createAlertView(viewTitle: "Успешная регистрация", message: "Пользователь успешно зарегистрирован", actionTitle: "ok")
+                controller.present(alertView, animated: true, completion: nil)
+            } else {
+
+                let alertView = self!.createAlertView(viewTitle: "Ошибка регистрации", message: error!.localizedDescription, actionTitle: "ok")
+                controller.present(alertView, animated: true, completion: nil)
+            }
+        }
+      */
         
 //        Auth.auth().signIn(withEmail: login, password: password) { [weak self] authResult, error in
 //            let profileErrorsProcessor = ProfileErrorsProcessor()
@@ -105,16 +108,3 @@ final class CheckerService: CheckerServiceProtocol {
 //            }
 //
 //        }
-    }
-    
-    private func createAlertView(viewTitle: String, message: String, actionTitle: String, action: (() -> Void)?) -> UIAlertController {
-        let alertView = UIAlertController(title: viewTitle, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: actionTitle, style: .default) { UIAlertAction in
-            guard let actionUnwrapped = action else {return}
-            actionUnwrapped()
-        }
-        alertView.addAction(action)
-        return alertView
-    }
-    
-}
