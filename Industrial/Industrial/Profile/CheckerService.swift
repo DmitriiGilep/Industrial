@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import FirebaseAuth
+//import FirebaseAuth
 
 protocol CheckerServiceControllerProtocol: AnyObject {
     func callAlertViewSignUpFailure()
@@ -17,31 +17,32 @@ protocol CheckerServiceControllerProtocol: AnyObject {
     
 }
 
+protocol CheckerServiceRealmModelProtocol: AnyObject {
+    func checkLoginForUnique(login: String) -> Bool
+    func addProfileToRealm(login: String, password: String)
+    func checkAuthorizationWithRealm(login: String, password: String) -> Bool
+    func toogleStatusToLogIn(login: String)
+}
+
 final class CheckerService: CheckerServiceProtocol {
     
-    var controller: CheckerServiceControllerProtocol? = nil
+    var controller: CheckerServiceControllerProtocol?
+    var realmModel: CheckerServiceRealmModelProtocol?
     
     func signUp(login: String, password: String) {
         
         guard !login.isEmpty, !password.isEmpty else {
-            controller?.callAlertViewCredentialFailure()
+            controller?.callAlertViewSignUpFailure()
             return
         }
         
-        var checkStatus = false
-        
-        for i in LoginRealmModel.shared.loginPairArray {
-            if i.login == login {
-                checkStatus = true
-            }
-        }
-        
-        if checkStatus {
-            controller?.callAlertViewCredentialFailure()
-        } else {
-            LoginRealmModel.shared.addLoginModel(login: login, password: password)
-            LoginRealmModel.shared.statusLoggedIn(login: login)
+        if realmModel?.checkLoginForUnique(login: login) == true {
             controller?.callAlertViewSignUpSuccess()
+            realmModel?.addProfileToRealm(login: login, password: password)
+            realmModel?.toogleStatusToLogIn(login: login)
+            
+        } else {
+            controller?.callAlertViewSignUpFailure()
         }
     }
     
@@ -52,18 +53,9 @@ final class CheckerService: CheckerServiceProtocol {
             return
         }
         
-        var checkStatus = false
-        for i in LoginRealmModel.shared.loginPairArray {
-            if i.login == login, i.password == password {
-                checkStatus = true
-            }
-        }
-        
-        if checkStatus {
-            LoginRealmModel.shared.statusLoggedIn(login: login)
-            
+        if realmModel?.checkAuthorizationWithRealm(login: login, password: password) == true {
+            realmModel?.toogleStatusToLogIn(login: login)
             controller?.goToProfilePage()
-            
         } else {
             controller?.callAlertViewCredentialFailure()
         }

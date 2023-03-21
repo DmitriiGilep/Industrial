@@ -8,8 +8,17 @@
 import Foundation
 import UIKit
 
-final class FeedCoordinator {
+protocol FeedCoordinatorProtocol {
+    var navController: UINavigationController? { get set }
     
+    func postViewController()
+    func mapViewController()
+    func infoViewController(completion: ((InfoViewController) -> ())?)
+    func alertView(infoViewController: InfoViewController)
+}
+
+final class FeedCoordinator: FeedCoordinatorProtocol {
+
     var navController: UINavigationController?
     
     func postViewController() {
@@ -25,11 +34,12 @@ final class FeedCoordinator {
         navController?.pushViewController(mapViewController, animated: true)
     }
     
-    func infoViewController(postViewController: PostViewController) {
+    func infoViewController(completion: ((InfoViewController) -> ())?) {
         let coordinator = FeedCoordinator()
         let model = InfoViewModel()
         let infoViewController = InfoViewController(coordinator: coordinator, model: model)
-        postViewController.present(infoViewController, animated: true, completion: nil)
+        completion?(infoViewController)
+   //     postViewController.present(infoViewController, animated: true, completion: nil)
         
     }
     

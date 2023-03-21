@@ -9,10 +9,10 @@ import UIKit
 
 class PostViewController: UIViewController {
     
-    let coordinator: FeedCoordinator
+    let coordinator: FeedCoordinatorProtocol
     let postViewModel: PostViewModel
     
-    init(coordinator: FeedCoordinator, model: PostViewModel) {
+    init(coordinator: FeedCoordinatorProtocol, model: PostViewModel) {
         self.coordinator = coordinator
         self.postViewModel = model
         super.init(nibName: nil, bundle: nil)
@@ -47,7 +47,11 @@ class PostViewController: UIViewController {
             switch state {
             case .goToInfoViewController:
                 // передал self, чтобы вызвать present именно у этого экземпляра PostViewController
-                self?.coordinator.infoViewController(postViewController: self!)
+   //             self?.coordinator.infoViewController(postViewController: self!)
+                self?.coordinator.infoViewController(completion: { infoViewController in
+                    self?.present(infoViewController, animated: true)
+                })
+                
             }
         }
     }

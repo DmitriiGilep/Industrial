@@ -9,6 +9,20 @@ import Foundation
 
 final class InfoViewModel {
     
+    enum InterFaceEvents {
+        case buttonPresentAlertViewTapped
+        case urlRequest
+        case urlRequest2
+        case urlRequest3
+    }
+    
+    enum State {
+        case goToAlertView
+        case processUrlRequest
+        case processUrlRequest2
+        case processUrlRequest3
+    }
+    
     var title: String = "fetching_in_process".localizable {
         didSet {
             processInterfaceEvents?(.processUrlRequest) // как только появляется значение title запусается case .processURLReques, который в контроллере присваивает лэйблу текст
@@ -33,24 +47,6 @@ final class InfoViewModel {
                 self.processInterfaceEvents?(.processUrlRequest3) // после получения имен из кейса .urlRequest3 запускается case .processUrlRequest3 в контроллере, который обновляет таблицу через reloadData()
             }
         }
-    }
-    
-    enum InterFaceEvents {
-        case buttonPresentAlertViewTapped
-        case urlRequest
-        case urlRequest2
-        case urlRequest3
-
-
-    }
-    
-    enum State {
-        case goToAlertView
-        case processUrlRequest
-        case processUrlRequest2
-        case processUrlRequest3
-
-        
     }
     
     var processInterfaceEvents: ((State) -> Void)?
@@ -160,8 +156,6 @@ final class InfoViewModel {
                 }
                 task.resume()
             }
-          
         }
-        
     }
 }

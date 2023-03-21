@@ -20,8 +20,9 @@ final class FeedViewController: UIViewController {
     // в sceneDelegate: UIApplication.shared.connectedScenes.firs?.delegate as? SceneDelegate
     var appConfiguration = (UIApplication.shared.delegate as? AppDelegate)?.appConfiguration
     
-    let coordinator: FeedCoordinator
-    var feedViewModel = FeedViewModel()
+    var coordinator: FeedCoordinatorProtocol? = nil
+    var feedViewModel: FeedViewModel? = nil
+    
     private var timer0: Timer?
     private var timer1: Timer?
     private var timer2: Timer?
@@ -82,7 +83,7 @@ final class FeedViewController: UIViewController {
             //
             //#else
             
-            self?.feedViewModel.changeState(interfaceEvent: .checkGuessButtonPressed, controller: self!)
+            self?.feedViewModel?.changeState(interfaceEvent: .checkGuessButtonPressed, controller: self!)
             //#endif
         })
     
@@ -139,15 +140,15 @@ final class FeedViewController: UIViewController {
     }()
     
     //MARK: - init
-    init(coordinator: FeedCoordinator, model: FeedViewModel) {
-        self.coordinator = coordinator
-        self.feedViewModel = model
-        super.init(nibName: nil, bundle:  nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    init(coordinator: FeedCoordinatorProtocol, model: FeedViewModel) {
+//        self.coordinator = coordinator
+//        self.feedViewModel = model
+//        super.init(nibName: nil, bundle:  nil)
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -211,12 +212,12 @@ final class FeedViewController: UIViewController {
     }
     
     func buttonGoToPostViewControllerPressed() {
-        self.feedViewModel.changeState(interfaceEvent: .buttonGoToPostViewControllerPressed, controller: self)
+        self.feedViewModel?.changeState(interfaceEvent: .buttonGoToPostViewControllerPressed, controller: self)
         
     }
     
     func buttonGoToMapViewControllerPressed() {
-        self.feedViewModel.changeState(interfaceEvent: .buttonGoToMapViewControllerPressed, controller: self)
+        self.feedViewModel?.changeState(interfaceEvent: .buttonGoToMapViewControllerPressed, controller: self)
         
     }
     
@@ -252,7 +253,7 @@ final class FeedViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        feedViewModel.processInterfaceEvents = {
+        feedViewModel?.processInterfaceEvents = {
             [weak self] state in
             switch state {
             case .resultGuessCheckTrue:
@@ -265,10 +266,10 @@ final class FeedViewController: UIViewController {
                     self?.showGuessResultLabel.backgroundColor = .darkGray
                 }
             case .goToPostViewController:
-                self?.coordinator.postViewController()
+                self?.coordinator?.postViewController()
                 
             case .goToMapViewController:
-                self?.coordinator.mapViewController()
+                self?.coordinator?.mapViewController()
                 
             }
         }

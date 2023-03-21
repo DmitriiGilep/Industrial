@@ -8,11 +8,19 @@
 import Foundation
 import UIKit
 
-final class ProfileCoordinator {
+protocol ProfileCoordinatorProtocol {
+    var navController: UINavigationController? { get set }
+    func profileViewController(coordinator: ProfileCoordinatorProtocol, controller: LogInViewController, navControllerFromFactory: UINavigationController?)
+    func photosViewController(profileViewController: ProfileViewController)
+    func favoritesTableViewController()
+
+}
+
+final class ProfileCoordinator: ProfileCoordinatorProtocol {
     
     var navController: UINavigationController?
     
-    func profileViewController(coordinator: ProfileCoordinator, controller: LogInViewController, navControllerFromFactory: UINavigationController?) {
+    func profileViewController(coordinator: ProfileCoordinatorProtocol, controller: LogInViewController, navControllerFromFactory: UINavigationController?) {
  #if DEBUG
         let userService = TestUserService()
 #else

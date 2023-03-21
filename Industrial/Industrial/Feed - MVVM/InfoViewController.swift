@@ -9,7 +9,7 @@ import UIKit
 
 final class InfoViewController: UIViewController {
     
-    private let coordinator: FeedCoordinator
+    private let coordinator: FeedCoordinatorProtocol
     private let infoViewModel: InfoViewModel
     
     let cellForNames = "cellForNames"
@@ -54,7 +54,7 @@ final class InfoViewController: UIViewController {
             self.infoViewModel.changeState(interFaceEvent: .buttonPresentAlertViewTapped, controller: self)
         })
     
-    init(coordinator: FeedCoordinator, model: InfoViewModel) {
+    init(coordinator: FeedCoordinatorProtocol, model: InfoViewModel) {
         self.coordinator = coordinator
         self.infoViewModel = model
         super.init(nibName: nil, bundle: nil)

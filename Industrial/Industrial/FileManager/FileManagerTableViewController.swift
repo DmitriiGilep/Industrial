@@ -103,9 +103,12 @@ final class FileManagerTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
         self.navigationItem.title = "directory".localizable
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "add_photo".localizable, style: .done, target: self, action: #selector(addPhoto))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "settings".localizable, style: .plain, target: self, action: #selector(launchSettingsTableViewController))
+        
         sortStatus = UserDefaults.standard.bool(forKey: "sortStatus")
   
     }
@@ -113,6 +116,7 @@ final class FileManagerTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if passwordView.loginStatus == false {
+            self.navigationController?.isNavigationBarHidden = true
             passwordView.launchCreatePasswordAlertWindow(controller: self)
         }
   //      fullUpUrlPathsArray()

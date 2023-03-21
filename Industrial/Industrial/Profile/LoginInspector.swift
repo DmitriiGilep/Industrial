@@ -16,12 +16,14 @@ final class LoginInspector: LoginViewControllerDelegate {
     func checkCredentials(login: String, password: String, controller: LogInViewController) {
         let checkerService = CheckerService()
         checkerService.controller = controller
+        checkerService.realmModel = LoginRealmModel.shared
         checkerService.checkCredentials(login: login, password: password)
     }
     
     func signUp(login: String, password: String, controller: LogInViewController) {
         let checkerService = CheckerService()
         checkerService.controller = controller
+        checkerService.realmModel = LoginRealmModel.shared
         checkerService.signUp(login: login, password: password)
     }
     

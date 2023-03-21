@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import FirebaseAuth
+//import FirebaseAuth
 
 protocol CheckerServiceProtocol: AnyObject {
     func checkCredentials(login: String, password: String)
@@ -20,7 +20,7 @@ protocol LoginViewControllerDelegate: AnyObject {
 
 final class LogInViewController: UIViewController, CheckerServiceControllerProtocol {
     
-    let coordinator: ProfileCoordinator
+    let coordinator: ProfileCoordinatorProtocol
     
     // переменная делегата со слабой ссылкой
     var delegate: LoginViewControllerDelegate? // класс, ответственный за авторизацию, соответствует протоколу LoginViewControllerDelegate, то есть имеет 2 функции (проверка и подписка)
@@ -198,7 +198,7 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
     }()
     
     //MARK: - init
-    init(coordinator: ProfileCoordinator) {
+    init(coordinator: ProfileCoordinatorProtocol) {
         self.coordinator = coordinator
         super.init(nibName: nil, bundle:  nil)
     }
@@ -330,6 +330,7 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
         let alertViewSuccess = self.createAlertView(viewTitle: "successful_registrarion".localizable, message: "user_registered".localizable, actionTitle: "ok") {
             self.goToProfilePage()
         }
+        self.present(alertViewSuccess, animated: true)
     }
     
     func callAlertViewCredentialFailure() {
