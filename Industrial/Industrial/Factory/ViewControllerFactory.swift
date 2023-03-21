@@ -13,7 +13,10 @@ final class ViewControllerFactory {
     func createFeedViewController() -> FeedViewController {
         let coordinator = FeedCoordinator()
         let feedViewModel = FeedViewModel()
-        return FeedViewController(coordinator: coordinator, model: feedViewModel)
+        let feedViewController = FeedViewController()
+        feedViewController.coordinator = coordinator
+        feedViewController.feedViewModel = feedViewModel
+        return feedViewController
     }
     
 }

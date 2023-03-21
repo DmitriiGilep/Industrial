@@ -13,7 +13,7 @@ final class ProfileViewController: UIViewController {
     
     //MARK: - let and var
     let favoritesCell =  FavoritesCell()
-    let coordinator: ProfileCoordinator
+    let coordinator: ProfileCoordinatorProtocol
     let controller: LogInViewController
     var userService: UserService
     var userName: String
@@ -99,7 +99,7 @@ final class ProfileViewController: UIViewController {
     let xButtonAnimation = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut, animations: nil)
     
     //MARK: - init
-    init(userService: UserService, userName: String, coordinator: ProfileCoordinator, controller: LogInViewController) {
+    init(userService: UserService, userName: String, coordinator: ProfileCoordinatorProtocol, controller: LogInViewController) {
         self.userService = userService
         self.userName = userName
         self.coordinator = coordinator

@@ -20,7 +20,6 @@ final class PasswordView {
     func launchCreatePasswordAlertWindow(controller: UIViewController) {
         blurVisualEffectView.frame = controller.view.bounds
         controller.view.addSubview(blurVisualEffectView)
-        
         lazy var alertControllerCreatePassword = alert.createAlertWithThreeCompletion(title: "create_password".localizable, message: "length_ not_less_4_symbols".localizable, placeholder1: "insert_login".localizable, placeholder2: "insert_password".localizable , titleAction1: "Ok", action1: {
             [weak self] in
             guard let login = alertControllerCreatePassword.textFields?[0].text else {return}
@@ -84,8 +83,6 @@ final class PasswordView {
     
     func launchChangePasswordAlertWindow(controller: UIViewController) {
         
-        
-        
         lazy var alertControllerChangePassword = alert.createAlertWithTwoCompletion(title: "change_password".localizable, message: "insert_password".localizable, placeholder: "insert_password".localizable, titleAction1: "Ok", action1: { [weak self] in
             guard let password = alertControllerChangePassword.textFields?[0].text else {return}
             if password.count < 4 {
@@ -145,6 +142,7 @@ final class PasswordView {
             print("password_added".localizable)
             self.login = login
             blurVisualEffectView.removeFromSuperview()
+            controller.navigationController?.isNavigationBarHidden = false
             loginStatus = true
 
         } else {
@@ -188,6 +186,7 @@ final class PasswordView {
         if passwordExtracted == password {
             print(passwordExtracted)
             blurVisualEffectView.removeFromSuperview()
+            controller.navigationController?.isNavigationBarHidden = false
             loginStatus = true
             self.login = login
             

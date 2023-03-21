@@ -22,7 +22,7 @@ final class Status: Object {
     
 }
 
-final class LoginRealmModel {
+final class LoginRealmModel: CheckerServiceRealmModelProtocol {
     
     static let shared = LoginRealmModel()
     
@@ -165,6 +165,34 @@ final class LoginRealmModel {
             assert(status == errSecSuccess, "Failed to insert the new key in the keychain")
             return key
         }
+    }
+    
+    func checkLoginForUnique(login: String) -> Bool {
+        var isUnique = true
+        for i in loginPairArray {
+            if i.login == login {
+                isUnique = false
+            }
+        }
+        return isUnique
+    }
+    
+    func addProfileToRealm(login: String, password: String) {
+        addLoginModel(login: login, password: password)
+    }
+    
+    func checkAuthorizationWithRealm(login: String, password: String) -> Bool {
+        var isPassed = false
+        for i in LoginRealmModel.shared.loginPairArray {
+            if i.login == login, i.password == password {
+                isPassed = true
+            }
+        }
+        return isPassed
+    }
+    
+    func toogleStatusToLogIn(login: String) {
+        statusLoggedIn(login: login)
     }
     
 }

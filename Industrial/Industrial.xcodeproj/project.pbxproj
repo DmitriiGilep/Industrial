@@ -29,6 +29,11 @@
 		CEB18461296B565600A26EF7 /* FavoritesCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB18460296B565600A26EF7 /* FavoritesCoreData.swift */; };
 		CEB18463296C8FE000A26EF7 /* PostFavExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB18462296C8FE000A26EF7 /* PostFavExtension.swift */; };
 		CEBC07CA2822CE50009B3AC4 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */; };
+		CEBF4CB429BCF78D0084BC3E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CEBF4CB329BCF78D0084BC3E /* FirebaseAuth */; };
+		CEBF4CC929BF6C650084BC3E /* CheckerServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBF4CC829BF6C650084BC3E /* CheckerServiceTests.swift */; };
+		CEBF4CDC29C0C5380084BC3E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = CEBF4CDB29C0C5380084BC3E /* Realm */; };
+		CEBF4CF329C1F4EF0084BC3E /* FeedCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBF4CF229C1F4EF0084BC3E /* FeedCoordinatorTests.swift */; };
+		CEBF4CFA29C1F4FC0084BC3E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = CEBF4CF929C1F4FC0084BC3E /* Realm */; };
 		CEC0B89C283C00CC00041DC5 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B89B283C00CC00041DC5 /* Photos.swift */; };
 		CEC171D6280C60F200C0B95E /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC171D5280C60F200C0B95E /* LogInViewController.swift */; };
 		CEC254A028B76ABE00FD6852 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2549F28B76ABE00FD6852 /* MainCoordinator.swift */; };
@@ -54,12 +59,6 @@
 		CECAF60328367EE700258110 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF60228367EE700258110 /* PhotosTableViewCell.swift */; };
 		CECAF6052837CCCF00258110 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF6042837CCCF00258110 /* PhotosViewController.swift */; };
 		CECAF6072837D9CC00258110 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAF6062837D9CC00258110 /* PhotosCollectionViewCell.swift */; };
-		CECCC81728FF096F00BEAC28 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CECCC81628FF096F00BEAC28 /* FirebaseAnalytics */; };
-		CECCC81928FF096F00BEAC28 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CECCC81828FF096F00BEAC28 /* FirebaseAuth */; };
-		CECCC81B28FF096F00BEAC28 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CECCC81A28FF096F00BEAC28 /* FirebaseCrashlytics */; };
-		CECCC81D28FF096F00BEAC28 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CECCC81C28FF096F00BEAC28 /* FirebaseDatabase */; };
-		CECCC81F28FF096F00BEAC28 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CECCC81E28FF096F00BEAC28 /* FirebaseFirestore */; };
-		CECCC82128FF096F00BEAC28 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CECCC82028FF096F00BEAC28 /* FirebaseStorage */; };
 		CECD182C27B83C8B00D89B3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD182B27B83C8B00D89B3F /* AppDelegate.swift */; };
 		CECD183527B83C9000D89B3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CECD183427B83C9000D89B3F /* Assets.xcassets */; };
 		CECD183827B83C9000D89B3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECD183627B83C9000D89B3F /* LaunchScreen.storyboard */; };
@@ -78,6 +77,8 @@
 		CEEC4A39298BBF2700CDE39B /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = CEEC4A3B298BBF2700CDE39B /* Localizable.stringsdict */; };
 		CEEC4A44299A61AF00CDE39B /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC4A43299A61AF00CDE39B /* ColorExtension.swift */; };
 		CEEC4A46299A63D100CDE39B /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC4A45299A63D100CDE39B /* CustomColors.swift */; };
+		CEFF058A29C8A6DE00A21BD3 /* ProfileCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF058929C8A6DE00A21BD3 /* ProfileCoordinatorTests.swift */; };
+		CEFF059129C8A6E800A21BD3 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = CEFF059029C8A6E800A21BD3 /* Realm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,12 +103,33 @@
 			remoteGlobalIDString = 979486118B3E90C08386079D57962701;
 			remoteInfo = SnapKit;
 		};
+		CEBF4CCA29BF6C650084BC3E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CECD182027B83C8B00D89B3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CECD182727B83C8B00D89B3F;
+			remoteInfo = Industrial;
+		};
+		CEBF4CF429C1F4EF0084BC3E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CECD182027B83C8B00D89B3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CECD182727B83C8B00D89B3F;
+			remoteInfo = Industrial;
+		};
 		CECA1FDC28814911000595A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CECD182027B83C8B00D89B3F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = CECA1FD728814910000595A4;
 			remoteInfo = StorageService;
+		};
+		CEFF058B29C8A6DE00A21BD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CECD182027B83C8B00D89B3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CECD182727B83C8B00D89B3F;
+			remoteInfo = Industrial;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -151,6 +173,10 @@
 		CEB18462296C8FE000A26EF7 /* PostFavExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFavExtension.swift; sourceTree = "<group>"; };
 		CEB18464296C998C00A26EF7 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = ../../Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		CEBC07C92822CE50009B3AC4 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		CEBF4CC629BF6C640084BC3E /* CheckerServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckerServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEBF4CC829BF6C650084BC3E /* CheckerServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerServiceTests.swift; sourceTree = "<group>"; };
+		CEBF4CF029C1F4EE0084BC3E /* FeedCoordinatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeedCoordinatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEBF4CF229C1F4EF0084BC3E /* FeedCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinatorTests.swift; sourceTree = "<group>"; };
 		CEC0B89B283C00CC00041DC5 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		CEC171D5280C60F200C0B95E /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		CEC2549F28B76ABE00FD6852 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -198,9 +224,27 @@
 		CEEC4A3D298BE4DF00CDE39B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		CEEC4A43299A61AF00CDE39B /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		CEEC4A45299A63D100CDE39B /* CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
+		CEFF058729C8A6DE00A21BD3 /* ProfileCoordinatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProfileCoordinatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEFF058929C8A6DE00A21BD3 /* ProfileCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CEBF4CC329BF6C640084BC3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEBF4CDC29C0C5380084BC3E /* Realm in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEBF4CED29C1F4EE0084BC3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEBF4CFA29C1F4FC0084BC3E /* Realm in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CECA1FD528814910000595A4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -214,16 +258,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				CED0730C28AA901D00DE68DD /* iOSIntPackage in Frameworks */,
-				CECCC81928FF096F00BEAC28 /* FirebaseAuth in Frameworks */,
-				CECCC82128FF096F00BEAC28 /* FirebaseStorage in Frameworks */,
+				CEBF4CB429BCF78D0084BC3E /* FirebaseAuth in Frameworks */,
 				CECA1FDE28814911000595A4 /* StorageService.framework in Frameworks */,
 				CE0E1D44294A448600AFA1D9 /* Realm in Frameworks */,
-				CECCC81B28FF096F00BEAC28 /* FirebaseCrashlytics in Frameworks */,
-				CECCC81728FF096F00BEAC28 /* FirebaseAnalytics in Frameworks */,
-				CECCC81F28FF096F00BEAC28 /* FirebaseFirestore in Frameworks */,
 				CE0E1D46294A448600AFA1D9 /* RealmSwift in Frameworks */,
-				CECCC81D28FF096F00BEAC28 /* FirebaseDatabase in Frameworks */,
 				5330A5035B8438C69BF3CD9B /* Pods_Industrial.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEFF058429C8A6DE00A21BD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEFF059129C8A6E800A21BD3 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,9 +356,25 @@
 			children = (
 				CEB1846B296C998D00A26EF7 /* Pods-Industrial */,
 				CEB1846D296C998D00A26EF7 /* Pods-StorageService */,
-				CEB1846F296C998D00A26EF7 /* SnapKit */,
+				CEB1846F296C998D00A26EF7 /* SnapKit.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CEBF4CC729BF6C650084BC3E /* CheckerServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				CEBF4CC829BF6C650084BC3E /* CheckerServiceTests.swift */,
+			);
+			path = CheckerServiceTests;
+			sourceTree = "<group>";
+		};
+		CEBF4CF129C1F4EF0084BC3E /* FeedCoordinatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				CEBF4CF229C1F4EF0084BC3E /* FeedCoordinatorTests.swift */,
+			);
+			path = FeedCoordinatorTests;
 			sourceTree = "<group>";
 		};
 		CEC2549E28B76AA700FD6852 /* Coordinators */ = {
@@ -355,6 +418,9 @@
 			children = (
 				CECD182A27B83C8B00D89B3F /* Industrial */,
 				CECA1FD928814911000595A4 /* StorageService */,
+				CEBF4CC729BF6C650084BC3E /* CheckerServiceTests */,
+				CEBF4CF129C1F4EF0084BC3E /* FeedCoordinatorTests */,
+				CEFF058829C8A6DE00A21BD3 /* ProfileCoordinatorTests */,
 				CECD182927B83C8B00D89B3F /* Products */,
 				D367114465DACCC7A31A112D /* Pods */,
 				B010C07330312AD5B2E31B3A /* Frameworks */,
@@ -366,6 +432,9 @@
 			children = (
 				CECD182827B83C8B00D89B3F /* Industrial.app */,
 				CECA1FD828814910000595A4 /* StorageService.framework */,
+				CEBF4CC629BF6C640084BC3E /* CheckerServiceTests.xctest */,
+				CEBF4CF029C1F4EE0084BC3E /* FeedCoordinatorTests.xctest */,
+				CEFF058729C8A6DE00A21BD3 /* ProfileCoordinatorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -432,6 +501,14 @@
 			path = Themes;
 			sourceTree = "<group>";
 		};
+		CEFF058829C8A6DE00A21BD3 /* ProfileCoordinatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF058929C8A6DE00A21BD3 /* ProfileCoordinatorTests.swift */,
+			);
+			path = ProfileCoordinatorTests;
+			sourceTree = "<group>";
+		};
 		D367114465DACCC7A31A112D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +534,48 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		CEBF4CC529BF6C640084BC3E /* CheckerServiceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEBF4CCC29BF6C660084BC3E /* Build configuration list for PBXNativeTarget "CheckerServiceTests" */;
+			buildPhases = (
+				CEBF4CC229BF6C640084BC3E /* Sources */,
+				CEBF4CC329BF6C640084BC3E /* Frameworks */,
+				CEBF4CC429BF6C640084BC3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CEBF4CCB29BF6C650084BC3E /* PBXTargetDependency */,
+			);
+			name = CheckerServiceTests;
+			packageProductDependencies = (
+				CEBF4CDB29C0C5380084BC3E /* Realm */,
+			);
+			productName = CheckerServiceTests;
+			productReference = CEBF4CC629BF6C640084BC3E /* CheckerServiceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CEBF4CEF29C1F4EE0084BC3E /* FeedCoordinatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEBF4CF629C1F4EF0084BC3E /* Build configuration list for PBXNativeTarget "FeedCoordinatorTests" */;
+			buildPhases = (
+				CEBF4CEC29C1F4EE0084BC3E /* Sources */,
+				CEBF4CED29C1F4EE0084BC3E /* Frameworks */,
+				CEBF4CEE29C1F4EE0084BC3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CEBF4CF529C1F4EF0084BC3E /* PBXTargetDependency */,
+			);
+			name = FeedCoordinatorTests;
+			packageProductDependencies = (
+				CEBF4CF929C1F4FC0084BC3E /* Realm */,
+			);
+			productName = FeedCoordinatorTests;
+			productReference = CEBF4CF029C1F4EE0084BC3E /* FeedCoordinatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CECA1FD728814910000595A4 /* StorageService */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CECA1FE028814911000595A4 /* Build configuration list for PBXNativeTarget "StorageService" */;
@@ -495,18 +614,34 @@
 			name = Industrial;
 			packageProductDependencies = (
 				CED0730B28AA901D00DE68DD /* iOSIntPackage */,
-				CECCC81628FF096F00BEAC28 /* FirebaseAnalytics */,
-				CECCC81828FF096F00BEAC28 /* FirebaseAuth */,
-				CECCC81A28FF096F00BEAC28 /* FirebaseCrashlytics */,
-				CECCC81C28FF096F00BEAC28 /* FirebaseDatabase */,
-				CECCC81E28FF096F00BEAC28 /* FirebaseFirestore */,
-				CECCC82028FF096F00BEAC28 /* FirebaseStorage */,
 				CE0E1D43294A448600AFA1D9 /* Realm */,
 				CE0E1D45294A448600AFA1D9 /* RealmSwift */,
+				CEBF4CB329BCF78D0084BC3E /* FirebaseAuth */,
 			);
 			productName = Navigation;
 			productReference = CECD182827B83C8B00D89B3F /* Industrial.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CEFF058629C8A6DE00A21BD3 /* ProfileCoordinatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEFF058D29C8A6DE00A21BD3 /* Build configuration list for PBXNativeTarget "ProfileCoordinatorTests" */;
+			buildPhases = (
+				CEFF058329C8A6DE00A21BD3 /* Sources */,
+				CEFF058429C8A6DE00A21BD3 /* Frameworks */,
+				CEFF058529C8A6DE00A21BD3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CEFF058C29C8A6DE00A21BD3 /* PBXTargetDependency */,
+			);
+			name = ProfileCoordinatorTests;
+			packageProductDependencies = (
+				CEFF059029C8A6E800A21BD3 /* Realm */,
+			);
+			productName = ProfileCoordinatorTests;
+			productReference = CEFF058729C8A6DE00A21BD3 /* ProfileCoordinatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -515,14 +650,26 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
+					CEBF4CC529BF6C640084BC3E = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = CECD182727B83C8B00D89B3F;
+					};
+					CEBF4CEF29C1F4EE0084BC3E = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = CECD182727B83C8B00D89B3F;
+					};
 					CECA1FD728814910000595A4 = {
 						CreatedOnToolsVersion = 13.1;
 					};
 					CECD182727B83C8B00D89B3F = {
 						CreatedOnToolsVersion = 13.1;
+					};
+					CEFF058629C8A6DE00A21BD3 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = CECD182727B83C8B00D89B3F;
 					};
 				};
 			};
@@ -538,8 +685,8 @@
 			mainGroup = CECD181F27B83C8B00D89B3F;
 			packageReferences = (
 				CED0730A28AA901D00DE68DD /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
-				CECCC81528FF096F00BEAC28 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				CE0E1D42294A448600AFA1D9 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				CEBF4CB229BCF78C0084BC3E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = CECD182927B83C8B00D89B3F /* Products */;
 			projectDirPath = "";
@@ -553,6 +700,9 @@
 			targets = (
 				CECD182727B83C8B00D89B3F /* Industrial */,
 				CECA1FD728814910000595A4 /* StorageService */,
+				CEBF4CC529BF6C640084BC3E /* CheckerServiceTests */,
+				CEBF4CEF29C1F4EE0084BC3E /* FeedCoordinatorTests */,
+				CEFF058629C8A6DE00A21BD3 /* ProfileCoordinatorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -574,10 +724,9 @@
 			remoteRef = CEB1846C296C998D00A26EF7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CEB1846F296C998D00A26EF7 /* SnapKit */ = {
+		CEB1846F296C998D00A26EF7 /* SnapKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			name = SnapKit;
 			path = SnapKit.framework;
 			remoteRef = CEB1846E296C998D00A26EF7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -585,6 +734,20 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CEBF4CC429BF6C640084BC3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEBF4CEE29C1F4EE0084BC3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CECA1FD628814910000595A4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -601,6 +764,13 @@
 				CECD183527B83C9000D89B3F /* Assets.xcassets in Resources */,
 				CEEC4A39298BBF2700CDE39B /* Localizable.stringsdict in Resources */,
 				CE93B66A28FFF9F100B7E7FA /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEFF058529C8A6DE00A21BD3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -671,6 +841,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CEBF4CC229BF6C640084BC3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEBF4CC929BF6C650084BC3E /* CheckerServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEBF4CEC29C1F4EE0084BC3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEBF4CF329C1F4EF0084BC3E /* FeedCoordinatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CECA1FD428814910000595A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -737,13 +923,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CEFF058329C8A6DE00A21BD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEFF058A29C8A6DE00A21BD3 /* ProfileCoordinatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CEBF4CCB29BF6C650084BC3E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CECD182727B83C8B00D89B3F /* Industrial */;
+			targetProxy = CEBF4CCA29BF6C650084BC3E /* PBXContainerItemProxy */;
+		};
+		CEBF4CF529C1F4EF0084BC3E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CECD182727B83C8B00D89B3F /* Industrial */;
+			targetProxy = CEBF4CF429C1F4EF0084BC3E /* PBXContainerItemProxy */;
+		};
 		CECA1FDD28814911000595A4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CECA1FD728814910000595A4 /* StorageService */;
 			targetProxy = CECA1FDC28814911000595A4 /* PBXContainerItemProxy */;
+		};
+		CEFF058C29C8A6DE00A21BD3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CECD182727B83C8B00D89B3F /* Industrial */;
+			targetProxy = CEFF058B29C8A6DE00A21BD3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -778,6 +987,88 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CEBF4CCD29BF6C660084BC3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FYSS8G4VY5;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DG.CheckerServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Industrial.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Industrial";
+			};
+			name = Debug;
+		};
+		CEBF4CCE29BF6C660084BC3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FYSS8G4VY5;
+				FRAMEWORK_SEARCH_PATHS = "$(Dir";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DG.CheckerServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Industrial.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Industrial";
+			};
+			name = Release;
+		};
+		CEBF4CF729C1F4EF0084BC3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FYSS8G4VY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DG.FeedCoordinatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Industrial.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Industrial";
+			};
+			name = Debug;
+		};
+		CEBF4CF829C1F4EF0084BC3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FYSS8G4VY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DG.FeedCoordinatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Industrial.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Industrial";
+			};
+			name = Release;
+		};
 		CECA1FE128814911000595A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A6F69F3405C09525E009341F /* Pods-StorageService.debug.xcconfig */;
@@ -1037,9 +1328,67 @@
 			};
 			name = Release;
 		};
+		CEFF058E29C8A6DE00A21BD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FYSS8G4VY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DG.ProfileCoordinatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Industrial.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Industrial";
+			};
+			name = Debug;
+		};
+		CEFF058F29C8A6DE00A21BD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FYSS8G4VY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DG.ProfileCoordinatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Industrial.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Industrial";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CEBF4CCC29BF6C660084BC3E /* Build configuration list for PBXNativeTarget "CheckerServiceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEBF4CCD29BF6C660084BC3E /* Debug */,
+				CEBF4CCE29BF6C660084BC3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEBF4CF629C1F4EF0084BC3E /* Build configuration list for PBXNativeTarget "FeedCoordinatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEBF4CF729C1F4EF0084BC3E /* Debug */,
+				CEBF4CF829C1F4EF0084BC3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CECA1FE028814911000595A4 /* Build configuration list for PBXNativeTarget "StorageService" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1067,6 +1416,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		CEFF058D29C8A6DE00A21BD3 /* Build configuration list for PBXNativeTarget "ProfileCoordinatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEFF058E29C8A6DE00A21BD3 /* Debug */,
+				CEFF058F29C8A6DE00A21BD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -1078,12 +1436,12 @@
 				minimumVersion = 10.33.0;
 			};
 		};
-		CECCC81528FF096F00BEAC28 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		CEBF4CB229BCF78C0084BC3E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 		CED0730A28AA901D00DE68DD /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
@@ -1107,40 +1465,30 @@
 			package = CE0E1D42294A448600AFA1D9 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
-		CECCC81628FF096F00BEAC28 /* FirebaseAnalytics */ = {
+		CEBF4CB329BCF78D0084BC3E /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CECCC81528FF096F00BEAC28 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		CECCC81828FF096F00BEAC28 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CECCC81528FF096F00BEAC28 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = CEBF4CB229BCF78C0084BC3E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		CECCC81A28FF096F00BEAC28 /* FirebaseCrashlytics */ = {
+		CEBF4CDB29C0C5380084BC3E /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CECCC81528FF096F00BEAC28 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
+			package = CE0E1D42294A448600AFA1D9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
 		};
-		CECCC81C28FF096F00BEAC28 /* FirebaseDatabase */ = {
+		CEBF4CF929C1F4FC0084BC3E /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CECCC81528FF096F00BEAC28 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		CECCC81E28FF096F00BEAC28 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CECCC81528FF096F00BEAC28 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		CECCC82028FF096F00BEAC28 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CECCC81528FF096F00BEAC28 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
+			package = CE0E1D42294A448600AFA1D9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
 		};
 		CED0730B28AA901D00DE68DD /* iOSIntPackage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CED0730A28AA901D00DE68DD /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
 			productName = iOSIntPackage;
+		};
+		CEFF059029C8A6E800A21BD3 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE0E1D42294A448600AFA1D9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
 		};
 /* End XCSwiftPackageProductDependency section */
 

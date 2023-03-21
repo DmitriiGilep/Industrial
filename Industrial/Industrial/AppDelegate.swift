@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import FirebaseCore
-import FirebaseAuth
+//import FirebaseCore
+//import FirebaseAuth
 
 
 @main
@@ -22,24 +22,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // инициализировал кейсом ref1
         appConfiguration = AppConfiguration.ref1
         
-        FirebaseApp.configure() // добавил конфигурирование Firebase
+//        FirebaseApp.configure() // добавил конфигурирование Firebase
         
         window = UIWindow()
         window?.makeKeyAndVisible()
         let mainCoordinator = MainCoordinator()
         window?.rootViewController = mainCoordinator.startApplication()
         
-        print("This is my Bundle url: \(Bundle.main.bundleURL)") // my Bundle
-        print("This is my Sandbox url: \(FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask))")
+//        print("This is my Bundle url: \(Bundle.main.bundleURL)") // my Bundle
+//        print("This is my Sandbox url: \(FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask))")
         return true
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        do {
-            try Auth.auth().signOut() // разлогинивает пользователя
-        } catch {
-            return
-        }
+//        do {
+//            try Auth.auth().signOut() // разлогинивает пользователя
+//        } catch {
+//            return
+//        }
         
         
     }

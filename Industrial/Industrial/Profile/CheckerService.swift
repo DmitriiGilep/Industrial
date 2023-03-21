@@ -7,39 +7,61 @@
 
 import Foundation
 import UIKit
-import FirebaseAuth
+//import FirebaseAuth
 
+protocol CheckerServiceControllerProtocol: AnyObject {
+    func callAlertViewSignUpFailure()
+    func callAlertViewSignUpSuccess()
+    func callAlertViewCredentialFailure()
+    func goToProfilePage()
+    
+}
+
+protocol CheckerServiceRealmModelProtocol: AnyObject {
+    func checkLoginForUnique(login: String) -> Bool
+    func addProfileToRealm(login: String, password: String)
+    func checkAuthorizationWithRealm(login: String, password: String) -> Bool
+    func toogleStatusToLogIn(login: String)
+}
 
 final class CheckerService: CheckerServiceProtocol {
-        
-    func signUp(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator) {
-        let alertViewFailure = self.createAlertView(viewTitle: "failure_registration".localizable, message: "user_existed_something_wrong".localizable, actionTitle: "ok", action: nil)
+    
+    var controller: CheckerServiceControllerProtocol?
+    var realmModel: CheckerServiceRealmModelProtocol?
+    
+    func signUp(login: String, password: String) {
         
         guard !login.isEmpty, !password.isEmpty else {
-            return controller.present(alertViewFailure, animated: true, completion: nil)
+            controller?.callAlertViewSignUpFailure()
+            return
         }
         
-        var checkStatus = false
-        
-        for i in LoginRealmModel.shared.loginPairArray {
-            if i.login == login {
-                checkStatus = true
-            }
-        }
-        
-        
-        if checkStatus {
-            controller.present(alertViewFailure, animated: true, completion: nil)
+        if realmModel?.checkLoginForUnique(login: login) == true {
+            controller?.callAlertViewSignUpSuccess()
+            realmModel?.addProfileToRealm(login: login, password: password)
+            realmModel?.toogleStatusToLogIn(login: login)
+            
         } else {
-            LoginRealmModel.shared.addLoginModel(login: login, password: password)
-            LoginRealmModel.shared.statusLoggedIn(login: login)
-            let alertViewSuccess = self.createAlertView(viewTitle: "successful_registrarion".localizable, message: "user_registered".localizable, actionTitle: "ok") {
-                coordinator.profileViewController(coordinator: coordinator, controller: controller, navControllerFromFactory: nil)
-            }
-            controller.present(alertViewSuccess, animated: true, completion: nil)
-
+            controller?.callAlertViewSignUpFailure()
+        }
+    }
+    
+    func checkCredentials(login: String, password: String) {
+        
+        guard !login.isEmpty, !password.isEmpty else {
+            controller?.callAlertViewCredentialFailure()
+            return
         }
         
+        if realmModel?.checkAuthorizationWithRealm(login: login, password: password) == true {
+            realmModel?.toogleStatusToLogIn(login: login)
+            controller?.goToProfilePage()
+        } else {
+            controller?.callAlertViewCredentialFailure()
+        }
+    }
+    
+}
         // firebase
   /*      Auth.auth().createUser(withEmail: login, password: password) { [weak self] authResult, error in
             if error == nil {
@@ -52,33 +74,6 @@ final class CheckerService: CheckerServiceProtocol {
             }
         }
       */
-        
-    }
-    
-    func checkCredentials(login: String, password: String, controller: LogInViewController, coordinator: ProfileCoordinator) {
-        let alertView = self.createAlertView(viewTitle: "error".localizable, message: "password_login_incorrect".localizable, actionTitle: "Ок", action: nil)
-        
-        guard !login.isEmpty, !password.isEmpty else {
-            return controller.present(alertView, animated: true, completion: nil)
-        }
-        
-        var checkStatus = false
-        for i in LoginRealmModel.shared.loginPairArray {
-            if i.login == login, i.password == password {
-                checkStatus = true
-            }
-        }
-        
-        if checkStatus {
-            LoginRealmModel.shared.statusLoggedIn(login: login)
-            
-            coordinator.profileViewController(coordinator: coordinator, controller: controller, navControllerFromFactory: nil)
-            
-        } else {
-            controller.present(alertView, animated: true)
-        }
-        
-        
         
 //        Auth.auth().signIn(withEmail: login, password: password) { [weak self] authResult, error in
 //            let profileErrorsProcessor = ProfileErrorsProcessor()
@@ -105,16 +100,3 @@ final class CheckerService: CheckerServiceProtocol {
 //            }
 //
 //        }
-    }
-    
-    private func createAlertView(viewTitle: String, message: String, actionTitle: String, action: (() -> Void)?) -> UIAlertController {
-        let alertView = UIAlertController(title: viewTitle, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: actionTitle, style: .default) { UIAlertAction in
-            guard let actionUnwrapped = action else {return}
-            actionUnwrapped()
-        }
-        alertView.addAction(action)
-        return alertView
-    }
-    
-}

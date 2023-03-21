@@ -36,7 +36,10 @@ final class NavControllerFactory {
         case .first:
             let feedCoordinator = FeedCoordinator()
             let feedViewModel = FeedViewModel()
-            let feedViewController = FeedViewController(coordinator: feedCoordinator, model: feedViewModel)
+  //          let feedViewController = FeedViewController(coordinator: feedCoordinator, model: feedViewModel)
+            let feedViewController = FeedViewController()
+            feedViewController.coordinator = feedCoordinator
+            feedViewController.feedViewModel = feedViewModel
             feedCoordinator.navController = navController
             navController.setViewControllers([feedViewController], animated: true)
             
