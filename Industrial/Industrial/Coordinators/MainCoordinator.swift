@@ -14,7 +14,6 @@ protocol MainCoordinatorProtocol {
 }
 
 final class MainCoordinator: MainCoordinatorProtocol {
-    
     func startApplication() -> UIViewController {
         return MainTabBarController()
     }
