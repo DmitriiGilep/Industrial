@@ -16,6 +16,7 @@
 		CE0E1D44294A448600AFA1D9 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = CE0E1D43294A448600AFA1D9 /* Realm */; };
 		CE0E1D46294A448600AFA1D9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE0E1D45294A448600AFA1D9 /* RealmSwift */; };
 		CE0E1D4A294DA65A00AFA1D9 /* LoginRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E1D49294DA65A00AFA1D9 /* LoginRealmModel.swift */; };
+		CE53E06A29CB5EB20057C281 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53E06929CB5EB20057C281 /* LocalAuthorizationService.swift */; };
 		CE6F109E28F893F100DDCB67 /* JasonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6F109D28F893F100DDCB67 /* JasonModel.swift */; };
 		CE75098A289826D1004F76B6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE750989289826D1004F76B6 /* User.swift */; };
 		CE89E04228F41E10007F321E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE89E04128F41E10007F321E /* NetworkService.swift */; };
@@ -159,6 +160,7 @@
 		CE094AC927CFA1860076C5A8 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		CE094ACD27CFA1F20076C5A8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CE0E1D49294DA65A00AFA1D9 /* LoginRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRealmModel.swift; sourceTree = "<group>"; };
+		CE53E06929CB5EB20057C281 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		CE6F109D28F893F100DDCB67 /* JasonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JasonModel.swift; sourceTree = "<group>"; };
 		CE750989289826D1004F76B6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CE89E04128F41E10007F321E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -343,6 +345,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		CE53E06529CB5E8B0057C281 /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				CE53E06929CB5EB20057C281 /* LocalAuthorizationService.swift */,
+			);
+			path = Authorization;
+			sourceTree = "<group>";
+		};
 		CEB1845929675E0500A26EF7 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,6 +452,7 @@
 		CECD182A27B83C8B00D89B3F /* Industrial */ = {
 			isa = PBXGroup;
 			children = (
+				CE53E06529CB5E8B0057C281 /* Authorization */,
 				CEEC4A42299A619500CDE39B /* Themes */,
 				CEEC4A32298AB52100CDE39B /* Localizing */,
 				CEB1845929675E0500A26EF7 /* CoreData */,
@@ -882,6 +893,7 @@
 				CED0730928A9212600DE68DD /* MyLoginFactory.swift in Sources */,
 				CEC254A928B777F500FD6852 /* ProfileCoordinator.swift in Sources */,
 				CEB1845F296B3C1400A26EF7 /* FavoritesTableViewController.swift in Sources */,
+				CE53E06A29CB5EB20057C281 /* LocalAuthorizationService.swift in Sources */,
 				CEEC4A46299A63D100CDE39B /* CustomColors.swift in Sources */,
 				CECD182C27B83C8B00D89B3F /* AppDelegate.swift in Sources */,
 				CEC8627928CA241800799361 /* BruteForce.swift in Sources */,
@@ -1272,6 +1284,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app is going to use your camera";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID for authentication";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app is going to use your location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app is going to use your location";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app is going to use your photos";
@@ -1279,6 +1292,8 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1308,6 +1323,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app is going to use your camera";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID for authentication";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app is going to use your location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app is going to use your location";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app is going to use your photos";
@@ -1315,6 +1331,8 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

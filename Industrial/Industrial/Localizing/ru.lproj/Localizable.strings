@@ -96,7 +96,19 @@
 "destination" = "Пункт назначения";
 "destinationInsert" = "Введите адрес";
 "insert_address" = "Введите адрес";
-
+"authFailed" = "Аутентификация не пройдена";
+"authUnavailable" = "Аутентификация недоступна";
+"authIsNotSetUp" = "Аутентификация не установлена";
+"authCancellded" = "Аутентификация отменена";
+"goingToPassword" = "Переходим к аутентификации по паролю";
+"authIsLocked" = "Аутентификация заблокирована";
+"authCannotConfigured" = "Аутентификация не может быть настроена";
+"verifyIdentity" = "Подтвердите личность";
+"enterPassword" = "Введите пароль от приложения";
+"touchMeNot" = "Не трогать";
+"FaceIDTouchIDnotConfigured" = "Face ID / Touch ID не может быть настроено";
+"success" = "Успех";
+"successAuthentication" = "Успешная аутентификация";
 
 
 

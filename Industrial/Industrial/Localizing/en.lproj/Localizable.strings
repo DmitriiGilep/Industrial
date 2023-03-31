@@ -96,6 +96,20 @@
 "destination" = "Point of destination";
 "destinationInsert" = "Type an address";
 "insert_address" = "Type an address";
+"authFailed" = "Authentication failed";
+"authUnavailable" = "Authentication unavailable";
+"authIsNotSetUp" = "Authentication isn't set up";
+"authCancellded" = "Authentication is cancelled";
+"goingToPassword" = "Going to the password authentication";
+"authIsLocked" = "Authentication is locked";
+"authCannotConfigured" = "Authentication can't be configured";
+"verifyIdentity" = "Verify your identity";
+"enterPassword" = "Enter App password";
+"touchMeNot" = "Touch me not";
+"FaceIDTouchIDnotConfigured" = "Face ID / Touch ID may not be configured";
+"success" = "Success";
+"successAuthentication" = "Authentication is successful";
+
 
 
 
