@@ -24,7 +24,7 @@ final class LocalNotificationsServiceViewController: UIViewController, UNUserNot
     }
     
     func registerForLatestUpdatesIfPossible() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [ .alert, .sound, .badge ]) { [weak self] granted, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: [ .sound, .badge, .provisional ]) { [weak self] granted, error in
             if granted {
                 self?.registerUpdatesCategory()
                 let center = UNUserNotificationCenter.current()
