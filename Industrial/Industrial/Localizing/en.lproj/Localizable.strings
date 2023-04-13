@@ -109,8 +109,8 @@
 "FaceIDTouchIDnotConfigured" = "Face ID / Touch ID may not be configured";
 "success" = "Success";
 "successAuthentication" = "Authentication is successful";
-
-
+"look_update" = "Look at last updates";
+"update" = "Update";
 
 
 

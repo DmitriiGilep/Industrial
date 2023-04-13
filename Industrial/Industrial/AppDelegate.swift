@@ -14,6 +14,8 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let localNotificationsServiceViewController = LocalNotificationsServiceViewController()
+
     // объявил свойство конфигурации
     var appConfiguration: AppConfiguration?
     
@@ -26,11 +28,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow()
         window?.makeKeyAndVisible()
+        
+        localNotificationsServiceViewController.registerForLatestUpdatesIfPossible()
+
         let mainCoordinator = MainCoordinator()
         window?.rootViewController = mainCoordinator.startApplication()
         
 //        print("This is my Bundle url: \(Bundle.main.bundleURL)") // my Bundle
 //        print("This is my Sandbox url: \(FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask))")
+        
+        
+        
         return true
     }
 
@@ -43,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
     }
+    
 
 }
 

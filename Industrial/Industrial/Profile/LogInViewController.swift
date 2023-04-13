@@ -439,10 +439,8 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
                         self.createAlertView(viewTitle: "error".localizable, message: error?.errorDescriprion ?? "FaceIDTouchIDnotConfigured".localizable, actionTitle: "ok", action: nil)
                         return
                     }
-                    self.createAlertView(viewTitle: "success".localizable, message: "successAuthentication".localizable, actionTitle: "ok", action: {
-                        authorizationFinished(true)
-                    })
-                    
+                
+                authorizationFinished(true)
                 }
             
         }

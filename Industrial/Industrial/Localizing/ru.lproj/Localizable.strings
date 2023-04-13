@@ -109,6 +109,8 @@
 "FaceIDTouchIDnotConfigured" = "Face ID / Touch ID не может быть настроено";
 "success" = "Успех";
 "successAuthentication" = "Успешная аутентификация";
+"look_update" = "Посмотрите последние изменения";
+"update" = "Обновить";
 
 
 
