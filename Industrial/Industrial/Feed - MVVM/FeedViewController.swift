@@ -8,7 +8,7 @@
 import UIKit
 import UserNotifications
 
-final class FeedViewController: UIViewController, UNUserNotificationCenterDelegate {
+final class FeedViewController: UIViewController {
     
     //MARK: - let and var
     

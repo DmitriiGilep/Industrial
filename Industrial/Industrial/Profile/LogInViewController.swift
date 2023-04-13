@@ -152,36 +152,6 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
         return button
     }()
     
-    
-//    CustomButton(
-//        title: (name: "Unavailable", state: nil),
-//        titleColor: (color: nil, state: nil),
-//        titleLabelColor: CustomColors.customLabelTextColor,
-//        titleFont: nil,
-//        cornerRadius: 10,
-//        backgroundColor: CustomColors.customButtonColor,
-//        backgroundImage: (image: UIImage(named: "blue_pixel"), state: nil),
-//        clipsToBounds: true,
-//        image: UIImage(systemName: "faceid"),
-//
-////            {if authorizationType == .faceID {
-////            return UIImage(systemName: "faceid")
-////        } else if authorizationType == .touchID {
-////            return UIImage(systemName: "touchid")
-////        } else {
-////            return nil
-////        }
-////        }(),
-//        action: { [weak self] in
-//            guard let self = self else {return}
-//            self.authorizeIfPossible { success in
-//                if success {
-//                    self.goToProfilePage()
-//                }
-//                print(success)
-//            }
-//        })
-    
     let randomPasswordTextField: UITextField = {
         let passwordText = UITextField()
         passwordText.backgroundColor = CustomColors.customGray
