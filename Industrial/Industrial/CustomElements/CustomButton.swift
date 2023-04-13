@@ -22,11 +22,15 @@ class CustomButton: UIButton {
         backgroundColor: UIColor? = nil,
         backgroundImage: (image: UIImage?, state: UIControl.State?),
         clipsToBounds: Bool? = nil,
+        image: UIImage? = nil,
         action: @escaping Action)
     {
         buttonAction = action
         super.init(frame: CGRect())
-        setTitle("\(title.name)", for: title.state ?? .normal)
+        if image != nil {
+            setImage(image, for: .normal)        } else {
+            setTitle("\(title.name)", for: title.state ?? .normal)
+        }
         setTitleColor(titleColor.color, for: titleColor.state ?? .normal)
         titleLabel?.textColor = titleLabelColor
         titleLabel?.font = titleFont

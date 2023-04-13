@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 final class FeedViewController: UIViewController {
     
@@ -84,6 +85,7 @@ final class FeedViewController: UIViewController {
             //#else
             
             self?.feedViewModel?.changeState(interfaceEvent: .checkGuessButtonPressed, controller: self!)
+            
             //#endif
         })
     

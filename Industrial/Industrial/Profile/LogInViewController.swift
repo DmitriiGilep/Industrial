@@ -21,7 +21,9 @@ protocol LoginViewControllerDelegate: AnyObject {
 final class LogInViewController: UIViewController, CheckerServiceControllerProtocol {
     
     let coordinator: ProfileCoordinatorProtocol
-    
+    let localAuthorizationService = LocalAuthorizationService()
+    private var authorizationType: LocalAuthorizationService.BiometricType?
+        
     // переменная делегата со слабой ссылкой
     var delegate: LoginViewControllerDelegate? // класс, ответственный за авторизацию, соответствует протоколу LoginViewControllerDelegate, то есть имеет 2 функции (проверка и подписка)
         
@@ -125,6 +127,31 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
             
         })
     
+    private lazy var IDButton: UIButton = {
+        var configuration = UIButton.Configuration.plain()
+        configuration.imagePlacement = .leading
+        configuration.titleAlignment = .center
+        configuration.imagePadding = 8.0
+        
+        let action = UIAction { action in
+            self.authorizeIfPossible { success in
+                if success {
+                    self.goToProfilePage()
+                }
+            }
+        }
+        let button = UIButton(configuration: configuration, primaryAction: action)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.configurationUpdateHandler = {
+            button in
+            var configuration = button.configuration
+            configuration?.image = self.authorizationType == .faceID ? UIImage(systemName: "faceid"): UIImage(systemName: "touchid")
+            configuration?.title = self.authorizationType == .faceID ? "FaceID": "TouchID"
+            button.configuration = configuration
+        }
+        return button
+    }()
+    
     let randomPasswordTextField: UITextField = {
         let passwordText = UITextField()
         passwordText.backgroundColor = CustomColors.customGray
@@ -214,6 +241,7 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
         logInContentView.addSubview(loginField)
         logInContentView.addSubview(logInButton)
         logInContentView.addSubview(signUpButton)
+        logInContentView.addSubview(IDButton)
         loginField.addSubview(nameTextField)
         loginField.addSubview(passwordTextField)
         logInContentView.addSubview(randomPasswordTextField)
@@ -223,6 +251,7 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
     }
     
     private func setAllConstraints() {
+        
         NSLayoutConstraint.activate(
             [
                 logInScrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -272,9 +301,14 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
                 signUpButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 16),
                 signUpButton.heightAnchor.constraint(equalToConstant: 50),
                 
+                IDButton.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
+                IDButton.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
+                IDButton.topAnchor.constraint(equalTo: self.signUpButton.bottomAnchor, constant: 16),
+                IDButton.heightAnchor.constraint(equalToConstant: 50),
+                
                 randomPasswordTextField.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
                 randomPasswordTextField.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
-                randomPasswordTextField.topAnchor.constraint(equalTo: self.signUpButton.bottomAnchor, constant: 16),
+                randomPasswordTextField.topAnchor.constraint(equalTo: IDButton.bottomAnchor, constant: 16),
                 randomPasswordTextField.heightAnchor.constraint(equalToConstant: 50),
                 
                 generateRandomPasswordButton.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
@@ -290,18 +324,18 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
                 bruteForceRandomPasswordButton.bottomAnchor.constraint(equalTo: logInContentView.bottomAnchor, constant: -16)
             ]
         )
+        
     }
     
     override func viewDidLoad() {
         view.backgroundColor = CustomColors.customViewColor
+        launchCanEvaluate()
         addAllViews()
         setAllConstraints()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         let notificationCentre = NotificationCenter.default
         notificationCentre.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         notificationCentre.addObserver(self, selector: #selector(handleKeyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -322,31 +356,27 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
     }
     
     func callAlertViewSignUpFailure() {
-        let alertViewFailure = self.createAlertView(viewTitle: "failure_registration".localizable, message: "user_existed_something_wrong".localizable, actionTitle: "ok", action: nil)
-        self.present(alertViewFailure, animated: true)
+        self.createAlertView(viewTitle: "failure_registration".localizable, message: "user_existed_something_wrong".localizable, actionTitle: "ok", action: nil)
     }
     
     func callAlertViewSignUpSuccess() {
-        let alertViewSuccess = self.createAlertView(viewTitle: "successful_registrarion".localizable, message: "user_registered".localizable, actionTitle: "ok") {
+        self.createAlertView(viewTitle: "successful_registrarion".localizable, message: "user_registered".localizable, actionTitle: "ok") {
             self.goToProfilePage()
         }
-        self.present(alertViewSuccess, animated: true)
     }
     
     func callAlertViewCredentialFailure() {
-        let alertView = self.createAlertView(viewTitle: "error".localizable, message: "password_login_incorrect".localizable, actionTitle: "Ок", action: nil)
-        self.present(alertView, animated: true)
-
+        self.createAlertView(viewTitle: "error".localizable, message: "password_login_incorrect".localizable, actionTitle: "Ок", action: nil)
     }
     
-    private func createAlertView(viewTitle: String, message: String, actionTitle: String, action: (() -> Void)?) -> UIAlertController {
+    private func createAlertView(viewTitle: String, message: String, actionTitle: String, action: (() -> Void)?) {
         let alertView = UIAlertController(title: viewTitle, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: actionTitle, style: .default) { UIAlertAction in
             guard let actionUnwrapped = action else {return}
             actionUnwrapped()
         }
         alertView.addAction(action)
-        return alertView
+        present(alertView, animated: true)
     }
     
     
@@ -361,5 +391,31 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
         self.logInScrollView.contentInset.bottom = .zero
         self.logInScrollView.verticalScrollIndicatorInsets = .zero
     }
+    
+    private func launchCanEvaluate() {
+        localAuthorizationService.canEvaluate { canEvaluate, type, canEvaluateError in
+                authorizationType = type
+        }
+    }
+    
+    private func authorizeIfPossible(_ authorizationFinished: @escaping (Bool) -> Void) {
+        localAuthorizationService.canEvaluate { canEvaluate, type, canEvaluateError in
+            guard canEvaluate else {
+                self.createAlertView(viewTitle: "error".localizable, message: canEvaluateError?.errorDescriprion ?? "FaceIDTouchIDnotConfigured".localizable, actionTitle: "ok", action: nil)
+                return
+            }
+            localAuthorizationService.evaluate { (success, error) in
+                    guard success else {
+                        self.createAlertView(viewTitle: "error".localizable, message: error?.errorDescriprion ?? "FaceIDTouchIDnotConfigured".localizable, actionTitle: "ok", action: nil)
+                        return
+                    }
+                
+                authorizationFinished(true)
+                }
+            
+        }
+        
+    }
+    
 }
 
