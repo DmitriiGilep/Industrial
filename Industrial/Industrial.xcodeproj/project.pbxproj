@@ -17,6 +17,7 @@
 		CE0E1D46294A448600AFA1D9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE0E1D45294A448600AFA1D9 /* RealmSwift */; };
 		CE0E1D4A294DA65A00AFA1D9 /* LoginRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E1D49294DA65A00AFA1D9 /* LoginRealmModel.swift */; };
 		CE3D9C0C29E55EDE00DED357 /* LocalNotificationsServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D9C0B29E55EDE00DED357 /* LocalNotificationsServiceViewController.swift */; };
+		CE3D9C5229E8434D00DED357 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D9C5129E8434D00DED357 /* SceneDelegate.swift */; };
 		CE53E06A29CB5EB20057C281 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53E06929CB5EB20057C281 /* LocalAuthorizationService.swift */; };
 		CE6F109E28F893F100DDCB67 /* JasonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6F109D28F893F100DDCB67 /* JasonModel.swift */; };
 		CE75098A289826D1004F76B6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE750989289826D1004F76B6 /* User.swift */; };
@@ -162,6 +163,7 @@
 		CE094ACD27CFA1F20076C5A8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CE0E1D49294DA65A00AFA1D9 /* LoginRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRealmModel.swift; sourceTree = "<group>"; };
 		CE3D9C0B29E55EDE00DED357 /* LocalNotificationsServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsServiceViewController.swift; sourceTree = "<group>"; };
+		CE3D9C5129E8434D00DED357 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CE53E06929CB5EB20057C281 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		CE6F109D28F893F100DDCB67 /* JasonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JasonModel.swift; sourceTree = "<group>"; };
 		CE750989289826D1004F76B6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				CEC7D2F5290D5F050013E18D /* FileManager */,
 				CE094AC827CFA1370076C5A8 /* Profile */,
 				CECD182B27B83C8B00D89B3F /* AppDelegate.swift */,
+				CE3D9C5129E8434D00DED357 /* SceneDelegate.swift */,
 				CECD183427B83C9000D89B3F /* Assets.xcassets */,
 				CECD183627B83C9000D89B3F /* LaunchScreen.storyboard */,
 				CE93B66928FFF9F000B7E7FA /* GoogleService-Info.plist */,
@@ -930,6 +933,7 @@
 				CEDF761129841BBC002A1267 /* MapViewController.swift in Sources */,
 				CEC254AF28BAA2C800FD6852 /* FeedViewModel.swift in Sources */,
 				CECD184027BAE36400D89B3F /* FeedViewController.swift in Sources */,
+				CE3D9C5229E8434D00DED357 /* SceneDelegate.swift in Sources */,
 				CEEC4A44299A61AF00CDE39B /* ColorExtension.swift in Sources */,
 				CEEC4A34298AB55100CDE39B /* ExtensionForLocalizing.swift in Sources */,
 				CEC254A528B76CA300FD6852 /* NavControllerFactory.swift in Sources */,
