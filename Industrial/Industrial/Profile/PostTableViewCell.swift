@@ -25,7 +25,7 @@ final class PostTableViewCell: UITableViewCell {
     var post: PostProtocol? {
         didSet {
             authorLabel.text = post?.author
-            postImage.image = UIImage(named: "\(post?.image ?? "1")")
+            postImage.image = post?.image ?? UIImage(named: "No_image_available")
             descriprionLabel.text = post?.descriptionOfPost
             let formattedLikes = String(format: "likes".localizable, post?.likes ?? 0)
             likesLabel.text = formattedLikes

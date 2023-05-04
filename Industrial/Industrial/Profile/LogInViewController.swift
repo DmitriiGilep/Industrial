@@ -137,6 +137,7 @@ final class LogInViewController: UIViewController, CheckerServiceControllerProto
             self.authorizeIfPossible { success in
                 if success {
                     self.goToProfilePage()
+                    LoginRealmModel.shared.toogleStatusToLogIn(login: self.nameTextField.text!)
                 }
             }
         }

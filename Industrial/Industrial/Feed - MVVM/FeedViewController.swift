@@ -18,8 +18,8 @@ final class FeedViewController: UIViewController {
     //#endif
       
     
-    // в sceneDelegate: UIApplication.shared.connectedScenes.firs?.delegate as? SceneDelegate
-    var appConfiguration = (UIApplication.shared.delegate as? AppDelegate)?.appConfiguration
+    // в sceneDelegate: UIApplication.shared.connectedScenes.firs?.delegate as? SceneDelegate, appDelegate: UIApplication.shared.delegate as? AppDelegate
+    var appConfiguration = (UIApplication.shared.connectedScenes.first as? SceneDelegate)?.appConfiguration
     
     var coordinator: FeedCoordinatorProtocol? = nil
     var feedViewModel: FeedViewModel? = nil

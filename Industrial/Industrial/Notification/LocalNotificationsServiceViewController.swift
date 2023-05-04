@@ -66,8 +66,9 @@ final class LocalNotificationsServiceViewController: UIViewController, UNUserNot
             let myLoginFactory = MyLoginFactory()
             loginViewController.delegate = myLoginFactory.loginInspector()
             
-            guard let window = UIApplication.shared.keyWindow else {return}
-            guard let tabBarController = window.rootViewController as? UITabBarController else {return}
+//            guard let window = UIApplication.shared.keyWindow?.window else {return}
+            guard let window = ((UIApplication.shared.connectedScenes.first as? UIWindowScene)!.delegate as! UIWindowSceneDelegate).window else {return}
+            guard let tabBarController = window?.rootViewController as? UITabBarController else {return}
             guard let navController = tabBarController.selectedViewController as? UINavigationController else {return}
             profileCoordinator.navController = navController
             if LoginRealmModel.shared.status.status {

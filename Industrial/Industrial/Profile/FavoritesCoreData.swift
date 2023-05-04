@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 final class FavoritesCoreData {
     
@@ -85,9 +86,10 @@ final class FavoritesCoreData {
     func addPost(post: PostProtocol) {
         contextBackground.perform {
             let postFav = PostFav(context: self.contextBackground)
+            let imageData = post.image?.jpegData(compressionQuality: 1.0)
             postFav.author = post.author
             postFav.descriptionOfPost = post.descriptionOfPost
-            postFav.image = post.image
+            postFav.image = imageData
             postFav.likes = post.likes
             postFav.views = post.views
             self.saveBackgroundContext()
