@@ -403,15 +403,12 @@ extension ProfileViewController: UITableViewDragDelegate, UITableViewDropDelegat
             return[]
         }
         
-        guard let image = postDataArray[indexPath.row].image else {
-            return [UIDragItem(itemProvider: NSItemProvider(object: UIImage(named: "No_image_available")!))]
-        }
-        guard let description = postDataArray[indexPath.row].descriptionOfPost else {
-            return [UIDragItem(itemProvider: NSItemProvider(object: "No descriprion" as NSItemProviderWriting))]
-        }
+        let image = postDataArray[indexPath.row].image
+        let description = postDataArray[indexPath.row].descriptionOfPost
+
         
-        let dragItemProviderImage = NSItemProvider(object: image)
-        let dragItemProviderName = NSItemProvider(object: description as NSItemProviderWriting)
+        let dragItemProviderImage = NSItemProvider(object: image ?? UIImage(named: "No_image_available")!)
+        let dragItemProviderName = NSItemProvider(object: (description ?? "No descriprion")! as NSItemProviderWriting)
         let dragItemImage = UIDragItem(itemProvider: dragItemProviderImage)
         let dragItemName = UIDragItem(itemProvider: dragItemProviderName)
         return [dragItemImage, dragItemName]
