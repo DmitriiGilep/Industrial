@@ -65,7 +65,6 @@ final class NavControllerFactory {
                 
                 profileCoordinator.profileViewController(coordinator: profileCoordinator, controller: loginViewController, navControllerFromFactory: navController)
             }
-
             navController.navigationBar.isHidden = true
             
             let tabBar2 = UITabBarItem()

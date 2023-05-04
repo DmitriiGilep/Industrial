@@ -184,8 +184,11 @@ final class FavoritesTableViewController: UITableViewController, NSFetchedResult
    //     let data = FavoritesCoreData.shared.posts[indexPath.row]
    //     let data = posts[indexPath.row]
         let data = fetchResultsController.object(at: indexPath)
-        cell.post = data
         
+        let image = UIImage(data: data.image!)
+                
+        let dataPost = Post(author: data.author, descriptionOfPost: data.descriptionOfPost, image: image, likes: data.likes, views: data.views)
+        cell.post = dataPost
         return cell
     }
     

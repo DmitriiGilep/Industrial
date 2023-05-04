@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-
-extension PostFav: PostProtocol {
-    
-}
+//
+//extension PostFav: PostProtocol {
+//    
+//}
