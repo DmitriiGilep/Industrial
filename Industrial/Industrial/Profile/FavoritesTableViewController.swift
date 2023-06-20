@@ -185,7 +185,13 @@ final class FavoritesTableViewController: UITableViewController, NSFetchedResult
    //     let data = posts[indexPath.row]
         let data = fetchResultsController.object(at: indexPath)
         
-        let image = UIImage(data: data.image!)
+        let image: UIImage
+        if let data = data.image {
+            image = UIImage(data: data)!
+        } else {
+            image = UIImage(named: "No_image_available")!
+        }
+        
                 
         let dataPost = Post(author: data.author, descriptionOfPost: data.descriptionOfPost, image: image, likes: data.likes, views: data.views)
         cell.post = dataPost

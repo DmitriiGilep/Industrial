@@ -44,10 +44,11 @@ final class ProfileCoordinator: ProfileCoordinatorProtocol {
     func favoritesTableViewController() {
         if #available(iOS 16.0, *) {
             let favoritesTableViewController = FavoritesTableViewController()
-            
-            
             navController?.navigationBar.isHidden = false
             navController?.pushViewController(favoritesTableViewController, animated: true)
+        } else {
+            let alert = CustomAlert.shared.createAlertNoCompletion(title: "Warning", message: "This link is unavailable for your version of OS", titleAction: "ok".localizable)
+            navController?.present(alert, animated: true)
         }
     }
     

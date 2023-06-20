@@ -379,6 +379,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 1 {
             coordinator.photosViewController(profileViewController: self)
         } else if indexPath.section == 3 {
+  
             coordinator.favoritesTableViewController()
         }
     }
@@ -399,20 +400,24 @@ extension ProfileViewController: UITableViewDragDelegate, UITableViewDropDelegat
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         
-        guard indexPath.section == 2 else {
-            return[]
-        }
+//        guard indexPath.section == 2 else {
+//            return[]
+//        }
         
-        let image = postDataArray[indexPath.row].image
-        let description = postDataArray[indexPath.row].descriptionOfPost
-
+        guard indexPath.row != 0 else { return []} // why
         
-        let dragItemProviderImage = NSItemProvider(object: image ?? UIImage(named: "No_image_available")!)
-        let dragItemProviderName = NSItemProvider(object: (description ?? "No descriprion")! as NSItemProviderWriting)
+        let post = postDataArray[indexPath.row]
+        
+        let dragItemProviderImage = NSItemProvider(object: post.image ?? UIImage(named: "No_image_available")!)
         let dragItemImage = UIDragItem(itemProvider: dragItemProviderImage)
+        dragItemImage.localObject = post.image // ?? why, I don't know
+
+        let dragItemProviderName = NSItemProvider(object: (post.descriptionOfPost ?? "No descriprion")! as NSItemProviderWriting)
         let dragItemName = UIDragItem(itemProvider: dragItemProviderName)
-        return [dragItemImage, dragItemName]
+        dragItemName.localObject = post.descriptionOfPost // ?? why
         
+        return [dragItemImage, dragItemName]
+            
     }
     
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
@@ -421,13 +426,14 @@ extension ProfileViewController: UITableViewDragDelegate, UITableViewDropDelegat
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         var dropProposal = UITableViewDropProposal(operation: .cancel)
-        guard session.items.count == 1 else { return dropProposal }
+        guard session.items.count == 2 else { return dropProposal } // here a quantity of dragged items totally
+        
         guard destinationIndexPath?.section == 2 else { return dropProposal }
         
         if tableView.hasActiveDrag {
-                if tableView.isEditing {
+ //               if tableView.isEditing {
                     dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-                }
+  //              }
             } else {
                 dropProposal = UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
             }
@@ -442,23 +448,52 @@ extension ProfileViewController: UITableViewDragDelegate, UITableViewDropDelegat
         if let indexPath = coordinator.destinationIndexPath {
             destinationIndexPath = indexPath
         } else {
-            let section = 2
+   //         let section = 2
+            let section = tableView.numberOfSections - 1
             let row = tableView.numberOfRows(inSection: section)
             destinationIndexPath = IndexPath(row: row, section: section)
         }
 
-        let post = Post(author: "Drag&Drop", likes: 0, views: 0)
-        self.postDataArray.insert(post, at: destinationIndexPath.row)
+        let rowInd = destinationIndexPath.row
+        
+//        let post = Post(author: "Drag&Drop", likes: 0, views: 0)
+//        self.postDataArray.insert(post, at: destinationIndexPath.row)
 
+        
+        let group = DispatchGroup()
+        
+        var postDescription = String()
+        group.enter()
         coordinator.session.loadObjects(ofClass: NSString.self) { items in
             let descriptions = items as! [String]
-            self.postDataArray[destinationIndexPath.row].descriptionOfPost = descriptions.first
-            tableView.reloadData()
+            for description in descriptions {
+                postDescription = description
+                break
+            }
+            group.leave()
+//            self.postDataArray[destinationIndexPath.row].descriptionOfPost = descriptions.first
+//            tableView.reloadData()
         }
         
+        var postImage = UIImage()
+        group.enter()
         coordinator.session.loadObjects(ofClass: UIImage.self) { items in
             let images = items as! [UIImage]
-            self.postDataArray[destinationIndexPath.row].image = images.first
+            for image in images {
+                postImage = image
+                break
+            }
+            group.leave()
+//            self.postDataArray[destinationIndexPath.row].image = images.first
+//            tableView.reloadData()
+        }
+        
+        group.notify(queue: .main) {
+            if coordinator.proposal.operation == .move {
+                self.postDataArray.remove(at: rowInd)
+            }
+            let newPost = Post(author: "Drag&Drop", descriptionOfPost: postDescription, image: postImage, likes: 0, views: 0)
+            self.postDataArray.insert(newPost, at: rowInd)
             tableView.reloadData()
         }
     }
